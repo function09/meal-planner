@@ -6,6 +6,9 @@ module.exports = {
       zIndex: {
         1: "1",
       },
+      // gridTemplateColumns: {
+      //   sidebar: "0.7fr 4fr",
+      // },
     },
   },
   plugins: [],

@@ -17,3 +17,7 @@ body {
 #navBar {
     grid-area: navbar;
 }
+
+#form {
+    grid-area: body;
+}

@@ -12,19 +12,19 @@
 <body class=" bg-slate-100 h-screen w-screen">
 <div id="header" class="w-full h-full bg-slate-500 shadow-slate-400 shadow-sm relative"></div>
 <div id="navBar" class="h-full w-full bg-slate-200"></div>
-<div id="form" class="flex flex-col justify-start items-center p-10">
+<div id="container" class="flex flex-col gap-2 justify-start items-center p-10">
     <button id="createNewMeal">+ Create new meal plan</button>
-    <form action="" id="mealForm" class="hidden flex-row items-center gap-5">
-        <input type="date" name="date" id="date">
+    <form action="" id="form" class="flex flex-row items-center gap-5">
+        <input type="date" name="date" id="date" required>
         <fieldset class="flex gap-2">
             <label for="breakfast">Breakfast</label>
-            <input  class="checkbox" type="checkbox" name="breakfast" id="breakfast">
+            <input  class="checkbox" type="checkbox" name="breakfast" id="breakfast" value="Breakfast">
 
             <label for="lunch">Lunch</label>
-            <input class="checkbox" type="checkbox" name="lunch" id="lunch">
+            <input class="checkbox" type="checkbox" name="lunch" id="lunch" value="Lunch">
 
             <label for="dinner">Dinner</label>
-            <input class="checkbox" type="checkbox" name="dinner" id="dinner">
+            <input class="checkbox" type="checkbox" name="dinner" id="dinner" value="Dinner">
         </fieldset>
         <button type="submit" id="submitFormButton" class="border-2 border-slate-800 rounded-md p-1">Submit</button>
     </form>

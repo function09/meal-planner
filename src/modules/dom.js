@@ -1,29 +1,15 @@
-const writeNewMealPlan = () => {
-  const selectCreateNewMeal = document.querySelector("#createNewMeal");
-  const selectMealForm = document.querySelector("#mealForm");
+import { MealPlanManager } from "./mealplanmanager";
 
-  selectCreateNewMeal.addEventListener("click", () => {
-    selectMealForm.style.display = "flex";
-    selectCreateNewMeal.style.display = "none";
-  });
-};
-
-const submitNewMealPlan = () => {
+const submitMealPlan = (() => {
+  const newMealPlanManager = new MealPlanManager();
   const selectSubmitFormButton = document.querySelector("#submitFormButton");
-  const selectCreateNewMeal = document.querySelector("#createNewMeal");
-  const selectMealForm = document.querySelector("#mealForm");
-  const selectDate = document.querySelector("#date");
-  const selectCheckBox = document.querySelectorAll(".checkbox");
 
   selectSubmitFormButton.addEventListener("click", (e) => {
-    selectCreateNewMeal.style.display = "flex";
-    selectMealForm.style.display = "none";
-    selectDate.value = "";
-    selectCheckBox.forEach((checkbox) => {
-      checkbox.checked = false;
-    });
+    const date = document.querySelector("#date").value;
     e.preventDefault();
+    newMealPlanManager.pushToArray(date);
+    console.log(newMealPlanManager.mealPlanArray);
   });
-};
+})();
 
-export { writeNewMealPlan, submitNewMealPlan };
+export { submitMealPlan };

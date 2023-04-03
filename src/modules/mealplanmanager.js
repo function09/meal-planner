@@ -6,6 +6,10 @@ class MealPlanManager {
   pushToArray(date, breakfast, lunch, dinner) {
     this.mealPlanArray.push(new MealPlan(date, breakfast, lunch, dinner));
   }
+
+  remove(array) {
+    for (let i = 0; i < this.mealPlanArray.length; i++) {}
+  }
 }
 
 export { MealPlanManager };

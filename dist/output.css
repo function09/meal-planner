@@ -547,6 +547,10 @@ video {
   }
 }
 
+.static {
+  position: static;
+}
+
 .relative {
   position: relative;
 }
@@ -605,10 +609,6 @@ video {
 
 .border-2 {
   border-width: 2px;
-}
-
-.border {
-  border-width: 1px;
 }
 
 .border-slate-800 {

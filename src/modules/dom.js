@@ -2,14 +2,40 @@ import { format } from "date-fns";
 import { MealPlanManager } from "./mealplanmanager";
 
 class DisplayMealPlan {
-  static displayValue = 0;
+  static assignID = () => {
+    const selectMealPlans = document.querySelectorAll(".mealPlans");
+    let IDValue = 0;
+
+    selectMealPlans.forEach((plan) => {
+      if (IDValue === 0) {
+        plan.setAttribute("id", `index-${IDValue}`);
+        IDValue++;
+      } else {
+        plan.setAttribute("id", `index-${IDValue++}`);
+      }
+    });
+  };
+
+  static assignDataValue = () => {
+    const selectRemoveMealPlanButtons =
+      document.querySelectorAll(".removeMealPlan");
+    let dataValue = 0;
+
+    selectRemoveMealPlanButtons.forEach((button) => {
+      if (dataValue === 0) {
+        button.dataset.value = `index-${dataValue}`;
+        dataValue++;
+      } else {
+        button.dataset.value = `index-${dataValue++}`;
+      }
+    });
+  };
 
   constructor(date, breakfast, lunch, dinner) {
     this.date = date;
     this.breakfast = breakfast;
     this.lunch = lunch;
     this.dinner = dinner;
-    this.value = `index-${DisplayMealPlan.displayValue++}`;
   }
 
   display() {
@@ -18,7 +44,6 @@ class DisplayMealPlan {
 
     const createDiv = document.createElement("div");
     createDiv.setAttribute("class", "mealPlans");
-    createDiv.setAttribute("id", `${this.value}`);
 
     const createEditButton = document.createElement("button");
     createEditButton.setAttribute("class", "editMealPlan");
@@ -28,6 +53,7 @@ class DisplayMealPlan {
 
     createEditButton.textContent = "Edit";
     createDiv.appendChild(createEditButton);
+    DisplayMealPlan.assignID();
   }
 
   remove() {
@@ -35,19 +61,21 @@ class DisplayMealPlan {
 
     const createRemoveButton = document.createElement("button");
     createRemoveButton.setAttribute("class", "removeMealPlan");
-    createRemoveButton.dataset.displayValue = this.value;
     createRemoveButton.textContent = "Remove";
 
     selectContainers.forEach((container) => {
       container.appendChild(createRemoveButton);
+      DisplayMealPlan.assignDataValue();
     });
 
     createRemoveButton.addEventListener("click", () => {
-      const valueOfRemoveButton = createRemoveButton.dataset.displayValue;
+      const valueOfRemoveButton = createRemoveButton.dataset.value;
       const parentElement = createRemoveButton.parentElement.id;
 
       if (valueOfRemoveButton === parentElement) {
         document.querySelector(`#${parentElement}`).remove();
+        DisplayMealPlan.assignID();
+        DisplayMealPlan.assignDataValue();
       }
     });
   }

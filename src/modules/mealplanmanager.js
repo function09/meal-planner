@@ -7,9 +7,7 @@ class MealPlanManager {
     this.mealPlanArray.push(new MealPlan(date, breakfast, lunch, dinner));
   }
 
-  remove(array) {
-    for (let i = 0; i < this.mealPlanArray.length; i++) {}
-  }
+  remove() {}
 }
 
 export { MealPlanManager };

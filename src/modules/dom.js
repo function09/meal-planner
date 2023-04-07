@@ -13,7 +13,7 @@ const submitMealPlan = (() => {
     selectCreateNewMealButton.style.display = "none";
   });
 
-  selectSubmitFormButton.addEventListener("click", (e) => {
+  selectSubmitFormButton.addEventListener("click", (submit) => {
     const mealArray = [];
     const checkboxes = document.querySelectorAll(".checkbox");
 
@@ -48,8 +48,8 @@ const submitMealPlan = (() => {
     const selectMealPlans = document.querySelectorAll(".mealPlans");
 
     selectMealPlans.forEach((plan) => {
-      plan.addEventListener("click", (e) => {
-        if (e.target.className === "removeMealPlan") {
+      plan.addEventListener("click", (event) => {
+        if (event.target.className === "removeMealPlan") {
           const createRemoveButton = document.querySelector(".removeMealPlan");
           const valueOfRemoveButton = createRemoveButton.dataset.value;
           const parentElement = createRemoveButton.parentElement.id;
@@ -62,7 +62,7 @@ const submitMealPlan = (() => {
         }
       });
     });
-    e.preventDefault();
+    submit.preventDefault();
   });
 })();
 

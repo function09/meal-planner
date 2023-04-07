@@ -5,6 +5,7 @@ class MealPlanManager {
 
   pushToArray(date, breakfast, lunch, dinner) {
     this.mealPlanArray.push(new MealPlan(date, breakfast, lunch, dinner));
+    console.log(this.mealPlanArray);
   }
 
   remove() {}

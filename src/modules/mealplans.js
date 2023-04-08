@@ -6,7 +6,6 @@ class MealPlan {
     this.breakfast = breakfast;
     this.lunch = lunch;
     this.dinner = dinner;
-    this.indexValue = MealPlan.indexValue++;
   }
 }
 

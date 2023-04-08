@@ -14,10 +14,11 @@ class DisplayMealPlan {
   };
 
   static assignIndexValues = () => {
-    const selectMealPlans = document.querySelectorAll(".mealPlans");
+    const selectRemoveMealPlanButtons =
+      document.querySelectorAll(".removeMealPlan");
     let indexValue = 0;
 
-    selectMealPlans.forEach((plan) => {
+    selectRemoveMealPlanButtons.forEach((plan) => {
       if (indexValue === 0) {
         plan.dataset.index = indexValue;
         indexValue++;
@@ -65,7 +66,6 @@ class DisplayMealPlan {
     createEditButton.textContent = "Edit";
     createDiv.appendChild(createEditButton);
     DisplayMealPlan.assignID();
-    DisplayMealPlan.assignIndexValues();
   }
 
   createRemoveButton() {
@@ -78,6 +78,7 @@ class DisplayMealPlan {
     selectContainers.forEach((container) => {
       container.appendChild(createRemoveButton);
       DisplayMealPlan.assignDataValue();
+      DisplayMealPlan.assignIndexValues();
     });
   }
 }

@@ -16,14 +16,26 @@ class DisplayMealPlan {
   static assignIndexValues = () => {
     const selectRemoveMealPlanButtons =
       document.querySelectorAll(".removeMealPlan");
-    let indexValue = 0;
+    const selectEditMealPlanButtons =
+      document.querySelectorAll(".editMealPlan");
+    let removeButtonIndexValue = 0;
+    let editButtonIndexValue = 0;
 
     selectRemoveMealPlanButtons.forEach((plan) => {
-      if (indexValue === 0) {
-        plan.dataset.index = indexValue;
-        indexValue++;
+      if (removeButtonIndexValue === 0) {
+        plan.dataset.index = removeButtonIndexValue;
+        removeButtonIndexValue++;
       } else {
-        plan.dataset.index = indexValue++;
+        plan.dataset.index = removeButtonIndexValue++;
+      }
+    });
+
+    selectEditMealPlanButtons.forEach((plan) => {
+      if (editButtonIndexValue === 0) {
+        plan.dataset.index = editButtonIndexValue;
+        editButtonIndexValue++;
+      } else {
+        plan.dataset.index = editButtonIndexValue++;
       }
     });
   };
@@ -43,11 +55,8 @@ class DisplayMealPlan {
     });
   };
 
-  constructor(date, breakfast, lunch, dinner) {
+  constructor(date) {
     this.date = date;
-    this.breakfast = breakfast;
-    this.lunch = lunch;
-    this.dinner = dinner;
   }
 
   display() {
@@ -57,14 +66,12 @@ class DisplayMealPlan {
     const createDiv = document.createElement("div");
     createDiv.setAttribute("class", "mealPlans");
 
-    const createEditButton = document.createElement("button");
-    createEditButton.setAttribute("class", "editMealPlan");
+    const createSpan = document.createElement("span");
+    createSpan.textContent = `${this.date}`;
 
-    createDiv.textContent = `${this.date} ${this.breakfast} ${this.lunch} ${this.dinner}`;
     selectContainer.insertBefore(createDiv, selectCreateNewMealButton);
+    createDiv.appendChild(createSpan);
 
-    createEditButton.textContent = "Edit";
-    createDiv.appendChild(createEditButton);
     DisplayMealPlan.assignID();
   }
 
@@ -78,6 +85,19 @@ class DisplayMealPlan {
     selectContainers.forEach((container) => {
       container.appendChild(createRemoveButton);
       DisplayMealPlan.assignDataValue();
+      DisplayMealPlan.assignIndexValues();
+    });
+  }
+
+  createEditButton() {
+    const selectContainers = document.querySelectorAll(".mealPlans");
+
+    const createEditButton = document.createElement("button");
+    createEditButton.setAttribute("class", "editMealPlan");
+    createEditButton.textContent = "Edit";
+
+    selectContainers.forEach((container) => {
+      container.appendChild(createEditButton);
       DisplayMealPlan.assignIndexValues();
     });
   }

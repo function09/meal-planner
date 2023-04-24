@@ -32,15 +32,11 @@ const mealPlanManager = (() => {
       const breakfast = mealArray[0];
       const lunch = mealArray[1];
       const dinner = mealArray[2];
-      const newDisplayMealPlan = new DisplayMealPlan(
-        date,
-        breakfast,
-        lunch,
-        dinner
-      );
+      const newDisplayMealPlan = new DisplayMealPlan(date);
 
       newMealPlanManager.pushToArray(date, breakfast, lunch, dinner);
       newDisplayMealPlan.display();
+      newDisplayMealPlan.createEditButton();
       newDisplayMealPlan.createRemoveButton();
       mealArray.length = 0;
       selectForm.style.display = "none";
@@ -63,13 +59,44 @@ const mealPlanManager = (() => {
       const mealPlanID = document.querySelector(
         `#index-${event.target.dataset.index}`
       );
+      if (event.target.className === "removeMealPlan") {
+        if (selectRemoveButtonValue === selectParentElement) {
+          mealPlanID.remove();
+          newMealPlanManager.removeFromArray(arrayIndex);
+          DisplayMealPlan.assignID();
+          DisplayMealPlan.assignIndexValues();
+          DisplayMealPlan.assignDataValue();
+          console.log(newMealPlanManager.mealPlanArray);
+        }
+      } else if (event.target.className === "editMealPlan") {
+        const selection = event.target;
+        const parent = selection.parentElement;
+        const span = selection.parentElement.firstElementChild.textContent;
+        const createInput = document.createElement("input");
 
-      if (selectRemoveButtonValue === selectParentElement) {
-        mealPlanID.remove();
-        newMealPlanManager.removeFromArray(arrayIndex);
-        DisplayMealPlan.assignID();
-        DisplayMealPlan.assignIndexValues();
-        DisplayMealPlan.assignDataValue();
+        createInput.type = "text";
+        createInput.value = span;
+        createInput.onfocus = () => {
+          createInput.type = "date";
+          createInput.required = true;
+        };
+        parent.insertBefore(createInput, event.target);
+        parent.firstElementChild.remove();
+        selection.textContent = "Save";
+        selection.className = "saveMealPlan";
+      } else if (event.target.className === "saveMealPlan") {
+        const selection = event.target;
+        const parent = selection.parentElement;
+        const selectInput = selection.parentElement.firstElementChild;
+        const createSpan = document.createElement("span");
+        const date = format(new Date(`${selectInput.value}T12:00`), "PPP");
+
+        createSpan.textContent = date;
+        parent.insertBefore(createSpan, event.target);
+        selectInput.remove();
+        selection.textContent = "Edit";
+        selection.className = "editMealPlan";
+        newMealPlanManager.editMealPlan(arrayIndex, date);
         console.log(newMealPlanManager.mealPlanArray);
       }
     });

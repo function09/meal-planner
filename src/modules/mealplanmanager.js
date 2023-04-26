@@ -5,7 +5,6 @@ class MealPlanManager {
 
   pushToArray(date, breakfast, lunch, dinner) {
     this.mealPlanArray.push(new MealPlan(date, breakfast, lunch, dinner));
-    console.log(this.mealPlanArray);
   }
 
   removeFromArray(index) {
@@ -14,6 +13,10 @@ class MealPlanManager {
 
   editMealPlan(index, date) {
     this.mealPlanArray[index].date = date;
+  }
+
+  getMealPlanArrayLength() {
+    return this.mealPlanArray.length;
   }
 }
 

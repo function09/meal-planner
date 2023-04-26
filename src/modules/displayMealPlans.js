@@ -75,6 +75,14 @@ class DisplayMealPlan {
     DisplayMealPlan.assignID();
   }
 
+  updateNotifications(arrayLength) {
+    const selectMealPlansNotification = document.querySelector(
+      "#mealPlansNotification"
+    );
+
+    selectMealPlansNotification.textContent = arrayLength;
+  }
+
   createRemoveButton() {
     const selectContainers = document.querySelectorAll(".mealPlans");
 

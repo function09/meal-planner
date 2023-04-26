@@ -670,3 +670,6 @@ body {
   grid-area: body;
 }
 
+#mealPlanContainer {
+  grid-area: navbar;
+}

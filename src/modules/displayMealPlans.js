@@ -1,121 +1,11 @@
 import { format } from "date-fns";
 
-// class DisplayMealPlan {
-//   static assignID = () => {
-//     const selectMealPlans = document.querySelectorAll(".mealPlans");
-//     let IDValue = 0;
+const checkBoxBooleans = [];
 
-//     selectMealPlans.forEach((plan) => {
-//       if (IDValue === 0) {
-//         plan.setAttribute("id", `index-${IDValue}`);
-//         IDValue++;
-//       } else {
-//         plan.setAttribute("id", `index-${IDValue++}`);
-//       }
-//     });
-//   };
-
-//   static assignIndexValues = () => {
-//     const selectRemoveMealPlanButtons =
-//       document.querySelectorAll(".removeMealPlan");
-//     const selectEditMealPlanButtons =
-//       document.querySelectorAll(".editMealPlan");
-//     let removeButtonIndexValue = 0;
-//     let editButtonIndexValue = 0;
-
-//     selectRemoveMealPlanButtons.forEach((plan) => {
-//       if (removeButtonIndexValue === 0) {
-//         plan.dataset.index = removeButtonIndexValue;
-//         removeButtonIndexValue++;
-//       } else {
-//         plan.dataset.index = removeButtonIndexValue++;
-//       }
-//     });
-
-//     selectEditMealPlanButtons.forEach((plan) => {
-//       if (editButtonIndexValue === 0) {
-//         plan.dataset.index = editButtonIndexValue;
-//         editButtonIndexValue++;
-//       } else {
-//         plan.dataset.index = editButtonIndexValue++;
-//       }
-//     });
-//   };
-
-//   static assignDataValue = () => {
-//     const selectRemoveMealPlanButtons =
-//       document.querySelectorAll(".removeMealPlan");
-//     let dataValue = 0;
-
-//     selectRemoveMealPlanButtons.forEach((button) => {
-//       if (dataValue === 0) {
-//         button.dataset.value = `index-${dataValue}`;
-//         dataValue++;
-//       } else {
-//         button.dataset.value = `index-${dataValue++}`;
-//       }
-//     });
-//   };
-
-//   constructor(date) {
-//     this.date = date;
-//   }
-
-//   display() {
-//     const selectContainer = document.querySelector("#container");
-//     const selectCreateNewMealButton = document.querySelector("#createNewMeal");
-
-//     const createDiv = document.createElement("div");
-//     createDiv.setAttribute("class", "mealPlans");
-
-//     const createSpan = document.createElement("span");
-//     createSpan.textContent = `${this.date}`;
-
-//     selectContainer.insertBefore(createDiv, selectCreateNewMealButton);
-//     createDiv.appendChild(createSpan);
-
-//     DisplayMealPlan.assignID();
-//   }
-
-//   updateNotifications(arrayLength) {
-//     const selectMealPlansNotification = document.querySelector(
-//       "#mealPlansNotification"
-//     );
-
-//     selectMealPlansNotification.textContent = arrayLength;
-//   }
-
-//   createRemoveButton() {
-//     const selectContainers = document.querySelectorAll(".mealPlans");
-
-//     const createRemoveButton = document.createElement("button");
-//     createRemoveButton.setAttribute("class", "removeMealPlan");
-//     createRemoveButton.textContent = "Remove";
-
-//     selectContainers.forEach((container) => {
-//       container.appendChild(createRemoveButton);
-//       DisplayMealPlan.assignDataValue();
-//       DisplayMealPlan.assignIndexValues();
-//     });
-//   }
-
-//   createEditButton() {
-//     const selectContainers = document.querySelectorAll(".mealPlans");
-
-//     const createEditButton = document.createElement("button");
-//     createEditButton.setAttribute("class", "editMealPlan");
-//     createEditButton.textContent = "Edit";
-
-//     selectContainers.forEach((container) => {
-//       container.appendChild(createEditButton);
-//       DisplayMealPlan.assignIndexValues();
-//     });
-//   }
-// }
 const DisplayFactory = () => {
   const selectForm = document.querySelector("#form");
   const selectCreateNewMealButton = document.querySelector("#createNewMeal");
-  const selectCheckboxes = document.querySelectorAll(".checkbox");
+  const selectCheckBoxes = document.querySelectorAll(".checkbox");
 
   const assignID = () => {
     const selectMealPlans = document.querySelectorAll(".mealPlans");
@@ -167,7 +57,7 @@ const DisplayFactory = () => {
 
     selectDate.value = "";
 
-    selectCheckboxes.forEach((checkbox) => {
+    selectCheckBoxes.forEach((checkbox) => {
       checkbox.checked = false;
     });
   };
@@ -202,14 +92,19 @@ const DisplayFactory = () => {
   };
   const getMeals = () => {
     const mealArray = [];
+    const checkBoxChecked = [];
 
-    selectCheckboxes.forEach((checkbox) => {
+    selectCheckBoxes.forEach((checkbox) => {
       if (checkbox.checked === true) {
         mealArray.push(checkbox.value);
+        checkBoxChecked.push(checkbox.checked);
       } else {
         mealArray.push("");
+        checkBoxChecked.push(checkbox.checked);
       }
     });
+    checkBoxBooleans.push(checkBoxChecked);
+    console.log(checkBoxBooleans);
     return mealArray;
   };
   const remove = (indexValue) => {
@@ -219,34 +114,84 @@ const DisplayFactory = () => {
 
   const edit = (selection) => {
     const parent = selection.parentElement;
-    const span = parent.firstElementChild.textContent;
+    const { index } = selection.dataset;
     const createInput = document.createElement("input");
 
     createInput.type = "date";
     createInput.setAttribute("id", "date");
-    // createInput.value = span;
-    // createInput.onfocus = () => {
-    //   createInput.type = "date";
-    //   createInput.required = true;
-    // };
 
     parent.firstElementChild.remove();
     parent.prepend(createInput);
 
     selection.textContent = "Save";
     selection.className = "saveMealPlan";
+
+    const selectFirstChild = parent.firstElementChild;
+    const createFieldSet = document.createElement("fieldset");
+
+    createFieldSet.setAttribute("class", "newFieldSet");
+
+    parent.appendChild(createFieldSet);
+    selectFirstChild.after(createFieldSet);
+
+    const checkBoxValues = ["Breakfast", "Lunch", "Dinner"];
+
+    checkBoxValues.forEach((value) => {
+      const createCheckbox = document.createElement("input");
+      const createLabel = document.createElement("label");
+
+      createCheckbox.type = "checkbox";
+      createCheckbox.setAttribute("id", value.toLocaleLowerCase());
+      createCheckbox.setAttribute("class", "newCheckbox");
+      createCheckbox.value = value;
+
+      createLabel.setAttribute("for", value);
+      createLabel.setAttribute("class", "label");
+
+      createLabel.textContent = value;
+
+      createFieldSet.appendChild(createLabel);
+      createFieldSet.appendChild(createCheckbox);
+    });
+
+    const breakFastCheckBox = document.querySelector("#breakfast");
+    const lunchCheckBox = document.querySelector("#lunch");
+    const dinnerCheckBox = document.querySelector("#dinner");
+
+    breakFastCheckBox.checked = checkBoxBooleans[index][0];
+    lunchCheckBox.checked = checkBoxBooleans[index][1];
+    dinnerCheckBox.checked = checkBoxBooleans[index][2];
   };
   const saveEdit = (selection) => {
     const parent = selection.parentElement;
-
+    const arrayIndex = selection.dataset.index;
+    const selectFieldSet = document.querySelector(".newFieldSet");
     const createSpan = document.createElement("span");
+    const newMealArray = [];
+    const checkBoxChecked = [];
+
     createSpan.textContent = getDate();
+    const selectNewCheckBoxes = document.querySelectorAll(".newCheckbox");
+
+    selectNewCheckBoxes.forEach((checkbox) => {
+      if (checkbox.checked === true) {
+        newMealArray.push(checkbox.value);
+        checkBoxChecked.push(checkbox.checked);
+      } else if (checkbox.checked === false) {
+        newMealArray.push("");
+        checkBoxChecked.push(checkbox.checked);
+      }
+    });
 
     parent.firstElementChild.remove();
     parent.prepend(createSpan);
 
     selection.textContent = "Edit";
     selection.className = "editMealPlan";
+
+    selectFieldSet.remove();
+    checkBoxBooleans.splice(arrayIndex, 1, checkBoxChecked);
+    return newMealArray;
   };
   return {
     assignID,

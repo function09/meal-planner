@@ -26,6 +26,7 @@ class MealPlanManager {
     this.mealPlanArray[index].breakfast = breakfast;
     this.mealPlanArray[index].lunch = lunch;
     this.mealPlanArray[index].dinner = dinner;
+    console.log(this.mealPlanArray);
   }
 
   getMealPlanArrayLength() {

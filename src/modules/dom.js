@@ -1,9 +1,11 @@
 import { format } from "date-fns";
 import { MealPlanManager } from "./mealplanmanager";
-import { DisplayMealPlan, DisplayFactory } from "./displayMealPlans";
+import { DisplayFactory } from "./displayMealPlans";
 
 const selectContainer = document.querySelector("#container");
+const updateMealPlanAmount = document.querySelector("#mealPlanAmount");
 const newMealPlanManager = new MealPlanManager();
+
 selectContainer.addEventListener("click", (event) => {
   const display = DisplayFactory();
   if (event.target.id === "createNewMeal") {
@@ -17,6 +19,9 @@ selectContainer.addEventListener("click", (event) => {
     display.displayMealPlan(date);
     newMealPlanManager.pushToArray(date, ...meals);
     newMealPlanManager.assignID();
+    updateMealPlanAmount.textContent =
+      newMealPlanManager.getMealPlanArrayLength();
+
     event.preventDefault();
   } else if (event.target.className === "removeMealPlan") {
     const getTarget = event.target.dataset.index;

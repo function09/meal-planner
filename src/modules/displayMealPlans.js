@@ -117,6 +117,8 @@ const DisplayFactory = () => {
     const { index } = selection.dataset;
     const createInput = document.createElement("input");
 
+    selectCreateNewMealButton.style.display = "none";
+
     createInput.type = "date";
     createInput.setAttribute("id", "date");
 
@@ -191,6 +193,9 @@ const DisplayFactory = () => {
 
     selectFieldSet.remove();
     checkBoxBooleans.splice(arrayIndex, 1, checkBoxChecked);
+
+    selectCreateNewMealButton.style.display = "flex";
+
     return newMealArray;
   };
   return {

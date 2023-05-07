@@ -4,6 +4,7 @@ class MealPlan {
     this.breakfast = breakfast;
     this.lunch = lunch;
     this.dinner = dinner;
+    this.favorite = false;
   }
 }
 

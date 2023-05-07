@@ -1,7 +1,10 @@
+import { id } from "date-fns/locale";
 import { MealPlan } from "./mealplans";
 
 class MealPlanManager {
   mealPlanArray = [];
+
+  favoriteMealPlanArray = [];
 
   assignID() {
     let id = 0;
@@ -13,7 +16,7 @@ class MealPlanManager {
 
   pushToArray(date, breakfast, lunch, dinner) {
     this.mealPlanArray.push(new MealPlan(date, breakfast, lunch, dinner));
-    console.log(this.mealPlanArray);
+    // console.log(this.mealPlanArray);
   }
 
   removeFromArray(index) {
@@ -31,6 +34,21 @@ class MealPlanManager {
 
   getMealPlanArrayLength() {
     return this.mealPlanArray.length;
+  }
+
+  favoriteMealPlan(index) {
+    this.mealPlanArray[index].favorite = true;
+    if (this.mealPlanArray[index].favorite === true) {
+      this.favoriteMealPlanArray.push(this.mealPlanArray[index]);
+    }
+
+    const uniqueIDs = [
+      ...new Map(
+        this.favoriteMealPlanArray.map((key) => [key.id, key])
+      ).values(),
+    ];
+    this.favoriteMealPlanArray = uniqueIDs;
+    console.log(this.favoriteMealPlanArray);
   }
 }
 

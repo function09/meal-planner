@@ -20,13 +20,14 @@ const DisplayFactory = () => {
     });
   };
 
-  // Assigns an index data value to remove and edit buttons
+  // Assigns an index data value to remove and edit buttons DOWNSIZE THIS BEFORE PUSHING
   const assignIndex = () => {
     const selectRemoveButtons = document.querySelectorAll(".removeMealPlan");
     const selectEditButtons = document.querySelectorAll(".editMealPlan");
+    const selectPriorityButtons = document.querySelectorAll(".priority");
     let removeButtonIndexValue = 0;
     let editButtonIndexValue = 0;
-
+    let priorityButtonIndexValue = 0;
     selectRemoveButtons.forEach((button) => {
       if (removeButtonIndexValue === 0) {
         button.dataset.index = removeButtonIndexValue;
@@ -35,7 +36,6 @@ const DisplayFactory = () => {
         button.dataset.index = removeButtonIndexValue++;
       }
     });
-
     selectEditButtons.forEach((button) => {
       if (editButtonIndexValue === 0) {
         button.dataset.index = editButtonIndexValue;
@@ -44,6 +44,26 @@ const DisplayFactory = () => {
         button.dataset.index = editButtonIndexValue++;
       }
     });
+    selectPriorityButtons.forEach((button) => {
+      if (priorityButtonIndexValue === 0) {
+        button.dataset.index = priorityButtonIndexValue;
+        priorityButtonIndexValue++;
+      } else {
+        button.dataset.index = priorityButtonIndexValue++;
+      }
+    });
+
+    // const selectMealPlanButtons = document.querySelectorAll(".mealPlans");
+    // let indexValue = 0;
+
+    // selectMealPlanButtons.forEach((button) => {
+    //   if (indexValue === 0) {
+    //     button.firstElementChild.dataset.value = indexValue;
+    //     indexValue++;
+    //   } else {
+    //     button.firstElementChild.dataset.value = indexValue;
+    //   }
+    // });
   };
   const displayForm = () => {
     selectForm.style.display = "flex";
@@ -78,10 +98,15 @@ const DisplayFactory = () => {
     createEditButton.textContent = "Edit";
     createEditButton.setAttribute("class", "editMealPlan");
 
+    const createPriorityButton = document.createElement("button");
+    createPriorityButton.textContent = "Priority";
+    createPriorityButton.setAttribute("class", "priority");
+
     selectContainer.insertBefore(createDiv, selectCreateNewMealButton);
     createDiv.appendChild(createSpan);
     createDiv.appendChild(createRemoveButton);
     createDiv.appendChild(createEditButton);
+    createDiv.appendChild(createPriorityButton);
     assignIndex();
     assignID();
   };
@@ -104,11 +129,11 @@ const DisplayFactory = () => {
       }
     });
     checkBoxBooleans.push(checkBoxChecked);
-    console.log(checkBoxBooleans);
     return mealArray;
   };
   const remove = (indexValue) => {
     const getMealPlanID = document.querySelector(`#index-${indexValue}`);
+
     getMealPlanID.remove();
   };
 
@@ -121,6 +146,7 @@ const DisplayFactory = () => {
 
     createInput.type = "date";
     createInput.setAttribute("id", "date");
+    createInput.required = true; // This doesn't seem to work
 
     parent.firstElementChild.remove();
     parent.prepend(createInput);
@@ -198,6 +224,7 @@ const DisplayFactory = () => {
 
     return newMealArray;
   };
+
   return {
     assignID,
     assignIndex,

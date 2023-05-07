@@ -1,11 +1,10 @@
-import { format } from "date-fns";
 import { MealPlanManager } from "./mealplanmanager";
 import { DisplayFactory } from "./displayMealPlans";
 
 const selectContainer = document.querySelector("#container");
 const updateMealPlanAmount = document.querySelector("#mealPlanAmount");
 const newMealPlanManager = new MealPlanManager();
-
+const mealPlanManagerArrayLength = newMealPlanManager.getMealPlanArrayLength();
 selectContainer.addEventListener("click", (event) => {
   const display = DisplayFactory();
   if (event.target.id === "createNewMeal") {
@@ -33,6 +32,12 @@ selectContainer.addEventListener("click", (event) => {
       display.assignIndex();
       newMealPlanManager.assignID();
     }
+
+    updateMealPlanAmount.textContent = mealPlanManagerArrayLength;
+
+    if (mealPlanManagerArrayLength === 0) {
+      updateMealPlanAmount.textContent = "";
+    }
   } else if (event.target.className === "editMealPlan") {
     const selection = event.target;
     display.edit(selection);
@@ -42,5 +47,8 @@ selectContainer.addEventListener("click", (event) => {
     const date = display.getDate();
     const meals = display.saveEdit(selection);
     newMealPlanManager.editMealPlan(arrayIndex, date, ...meals);
+  } else if (event.target.className === "priority") {
+    const arrayIndex = event.target.dataset.index;
+    newMealPlanManager.favoriteMealPlan(arrayIndex);
   }
 });

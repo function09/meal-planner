@@ -1,4 +1,3 @@
-import { id } from "date-fns/locale";
 import { MealPlan } from "./mealplans";
 
 class MealPlanManager {
@@ -29,7 +28,7 @@ class MealPlanManager {
     this.mealPlanArray[index].breakfast = breakfast;
     this.mealPlanArray[index].lunch = lunch;
     this.mealPlanArray[index].dinner = dinner;
-    console.log(this.mealPlanArray);
+    // console.log(this.mealPlanArray);
   }
 
   getMealPlanArrayLength() {
@@ -38,17 +37,27 @@ class MealPlanManager {
 
   favoriteMealPlan(index) {
     this.mealPlanArray[index].favorite = true;
+
     if (this.mealPlanArray[index].favorite === true) {
       this.favoriteMealPlanArray.push(this.mealPlanArray[index]);
     }
-
+    // Does not allow duplicate entries
     const uniqueIDs = [
       ...new Map(
         this.favoriteMealPlanArray.map((key) => [key.id, key])
       ).values(),
     ];
+
     this.favoriteMealPlanArray = uniqueIDs;
     console.log(this.favoriteMealPlanArray);
+    // console.log(this.mealPlanArray);
+    // console.log(this.favoriteMealPlanArray);
+  }
+
+  unfavoriteMealPlan(index) {
+    // Will set favorite property to false in remove object from favoriteMealPlanArray and change it's favorite property to false in mealPlan array
+    // this.favoriteMealPlanArray.splice(index, 1);
+    // console.log(this.favoriteMealPlanArray);
   }
 }
 

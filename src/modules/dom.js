@@ -4,7 +4,6 @@ import { DisplayFactory } from "./displayMealPlans";
 const selectContainer = document.querySelector("#container");
 const updateMealPlanAmount = document.querySelector("#mealPlanAmount");
 const newMealPlanManager = new MealPlanManager();
-const mealPlanManagerArrayLength = newMealPlanManager.getMealPlanArrayLength();
 selectContainer.addEventListener("click", (event) => {
   const display = DisplayFactory();
   if (event.target.id === "createNewMeal") {
@@ -33,9 +32,10 @@ selectContainer.addEventListener("click", (event) => {
       newMealPlanManager.assignID();
     }
 
-    updateMealPlanAmount.textContent = mealPlanManagerArrayLength;
+    updateMealPlanAmount.textContent =
+      newMealPlanManager.getMealPlanArrayLength();
 
-    if (mealPlanManagerArrayLength === 0) {
+    if (newMealPlanManager.getMealPlanArrayLength() === 0) {
       updateMealPlanAmount.textContent = "";
     }
   } else if (event.target.className === "editMealPlan") {
@@ -47,8 +47,25 @@ selectContainer.addEventListener("click", (event) => {
     const date = display.getDate();
     const meals = display.saveEdit(selection);
     newMealPlanManager.editMealPlan(arrayIndex, date, ...meals);
-  } else if (event.target.className === "priority") {
+  } else if (event.target.className === "favorite") {
     const arrayIndex = event.target.dataset.index;
+    const selection = event.target;
     newMealPlanManager.favoriteMealPlan(arrayIndex);
+    display.favoriteMealPlan(selection);
+  }
+});
+
+const selectNavBar = document.querySelector("#navBar");
+const display = DisplayFactory();
+
+selectNavBar.addEventListener("click", (event) => {
+  if (event.target.id === "mealPlanTab") {
+    console.log("hello world");
+  } else if (event.target.id === "favoriteTab") {
+    const favoriteMealPlans = newMealPlanManager.favoriteMealPlanArray;
+    display.favoriteMealPlan();
+    favoriteMealPlans.forEach((plan) => {
+      display.displayMealPlan(plan.date);
+    });
   }
 });

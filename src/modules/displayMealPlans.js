@@ -6,6 +6,7 @@ const DisplayFactory = () => {
   const selectForm = document.querySelector("#form");
   const selectCreateNewMealButton = document.querySelector("#createNewMeal");
   const selectCheckBoxes = document.querySelectorAll(".checkbox");
+  const selectContainer = document.querySelector("#container");
 
   const assignID = () => {
     const selectMealPlans = document.querySelectorAll(".mealPlans");
@@ -19,15 +20,15 @@ const DisplayFactory = () => {
       }
     });
   };
-
+  // RENAME ALL ELEMENTS TO BE MORE FITTING BEFORE COMITTING!!!!
   // Assigns an index data value to remove and edit buttons DOWNSIZE THIS BEFORE PUSHING
   const assignIndex = () => {
     const selectRemoveButtons = document.querySelectorAll(".removeMealPlan");
     const selectEditButtons = document.querySelectorAll(".editMealPlan");
-    const selectPriorityButtons = document.querySelectorAll(".priority");
+    const selectFavoriteButtons = document.querySelectorAll(".favorite");
     let removeButtonIndexValue = 0;
     let editButtonIndexValue = 0;
-    let priorityButtonIndexValue = 0;
+    // let favoriteButtonIndexValue = 0;
     selectRemoveButtons.forEach((button) => {
       if (removeButtonIndexValue === 0) {
         button.dataset.index = removeButtonIndexValue;
@@ -44,13 +45,14 @@ const DisplayFactory = () => {
         button.dataset.index = editButtonIndexValue++;
       }
     });
-    selectPriorityButtons.forEach((button) => {
-      if (priorityButtonIndexValue === 0) {
-        button.dataset.index = priorityButtonIndexValue;
-        priorityButtonIndexValue++;
-      } else {
-        button.dataset.index = priorityButtonIndexValue++;
-      }
+    selectFavoriteButtons.forEach((button) => {
+      button.dataset.index = button.previousElementSibling.dataset.index;
+      // if (favoriteButtonIndexValue === 0) {
+      //   button.dataset.index = favoriteButtonIndexValue;
+      //   favoriteButtonIndexValue++;
+      // } else {
+      //   button.dataset.index = favoriteButtonIndexValue++;
+      // }
     });
 
     // const selectMealPlanButtons = document.querySelectorAll(".mealPlans");
@@ -82,8 +84,6 @@ const DisplayFactory = () => {
     });
   };
   const displayMealPlan = (date) => {
-    const selectContainer = document.querySelector("#container");
-
     const createDiv = document.createElement("div");
     createDiv.setAttribute("class", "mealPlans");
 
@@ -98,17 +98,27 @@ const DisplayFactory = () => {
     createEditButton.textContent = "Edit";
     createEditButton.setAttribute("class", "editMealPlan");
 
-    const createPriorityButton = document.createElement("button");
-    createPriorityButton.textContent = "Priority";
-    createPriorityButton.setAttribute("class", "priority");
+    const createFavoriteButton = document.createElement("button");
+    createFavoriteButton.textContent = "Favorite";
+    createFavoriteButton.setAttribute("class", "favorite");
 
-    selectContainer.insertBefore(createDiv, selectCreateNewMealButton);
-    createDiv.appendChild(createSpan);
-    createDiv.appendChild(createRemoveButton);
-    createDiv.appendChild(createEditButton);
-    createDiv.appendChild(createPriorityButton);
-    assignIndex();
-    assignID();
+    if (document.querySelector("#createNewMeal")) {
+      selectContainer.insertBefore(createDiv, selectCreateNewMealButton);
+      createDiv.appendChild(createSpan);
+      createDiv.appendChild(createRemoveButton);
+      createDiv.appendChild(createEditButton);
+      createDiv.appendChild(createFavoriteButton);
+      assignIndex();
+      assignID();
+    } else {
+      selectContainer.appendChild(createDiv);
+      createDiv.appendChild(createSpan);
+      createDiv.appendChild(createRemoveButton);
+      createDiv.appendChild(createEditButton);
+      createDiv.appendChild(createFavoriteButton);
+      assignIndex();
+      assignID();
+    }
   };
   const getDate = () => {
     const dateValue = document.querySelector("#date").value;
@@ -136,13 +146,15 @@ const DisplayFactory = () => {
 
     getMealPlanID.remove();
   };
-
+  // Hide create new meal plan button when edit is clicked
   const edit = (selection) => {
     const parent = selection.parentElement;
     const { index } = selection.dataset;
     const createInput = document.createElement("input");
 
-    selectCreateNewMealButton.style.display = "none";
+    if (!document.querySelector("#createNewMeal") === null) {
+      selectCreateNewMealButton.style.display = "none";
+    }
 
     createInput.type = "date";
     createInput.setAttribute("id", "date");
@@ -220,9 +232,22 @@ const DisplayFactory = () => {
     selectFieldSet.remove();
     checkBoxBooleans.splice(arrayIndex, 1, checkBoxChecked);
 
-    selectCreateNewMealButton.style.display = "flex";
+    if (!document.querySelector("#createNewMeal") === null) {
+      selectCreateNewMealButton.style.display = "flex";
+    }
 
     return newMealArray;
+  };
+
+  const favoriteMealPlan = (selection) => {
+    selection.textContent = "Unfavorite";
+    selection.className = "unfavorite";
+    assignIndex();
+    // console.log(document.querySelector("#createNewMeal") === null);
+    // while (selectContainer.firstChild) {
+    //   selectContainer.removeChild(selectContainer.firstChild);
+    // }
+    // console.log(document.querySelector("#createNewMeal") === null);
   };
 
   return {
@@ -236,6 +261,7 @@ const DisplayFactory = () => {
     remove,
     edit,
     saveEdit,
+    favoriteMealPlan,
   };
 };
 

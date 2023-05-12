@@ -7,7 +7,7 @@ const DisplayFactory = () => {
   const selectCreateNewMealButton = document.querySelector("#createNewMeal");
   const selectCheckBoxes = document.querySelectorAll(".checkbox");
   const selectContainer = document.querySelector("#container");
-
+  // Check and see if this even is necessary
   const assignID = () => {
     const selectMealPlans = document.querySelectorAll(".mealPlans");
     let IDValue = 0;
@@ -20,44 +20,52 @@ const DisplayFactory = () => {
       }
     });
   };
-  // RENAME ALL ELEMENTS TO BE MORE FITTING BEFORE COMITTING!!!!
+  // RENAME ALL ELEMENTS TO BE MORE FITTING BEFORE COMITTING!!!! AND REFACTOR assignIndex() TO USE LESS CODE
   // Assigns an index data value to remove and edit buttons DOWNSIZE THIS BEFORE PUSHING
   const assignIndex = () => {
-    const selectRemoveButtons = document.querySelectorAll(".removeMealPlan");
-    const selectEditButtons = document.querySelectorAll(".editMealPlan");
-    const selectFavoriteButtons = document.querySelectorAll(".favorite");
-    let removeButtonIndexValue = 0;
-    let editButtonIndexValue = 0;
-    // let favoriteButtonIndexValue = 0;
-    selectRemoveButtons.forEach((button) => {
-      if (removeButtonIndexValue === 0) {
-        button.dataset.index = removeButtonIndexValue;
-        removeButtonIndexValue++;
-      } else {
-        button.dataset.index = removeButtonIndexValue++;
-      }
-    });
-    selectEditButtons.forEach((button) => {
-      if (editButtonIndexValue === 0) {
-        button.dataset.index = editButtonIndexValue;
-        editButtonIndexValue++;
-      } else {
-        button.dataset.index = editButtonIndexValue++;
-      }
-    });
-    selectFavoriteButtons.forEach((button) => {
-      button.dataset.index = button.previousElementSibling.dataset.index;
-      // if (favoriteButtonIndexValue === 0) {
-      //   button.dataset.index = favoriteButtonIndexValue;
-      //   favoriteButtonIndexValue++;
-      // } else {
-      //   button.dataset.index = favoriteButtonIndexValue++;
-      // }
-    });
-
+    // const selectMealPlans = document.querySelectorAll(".mealPlans>button");
+    // let value = 0;
+    // selectMealPlans.forEach((plan) => {
+    //   if (value === 0) {
+    //     plan.dataset.index = value;
+    //     value++;
+    //   } else {
+    //     plan.dataset.index = value++;
+    //   }
+    // });
+    // const selectRemoveButtons = document.querySelectorAll(".removeMealPlan");
+    // const selectEditButtons = document.querySelectorAll(".editMealPlan");
+    // const selectFavoriteButtons = document.querySelectorAll(".favorite");
+    // let removeButtonIndexValue = 0;
+    // let editButtonIndexValue = 0;
+    // // let favoriteButtonIndexValue = 0;
+    // selectRemoveButtons.forEach((button) => {
+    //   if (removeButtonIndexValue === 0) {
+    //     button.dataset.index = removeButtonIndexValue;
+    //     removeButtonIndexValue++;
+    //   } else {
+    //     button.dataset.index = removeButtonIndexValue++;
+    //   }
+    // });
+    // selectEditButtons.forEach((button) => {
+    //   if (editButtonIndexValue === 0) {
+    //     button.dataset.index = editButtonIndexValue;
+    //     editButtonIndexValue++;
+    //   } else {
+    //     button.dataset.index = editButtonIndexValue++;
+    //   }
+    // });
+    // selectFavoriteButtons.forEach((button) => {
+    //   button.dataset.index = button.previousElementSibling.dataset.index;
+    // if (favoriteButtonIndexValue === 0) {
+    //   button.dataset.index = favoriteButtonIndexValue;
+    //   favoriteButtonIndexValue++;
+    // } else {
+    //   button.dataset.index = favoriteButtonIndexValue++;
+    // });
+    // };
     // const selectMealPlanButtons = document.querySelectorAll(".mealPlans");
     // let indexValue = 0;
-
     // selectMealPlanButtons.forEach((button) => {
     //   if (indexValue === 0) {
     //     button.firstElementChild.dataset.value = indexValue;
@@ -83,7 +91,7 @@ const DisplayFactory = () => {
       checkbox.checked = false;
     });
   };
-  const displayMealPlan = (date) => {
+  const displayMealPlan = (date, index) => {
     const createDiv = document.createElement("div");
     createDiv.setAttribute("class", "mealPlans");
 
@@ -93,14 +101,17 @@ const DisplayFactory = () => {
     const createRemoveButton = document.createElement("button");
     createRemoveButton.textContent = "Remove";
     createRemoveButton.setAttribute("class", "removeMealPlan");
+    createRemoveButton.dataset.id = index;
 
     const createEditButton = document.createElement("button");
     createEditButton.textContent = "Edit";
     createEditButton.setAttribute("class", "editMealPlan");
+    createEditButton.dataset.id = index;
 
     const createFavoriteButton = document.createElement("button");
     createFavoriteButton.textContent = "Favorite";
     createFavoriteButton.setAttribute("class", "favorite");
+    createFavoriteButton.dataset.id = index;
 
     if (document.querySelector("#createNewMeal")) {
       selectContainer.insertBefore(createDiv, selectCreateNewMealButton);
@@ -141,8 +152,8 @@ const DisplayFactory = () => {
     checkBoxBooleans.push(checkBoxChecked);
     return mealArray;
   };
-  const remove = (indexValue) => {
-    const getMealPlanID = document.querySelector(`#index-${indexValue}`);
+  const remove = (ID) => {
+    const getMealPlanID = document.querySelector(`#index-${ID}`);
 
     getMealPlanID.remove();
   };
@@ -242,7 +253,6 @@ const DisplayFactory = () => {
   const favoriteMealPlan = (selection) => {
     selection.textContent = "Unfavorite";
     selection.className = "unfavorite";
-    assignIndex();
     // console.log(document.querySelector("#createNewMeal") === null);
     // while (selectContainer.firstChild) {
     //   selectContainer.removeChild(selectContainer.firstChild);

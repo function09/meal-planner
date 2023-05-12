@@ -14,23 +14,27 @@ selectContainer.addEventListener("click", (event) => {
     const date = display.getDate();
     const meals = display.getMeals();
     display.closeForm();
-    display.displayMealPlan(date);
+    // while (selectContainer.firstChild) {
+    //   selectContainer.removeChild(selectContainer.firstChild);
+    // }
+    document.querySelectorAll(".mealPlans").forEach((plan) => {
+      plan.remove();
+    });
     newMealPlanManager.pushToArray(date, ...meals);
     newMealPlanManager.assignID();
+    newMealPlanManager.mealPlanArray.forEach((arr) => {
+      display.displayMealPlan(arr.date, arr.id);
+    });
+    // console.log(newMealPlanManager.mealPlanArray);
     updateMealPlanAmount.textContent =
       newMealPlanManager.getMealPlanArrayLength();
 
     event.preventDefault();
+    // Change index to ID, conditional is also incorrect
   } else if (event.target.className === "removeMealPlan") {
-    const getTarget = event.target.dataset.index;
-    const getIndex = Number(getTarget);
-    if (newMealPlanManager.mealPlanArray[getIndex].id === getIndex) {
-      newMealPlanManager.removeFromArray(getIndex);
-      display.remove(getTarget);
-      display.assignID();
-      display.assignIndex();
-      newMealPlanManager.assignID();
-    }
+    const getMealPlanID = Number(event.target.dataset.id);
+    newMealPlanManager.removeFromArray(getMealPlanID);
+    display.remove(getMealPlanID);
 
     updateMealPlanAmount.textContent =
       newMealPlanManager.getMealPlanArrayLength();
@@ -51,7 +55,7 @@ selectContainer.addEventListener("click", (event) => {
     const arrayIndex = event.target.dataset.index;
     const selection = event.target;
     newMealPlanManager.favoriteMealPlan(arrayIndex);
-    display.favoriteMealPlan(selection);
+    display.favoriteMealPlan(selection, arrayIndex);
   }
 });
 

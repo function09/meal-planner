@@ -18,9 +18,15 @@ class MealPlanManager {
     // console.log(this.mealPlanArray);
   }
 
-  removeFromArray(index) {
-    this.mealPlanArray.splice(index, 1);
-    // console.log(this.mealPlanArray);
+  removeFromArray(ID) {
+    const getMealPlanIndex = this.mealPlanArray.findIndex(
+      (obj) => obj.id === ID
+    );
+    // console.log(getMealPlanIndex);
+    this.mealPlanArray.splice(getMealPlanIndex, 1);
+
+    // this.mealPlanArray.splice(index, 1);
+    console.log(this.mealPlanArray);
   }
 
   editMealPlan(index, date, breakfast, lunch, dinner) {

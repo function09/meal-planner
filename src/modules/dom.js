@@ -4,6 +4,7 @@ import { DisplayFactory } from "./displayMealPlans";
 const selectContainer = document.querySelector("#container");
 const updateMealPlanAmount = document.querySelector("#mealPlanAmount");
 const newMealPlanManager = new MealPlanManager();
+
 selectContainer.addEventListener("click", (event) => {
   const display = DisplayFactory();
   if (event.target.id === "createNewMeal") {
@@ -42,15 +43,30 @@ selectContainer.addEventListener("click", (event) => {
     if (newMealPlanManager.getMealPlanArrayLength() === 0) {
       updateMealPlanAmount.textContent = "";
     }
-  } else if (event.target.className === "editMealPlan") {
-    const selection = event.target;
-    display.edit(selection);
-  } else if (event.target.className === "saveMealPlan") {
-    const selection = event.target;
-    const arrayIndex = selection.dataset.index;
+  }
+  // Refactor to use ID after completing try to optimize the code so you can use spread operator
+  else if (event.target.className === "editMealPlan") {
+    const mealPlan = event.target.parentElement;
+    const selection = event.target.dataset.id;
+    const selectMealPlanID = Number(event.target.dataset.id);
+    const getMealData = newMealPlanManager.getMealData(selectMealPlanID);
+    display.edit(mealPlan, selection, ...getMealData);
+  } else if (event.target.id === "saveEdit") {
+    const selection = Number(event.target.dataset.id);
     const date = display.getDate();
-    const meals = display.saveEdit(selection);
-    newMealPlanManager.editMealPlan(arrayIndex, date, ...meals);
+    const meals = display.getMeals();
+
+    newMealPlanManager.editMealPlan(selection, date, ...meals);
+    display.closeForm();
+
+    document.querySelectorAll(".mealPlans").forEach((plan) => {
+      plan.remove();
+    });
+
+    newMealPlanManager.mealPlanArray.forEach((arr) => {
+      display.displayMealPlan(arr.date, arr.id);
+    });
+    event.preventDefault();
   } else if (event.target.className === "favorite") {
     const arrayIndex = event.target.dataset.index;
     const selection = event.target;

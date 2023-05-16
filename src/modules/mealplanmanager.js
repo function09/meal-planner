@@ -29,12 +29,21 @@ class MealPlanManager {
     console.log(this.mealPlanArray);
   }
 
-  editMealPlan(index, date, breakfast, lunch, dinner) {
-    this.mealPlanArray[index].date = date;
-    this.mealPlanArray[index].breakfast = breakfast;
-    this.mealPlanArray[index].lunch = lunch;
-    this.mealPlanArray[index].dinner = dinner;
-    // console.log(this.mealPlanArray);
+  editMealPlan(selection, date, breakfast, lunch, dinner) {
+    const getObjByID = this.mealPlanArray.find((obj) => obj.id === selection);
+    getObjByID.date = date;
+    getObjByID.breakfast = breakfast;
+    getObjByID.lunch = lunch;
+    getObjByID.dinner = dinner;
+    console.log(this.mealPlanArray);
+  }
+
+  getMealData(selection) {
+    const getObjByID = this.mealPlanArray.find((obj) => obj.id === selection);
+    const getBreakfast = getObjByID.breakfast;
+    const getLunch = getObjByID.lunch;
+    const getDinner = getObjByID.dinner;
+    return [getBreakfast, getLunch, getDinner];
   }
 
   getMealPlanArrayLength() {

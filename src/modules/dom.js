@@ -84,6 +84,9 @@ selectNavBar.addEventListener("click", (event) => {
   } else if (event.target.id === "favoriteTab") {
     const favoriteMealPlans = newMealPlanManager.favoriteMealPlanArray;
     // display.favoriteMealPlan();
+    document.querySelectorAll(".mealPlans").forEach((plan) => {
+      plan.remove();
+    });
     favoriteMealPlans.forEach((plan) => {
       display.displayMealPlan(plan.date, plan.id, plan.favorite);
     });

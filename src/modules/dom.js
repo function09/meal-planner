@@ -24,7 +24,7 @@ selectContainer.addEventListener("click", (event) => {
     newMealPlanManager.pushToArray(date, ...meals);
     newMealPlanManager.assignID();
     newMealPlanManager.mealPlanArray.forEach((arr) => {
-      display.displayMealPlan(arr.date, arr.id);
+      display.displayMealPlan(arr.date, arr.id, arr.favorite);
     });
     // console.log(newMealPlanManager.mealPlanArray);
     updateMealPlanAmount.textContent =
@@ -68,10 +68,10 @@ selectContainer.addEventListener("click", (event) => {
     });
     event.preventDefault();
   } else if (event.target.className === "favorite") {
-    const arrayIndex = event.target.dataset.index;
-    const selection = event.target;
-    newMealPlanManager.favoriteMealPlan(arrayIndex);
-    display.favoriteMealPlan(selection, arrayIndex);
+    const selectEventText = event.target;
+    const selection = Number(event.target.dataset.id);
+    newMealPlanManager.favoriteMealPlan(selection);
+    selectEventText.textContent = "Unfavorite";
   }
 });
 
@@ -83,9 +83,9 @@ selectNavBar.addEventListener("click", (event) => {
     console.log("hello world");
   } else if (event.target.id === "favoriteTab") {
     const favoriteMealPlans = newMealPlanManager.favoriteMealPlanArray;
-    display.favoriteMealPlan();
+    // display.favoriteMealPlan();
     favoriteMealPlans.forEach((plan) => {
-      display.displayMealPlan(plan.date);
+      display.displayMealPlan(plan.date, plan.id, plan.favorite);
     });
   }
 });

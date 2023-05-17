@@ -50,21 +50,29 @@ class MealPlanManager {
     return this.mealPlanArray.length;
   }
 
-  favoriteMealPlan(index) {
-    this.mealPlanArray[index].favorite = true;
+  favoriteMealPlan(selection) {
+    const getObjByID = this.mealPlanArray.find((obj) => obj.id === selection);
 
-    if (this.mealPlanArray[index].favorite === true) {
-      this.favoriteMealPlanArray.push(this.mealPlanArray[index]);
+    if (getObjByID.favorite === false) {
+      getObjByID.favorite = true;
+      this.favoriteMealPlanArray.push(getObjByID);
     }
-    // Does not allow duplicate entries
-    const uniqueIDs = [
-      ...new Map(
-        this.favoriteMealPlanArray.map((key) => [key.id, key])
-      ).values(),
-    ];
-
-    this.favoriteMealPlanArray = uniqueIDs;
+    console.log(this.mealPlanArray);
     console.log(this.favoriteMealPlanArray);
+
+    // if (this.mealPlanArray[index].favorite === true) {
+    // this.favoriteMealPlanArray.push(this.mealPlanArray[index]);
+    // }
+    // // Does not allow duplicate entries
+    // const uniqueIDs = [
+    //   ...new Map(
+    //     this.favoriteMealPlanArray.map((key) => [key.id, key])
+    //   ).values(),
+    // ];
+
+    // this.favoriteMealPlanArray = uniqueIDs;
+    // console.log(this.mealPlanArray);
+    // console.log(this.favoriteMealPlanArray);
     // console.log(this.mealPlanArray);
     // console.log(this.favoriteMealPlanArray);
   }

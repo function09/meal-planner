@@ -18,7 +18,7 @@ const DisplayFactory = () => {
       }
     });
   };
-  // RENAME ALL ELEMENTS TO BE MORE FITTING BEFORE COMITTING!!!! AND REFACTOR assignIndex() TO USE LESS CODE
+  // RENAME ALL ELEMENTS TO BE MORE FITTING BEFORE PUSHING TO REPOSITORY!!!!
   // Assigns an index data value to remove and edit buttons DOWNSIZE THIS BEFORE PUSHING
   const assignIndex = () => {
     // const selectMealPlans = document.querySelectorAll(".mealPlans>button");
@@ -99,7 +99,7 @@ const DisplayFactory = () => {
       selectSaveFormButton.id = "submitFormButton";
     }
   };
-  const displayMealPlan = (date, index) => {
+  const displayMealPlan = (date, index, favorite) => {
     const createDiv = document.createElement("div");
     createDiv.setAttribute("class", "mealPlans");
 
@@ -120,6 +120,9 @@ const DisplayFactory = () => {
     createFavoriteButton.textContent = "Favorite";
     createFavoriteButton.setAttribute("class", "favorite");
     createFavoriteButton.dataset.id = index;
+    if (favorite === true) {
+      createFavoriteButton.textContent = "Unfavorite";
+    }
 
     if (document.querySelector("#createNewMeal")) {
       selectContainer.insertBefore(createDiv, selectCreateNewMealButton);
@@ -220,14 +223,13 @@ const DisplayFactory = () => {
 
   //   return newMealArray;
   // };
+  // Find a way to incorporate this within displayMealPlan()
+  const favoriteMealPlan = () => {
+    const selectAllMealPlans = document.querySelectorAll(".mealPlans");
 
-  const favoriteMealPlan = (selection) => {
-    selection.textContent = "Unfavorite";
-    selection.className = "unfavorite";
-    // console.log(document.querySelector("#createNewMeal") === null);
-    // while (selectContainer.firstChild) {
-    //   selectContainer.removeChild(selectContainer.firstChild);
-    // }
+    selectAllMealPlans.forEach((plan) => {
+      plan.remove();
+    });
     // console.log(document.querySelector("#createNewMeal") === null);
   };
 

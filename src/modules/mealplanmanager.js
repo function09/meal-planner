@@ -57,8 +57,12 @@ class MealPlanManager {
       getObjByID.favorite = true;
       this.favoriteMealPlanArray.push(getObjByID);
     }
-    console.log(this.mealPlanArray);
+    // console.log(this.mealPlanArray);
     console.log(this.favoriteMealPlanArray);
+    // console.log(getObjByID);
+    // console.log(
+    //   this.favoriteMealPlanArray.findIndex((obj) => obj.id === getObjByID.id)
+    // );
 
     // if (this.mealPlanArray[index].favorite === true) {
     // this.favoriteMealPlanArray.push(this.mealPlanArray[index]);
@@ -77,7 +81,19 @@ class MealPlanManager {
     // console.log(this.favoriteMealPlanArray);
   }
 
-  unfavoriteMealPlan(index) {
+  unfavoriteMealPlan(selection) {
+    const getObjByID = this.mealPlanArray.find((obj) => obj.id === selection);
+
+    if (getObjByID.favorite === true) {
+      getObjByID.favorite = false;
+
+      const getObjIndex = this.favoriteMealPlanArray.findIndex(
+        (obj) => obj.id === getObjByID.id
+      );
+
+      this.favoriteMealPlanArray.splice(getObjIndex, 1);
+      console.log(this.favoriteMealPlanArray);
+    }
     // Will set favorite property to false in remove object from favoriteMealPlanArray and change it's favorite property to false in mealPlan array
     // this.favoriteMealPlanArray.splice(index, 1);
     // console.log(this.favoriteMealPlanArray);

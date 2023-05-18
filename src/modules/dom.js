@@ -71,7 +71,15 @@ selectContainer.addEventListener("click", (event) => {
     const selectEventText = event.target;
     const selection = Number(event.target.dataset.id);
     newMealPlanManager.favoriteMealPlan(selection);
+    // See if you can make these two into a function
     selectEventText.textContent = "Unfavorite";
+    selectEventText.className = "unfavorite";
+  } else if (event.target.className === "unfavorite") {
+    const selectEventText = event.target;
+    const selection = Number(event.target.dataset.id);
+    newMealPlanManager.unfavoriteMealPlan(selection);
+    selectEventText.textContent = "Favorite";
+    selectEventText.className = "favorite";
   }
 });
 

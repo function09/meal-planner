@@ -19,60 +19,7 @@ const DisplayFactory = () => {
     });
   };
   // RENAME ALL ELEMENTS TO BE MORE FITTING BEFORE PUSHING TO REPOSITORY!!!!
-  // Assigns an index data value to remove and edit buttons DOWNSIZE THIS BEFORE PUSHING
-  const assignIndex = () => {
-    // const selectMealPlans = document.querySelectorAll(".mealPlans>button");
-    // let value = 0;
-    // selectMealPlans.forEach((plan) => {
-    //   if (value === 0) {
-    //     plan.dataset.index = value;
-    //     value++;
-    //   } else {
-    //     plan.dataset.index = value++;
-    //   }
-    // });
-    // const selectRemoveButtons = document.querySelectorAll(".removeMealPlan");
-    // const selectEditButtons = document.querySelectorAll(".editMealPlan");
-    // const selectFavoriteButtons = document.querySelectorAll(".favorite");
-    // let removeButtonIndexValue = 0;
-    // let editButtonIndexValue = 0;
-    // // let favoriteButtonIndexValue = 0;
-    // selectRemoveButtons.forEach((button) => {
-    //   if (removeButtonIndexValue === 0) {
-    //     button.dataset.index = removeButtonIndexValue;
-    //     removeButtonIndexValue++;
-    //   } else {
-    //     button.dataset.index = removeButtonIndexValue++;
-    //   }
-    // });
-    // selectEditButtons.forEach((button) => {
-    //   if (editButtonIndexValue === 0) {
-    //     button.dataset.index = editButtonIndexValue;
-    //     editButtonIndexValue++;
-    //   } else {
-    //     button.dataset.index = editButtonIndexValue++;
-    //   }
-    // });
-    // selectFavoriteButtons.forEach((button) => {
-    //   button.dataset.index = button.previousElementSibling.dataset.index;
-    // if (favoriteButtonIndexValue === 0) {
-    //   button.dataset.index = favoriteButtonIndexValue;
-    //   favoriteButtonIndexValue++;
-    // } else {
-    //   button.dataset.index = favoriteButtonIndexValue++;
-    // });
-    // };
-    // const selectMealPlanButtons = document.querySelectorAll(".mealPlans");
-    // let indexValue = 0;
-    // selectMealPlanButtons.forEach((button) => {
-    //   if (indexValue === 0) {
-    //     button.firstElementChild.dataset.value = indexValue;
-    //     indexValue++;
-    //   } else {
-    //     button.firstElementChild.dataset.value = indexValue;
-    //   }
-    // });
-  };
+
   const displayForm = () => {
     selectForm.style.display = "flex";
     selectCreateNewMealButton.style.display = "none";
@@ -130,7 +77,6 @@ const DisplayFactory = () => {
       createDiv.appendChild(createRemoveButton);
       createDiv.appendChild(createEditButton);
       createDiv.appendChild(createFavoriteButton);
-      assignIndex();
       assignID();
     } else {
       selectContainer.appendChild(createDiv);
@@ -138,7 +84,6 @@ const DisplayFactory = () => {
       createDiv.appendChild(createRemoveButton);
       createDiv.appendChild(createEditButton);
       createDiv.appendChild(createFavoriteButton);
-      assignIndex();
       assignID();
     }
     selectContainer.appendChild(selectForm);
@@ -160,6 +105,13 @@ const DisplayFactory = () => {
     });
     // console.log({ ...mealArray });
     return mealArray;
+  };
+  const displayMealPlanAmount = (arrayLength) => {
+    const updateMealPlanAmount = document.querySelector("#mealPlanAmount");
+    updateMealPlanAmount.textContent = arrayLength;
+    if (arrayLength === 0) {
+      updateMealPlanAmount.textContent = "";
+    }
   };
   const remove = (ID) => {
     const getMealPlanID = document.querySelector(`#index-${ID}`);
@@ -187,42 +139,6 @@ const DisplayFactory = () => {
     selectSubmitFormButton.id = "saveEdit";
     selectSubmitFormButton.dataset.id = selection;
   };
-  // const saveEdit = (selection) => {
-  //   const parent = selection.parentElement;
-  //   const arrayIndex = selection.dataset.index;
-  //   const selectFieldSet = document.querySelector(".newFieldSet");
-  //   const createSpan = document.createElement("span");
-  //   const newMealArray = [];
-  //   const checkBoxChecked = [];
-
-  //   createSpan.textContent = getDate();
-  //   const selectNewCheckBoxes = document.querySelectorAll(".newCheckbox");
-
-  //   selectNewCheckBoxes.forEach((checkbox) => {
-  //     if (checkbox.checked === true) {
-  //       newMealArray.push(checkbox.value);
-  //       checkBoxChecked.push(checkbox.checked);
-  //     } else if (checkbox.checked === false) {
-  //       newMealArray.push("");
-  //       checkBoxChecked.push(checkbox.checked);
-  //     }
-  //   });
-
-  //   parent.firstElementChild.remove();
-  //   parent.prepend(createSpan);
-
-  //   selection.textContent = "Edit";
-  //   selection.className = "editMealPlan";
-
-  //   selectFieldSet.remove();
-  //   checkBoxBooleans.splice(arrayIndex, 1, checkBoxChecked);
-
-  //   if (!document.querySelector("#createNewMeal") === null) {
-  //     selectCreateNewMealButton.style.display = "flex";
-  //   }
-
-  //   return newMealArray;
-  // };
   // Find a way to incorporate this within displayMealPlan()
   const favoriteMealPlan = () => {
     const selectAllMealPlans = document.querySelectorAll(".mealPlans");
@@ -233,18 +149,29 @@ const DisplayFactory = () => {
     // console.log(document.querySelector("#createNewMeal") === null);
   };
 
+  const favoriteMealPlanAmount = (arrayLength) => {
+    const selectFavoriteMealPlanAmount =
+      document.querySelector("#favoriteAmount");
+
+    selectFavoriteMealPlanAmount.textContent = arrayLength;
+
+    if (arrayLength === 0) {
+      selectFavoriteMealPlanAmount.textContent = "";
+    }
+  };
+
   return {
     assignID,
-    assignIndex,
     displayForm,
     closeForm,
     displayMealPlan,
     getDate,
     getMeals,
+    displayMealPlanAmount,
     remove,
     edit,
-    // saveEdit,
     favoriteMealPlan,
+    favoriteMealPlanAmount,
   };
 };
 

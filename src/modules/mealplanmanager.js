@@ -19,14 +19,19 @@ class MealPlanManager {
   }
 
   removeFromArray(ID) {
-    const getMealPlanIndex = this.mealPlanArray.findIndex(
+    const getObjIndexMealPlans = this.mealPlanArray.findIndex(
       (obj) => obj.id === ID
     );
-    // console.log(getMealPlanIndex);
-    this.mealPlanArray.splice(getMealPlanIndex, 1);
+    const getObjIndexFavoriteMealPlans = this.favoriteMealPlanArray.findIndex(
+      (obj) => obj.id === ID
+    );
 
+    // console.log(getMealPlanIndex);
+    this.mealPlanArray.splice(getObjIndexMealPlans, 1);
+    this.favoriteMealPlanArray.splice(getObjIndexFavoriteMealPlans, 1);
     // this.mealPlanArray.splice(index, 1);
     console.log(this.mealPlanArray);
+    console.log(this.favoriteMealPlanArray);
   }
 
   editMealPlan(selection, date, breakfast, lunch, dinner) {
@@ -57,28 +62,7 @@ class MealPlanManager {
       getObjByID.favorite = true;
       this.favoriteMealPlanArray.push(getObjByID);
     }
-    // console.log(this.mealPlanArray);
     console.log(this.favoriteMealPlanArray);
-    // console.log(getObjByID);
-    // console.log(
-    //   this.favoriteMealPlanArray.findIndex((obj) => obj.id === getObjByID.id)
-    // );
-
-    // if (this.mealPlanArray[index].favorite === true) {
-    // this.favoriteMealPlanArray.push(this.mealPlanArray[index]);
-    // }
-    // // Does not allow duplicate entries
-    // const uniqueIDs = [
-    //   ...new Map(
-    //     this.favoriteMealPlanArray.map((key) => [key.id, key])
-    //   ).values(),
-    // ];
-
-    // this.favoriteMealPlanArray = uniqueIDs;
-    // console.log(this.mealPlanArray);
-    // console.log(this.favoriteMealPlanArray);
-    // console.log(this.mealPlanArray);
-    // console.log(this.favoriteMealPlanArray);
   }
 
   unfavoriteMealPlan(selection) {
@@ -94,9 +78,10 @@ class MealPlanManager {
       this.favoriteMealPlanArray.splice(getObjIndex, 1);
       console.log(this.favoriteMealPlanArray);
     }
-    // Will set favorite property to false in remove object from favoriteMealPlanArray and change it's favorite property to false in mealPlan array
-    // this.favoriteMealPlanArray.splice(index, 1);
-    // console.log(this.favoriteMealPlanArray);
+  }
+
+  getFavoriteMealPlanArrayLength(selection) {
+    return this.favoriteMealPlanArray.length;
   }
 }
 

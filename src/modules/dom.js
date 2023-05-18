@@ -2,7 +2,6 @@ import { MealPlanManager } from "./mealplanmanager";
 import { DisplayFactory } from "./displayMealPlans";
 
 const selectContainer = document.querySelector("#container");
-const updateMealPlanAmount = document.querySelector("#mealPlanAmount");
 const newMealPlanManager = new MealPlanManager();
 
 selectContainer.addEventListener("click", (event) => {
@@ -26,23 +25,16 @@ selectContainer.addEventListener("click", (event) => {
     newMealPlanManager.mealPlanArray.forEach((arr) => {
       display.displayMealPlan(arr.date, arr.id, arr.favorite);
     });
+    display.displayMealPlanAmount(newMealPlanManager.getMealPlanArrayLength());
     // console.log(newMealPlanManager.mealPlanArray);
-    updateMealPlanAmount.textContent =
-      newMealPlanManager.getMealPlanArrayLength();
 
     event.preventDefault();
     // Change index to ID, conditional is also incorrect
   } else if (event.target.className === "removeMealPlan") {
-    const getMealPlanID = Number(event.target.dataset.id);
-    newMealPlanManager.removeFromArray(getMealPlanID);
-    display.remove(getMealPlanID);
-
-    updateMealPlanAmount.textContent =
-      newMealPlanManager.getMealPlanArrayLength();
-
-    if (newMealPlanManager.getMealPlanArrayLength() === 0) {
-      updateMealPlanAmount.textContent = "";
-    }
+    const getMealObjID = Number(event.target.dataset.id);
+    newMealPlanManager.removeFromArray(getMealObjID);
+    display.remove(getMealObjID);
+    display.displayMealPlanAmount(newMealPlanManager.getMealPlanArrayLength());
   }
   // Refactor to use ID after completing try to optimize the code so you can use spread operator
   else if (event.target.className === "editMealPlan") {
@@ -64,7 +56,7 @@ selectContainer.addEventListener("click", (event) => {
     });
 
     newMealPlanManager.mealPlanArray.forEach((arr) => {
-      display.displayMealPlan(arr.date, arr.id);
+      display.displayMealPlan(arr.date, arr.id, arr.favorite);
     });
     event.preventDefault();
   } else if (event.target.className === "favorite") {
@@ -74,12 +66,18 @@ selectContainer.addEventListener("click", (event) => {
     // See if you can make these two into a function
     selectEventText.textContent = "Unfavorite";
     selectEventText.className = "unfavorite";
+    display.favoriteMealPlanAmount(
+      newMealPlanManager.getFavoriteMealPlanArrayLength()
+    );
   } else if (event.target.className === "unfavorite") {
     const selectEventText = event.target;
     const selection = Number(event.target.dataset.id);
     newMealPlanManager.unfavoriteMealPlan(selection);
     selectEventText.textContent = "Favorite";
     selectEventText.className = "favorite";
+    display.favoriteMealPlanAmount(
+      newMealPlanManager.getFavoriteMealPlanArrayLength()
+    );
   }
 });
 

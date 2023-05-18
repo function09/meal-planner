@@ -35,6 +35,9 @@ selectContainer.addEventListener("click", (event) => {
     newMealPlanManager.removeFromArray(getMealObjID);
     display.remove(getMealObjID);
     display.displayMealPlanAmount(newMealPlanManager.getMealPlanArrayLength());
+    display.favoriteMealPlanAmount(
+      newMealPlanManager.getFavoriteMealPlanArrayLength()
+    );
   }
   // Refactor to use ID after completing try to optimize the code so you can use spread operator
   else if (event.target.className === "editMealPlan") {

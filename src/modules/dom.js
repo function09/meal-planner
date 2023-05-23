@@ -75,12 +75,19 @@ selectContainer.addEventListener("click", (event) => {
   } else if (event.target.className === "unfavorite") {
     const selectEventText = event.target;
     const selection = Number(event.target.dataset.id);
+
     newMealPlanManager.unfavoriteMealPlan(selection);
+
     selectEventText.textContent = "Favorite";
     selectEventText.className = "favorite";
+
     display.favoriteMealPlanAmount(
       newMealPlanManager.getFavoriteMealPlanArrayLength()
     );
+
+    if (selectContainer.dataset.type === "favorites") {
+      event.target.parentElement.remove();
+    }
   }
 });
 
@@ -89,15 +96,25 @@ const display = DisplayFactory();
 
 selectNavBar.addEventListener("click", (event) => {
   if (event.target.id === "mealPlanTab") {
-    console.log("hello world");
-  } else if (event.target.id === "favoriteTab") {
-    const favoriteMealPlans = newMealPlanManager.favoriteMealPlanArray;
-    // display.favoriteMealPlan();
-    document.querySelectorAll(".mealPlans").forEach((plan) => {
-      plan.remove();
+    delete selectContainer.dataset.type;
+
+    display.displayCreateNewMeal();
+    display.wipeDisplay();
+
+    newMealPlanManager.mealPlanArray.forEach((plan) => {
+      display.displayMealPlan(plan.date, plan.id, plan.favorite);
     });
+  } else if (event.target.id === "favoriteTab") {
+    // Make create new meal plan hide when in this tab
+    document.querySelector("#createNewMeal").style.display = "none";
+    const favoriteMealPlans = newMealPlanManager.favoriteMealPlanArray;
+    display.wipeDisplay();
+
     favoriteMealPlans.forEach((plan) => {
       display.displayMealPlan(plan.date, plan.id, plan.favorite);
     });
+
+    selectContainer.dataset.type = "favorites";
+    display.displayCreateNewMeal();
   }
 });

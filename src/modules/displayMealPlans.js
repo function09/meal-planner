@@ -46,6 +46,14 @@ const DisplayFactory = () => {
       selectSaveFormButton.id = "submitFormButton";
     }
   };
+
+  const displayCreateNewMeal = () => {
+    if (selectContainer.dataset.type === "favorites") {
+      selectCreateNewMealButton.style.display = "none";
+    } else {
+      selectCreateNewMealButton.style.display = "flex";
+    }
+  };
   const displayMealPlan = (date, index, favorite) => {
     const createDiv = document.createElement("div");
     createDiv.setAttribute("class", "mealPlans");
@@ -69,6 +77,7 @@ const DisplayFactory = () => {
     createFavoriteButton.dataset.id = index;
     if (favorite === true) {
       createFavoriteButton.textContent = "Unfavorite";
+      createFavoriteButton.classList = "unfavorite";
     }
 
     if (document.querySelector("#createNewMeal")) {
@@ -141,11 +150,10 @@ const DisplayFactory = () => {
   };
   // Find a way to incorporate this within displayMealPlan()
   const favoriteMealPlan = () => {
-    const selectAllMealPlans = document.querySelectorAll(".mealPlans");
-
-    selectAllMealPlans.forEach((plan) => {
-      plan.remove();
-    });
+    // const selectAllMealPlans = document.querySelectorAll(".mealPlans");
+    // selectAllMealPlans.forEach((plan) => {
+    //   plan.remove();
+    // });
     // console.log(document.querySelector("#createNewMeal") === null);
   };
 
@@ -159,11 +167,18 @@ const DisplayFactory = () => {
       selectFavoriteMealPlanAmount.textContent = "";
     }
   };
+  // rename this to something better
+  const wipeDisplay = () => {
+    document.querySelectorAll(".mealPlans").forEach((plan) => {
+      plan.remove();
+    });
+  };
 
   return {
     assignID,
     displayForm,
     closeForm,
+    displayCreateNewMeal,
     displayMealPlan,
     getDate,
     getMeals,
@@ -172,6 +187,7 @@ const DisplayFactory = () => {
     edit,
     favoriteMealPlan,
     favoriteMealPlanAmount,
+    wipeDisplay,
   };
 };
 

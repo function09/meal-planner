@@ -13,12 +13,12 @@ class MealPlanManager {
     });
   }
 
-  pushToArray(date, breakfast, lunch, dinner) {
+  pushToMealPlanArray(date, breakfast, lunch, dinner) {
     this.mealPlanArray.push(new MealPlan(date, breakfast, lunch, dinner));
-    // console.log(this.mealPlanArray);
+    console.log(this.mealPlanArray);
   }
 
-  removeFromArray(ID) {
+  removeFromMealPlanArray(ID) {
     const getObjIndexMealPlans = this.mealPlanArray.findIndex(
       (obj) => obj.id === ID
     );
@@ -30,8 +30,8 @@ class MealPlanManager {
     this.mealPlanArray.splice(getObjIndexMealPlans, 1);
     this.favoriteMealPlanArray.splice(getObjIndexFavoriteMealPlans, 1);
     // this.mealPlanArray.splice(index, 1);
-    console.log(this.mealPlanArray);
-    console.log(this.favoriteMealPlanArray);
+    // console.log(this.mealPlanArray);
+    // console.log(this.favoriteMealPlanArray);
   }
 
   editMealPlan(selection, date, breakfast, lunch, dinner) {
@@ -40,19 +40,31 @@ class MealPlanManager {
     getObjByID.breakfast = breakfast;
     getObjByID.lunch = lunch;
     getObjByID.dinner = dinner;
-    console.log(this.mealPlanArray);
+    // console.log(this.mealPlanArray);
   }
 
-  getMealData(selection) {
+  selectMeals(ID) {
+    const mealArray = [];
+
+    const getObjByID = this.mealPlanArray.find((obj) => obj.id === ID);
+    // console.log(getObjByID);
+
+    const getTruthyMeals = Object.keys(getObjByID).filter(
+      (key) => getObjByID[key] === true && key !== "favorite"
+    );
+
+    getTruthyMeals.forEach((meal) => {
+      mealArray.push(meal.charAt(0).toUpperCase() + meal.slice(1));
+    });
+    return mealArray;
+  }
+
+  getMealValues(selection) {
     const getObjByID = this.mealPlanArray.find((obj) => obj.id === selection);
     const getBreakfast = getObjByID.breakfast;
     const getLunch = getObjByID.lunch;
     const getDinner = getObjByID.dinner;
     return [getBreakfast, getLunch, getDinner];
-  }
-
-  getMealPlanArrayLength() {
-    return this.mealPlanArray.length;
   }
 
   favoriteMealPlan(selection) {
@@ -80,7 +92,11 @@ class MealPlanManager {
     }
   }
 
-  getFavoriteMealPlanArrayLength(selection) {
+  getMealPlanArrayLength() {
+    return this.mealPlanArray.length;
+  }
+
+  getFavoriteMealPlanArrayLength() {
     return this.favoriteMealPlanArray.length;
   }
 }

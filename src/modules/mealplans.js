@@ -7,5 +7,5 @@ class MealPlan {
     this.favorite = false;
   }
 }
-
+// Extract truthy meals and create a div for each
 export { MealPlan };

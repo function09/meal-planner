@@ -18,7 +18,7 @@ const DisplayFactory = () => {
       }
     });
   };
-  // RENAME ALL ELEMENTS TO BE MORE FITTING BEFORE PUSHING TO REPOSITORY!!!!
+  // RENAME AND ALL ELEMENTS TO BE MORE FITTING BEFORE PUSHING TO REPOSITORY!!!!
 
   const displayForm = () => {
     selectForm.style.display = "flex";
@@ -61,6 +61,11 @@ const DisplayFactory = () => {
     const createSpan = document.createElement("span");
     createSpan.textContent = date;
 
+    const createViewButton = document.createElement("button");
+    createViewButton.textContent = "View";
+    createViewButton.setAttribute("class", "view");
+    createViewButton.dataset.id = index;
+
     const createRemoveButton = document.createElement("button");
     createRemoveButton.textContent = "Remove";
     createRemoveButton.setAttribute("class", "removeMealPlan");
@@ -83,6 +88,7 @@ const DisplayFactory = () => {
     if (document.querySelector("#createNewMeal")) {
       selectContainer.insertBefore(createDiv, selectCreateNewMealButton);
       createDiv.appendChild(createSpan);
+      createDiv.appendChild(createViewButton);
       createDiv.appendChild(createRemoveButton);
       createDiv.appendChild(createEditButton);
       createDiv.appendChild(createFavoriteButton);
@@ -90,6 +96,7 @@ const DisplayFactory = () => {
     } else {
       selectContainer.appendChild(createDiv);
       createDiv.appendChild(createSpan);
+      createDiv.appendChild(createViewButton);
       createDiv.appendChild(createRemoveButton);
       createDiv.appendChild(createEditButton);
       createDiv.appendChild(createFavoriteButton);
@@ -122,6 +129,7 @@ const DisplayFactory = () => {
       updateMealPlanAmount.textContent = "";
     }
   };
+  const view = () => {};
   const remove = (ID) => {
     const getMealPlanID = document.querySelector(`#index-${ID}`);
 
@@ -168,7 +176,7 @@ const DisplayFactory = () => {
     }
   };
   // rename this to something better
-  const wipeDisplay = () => {
+  const removeMealPlanDisplay = () => {
     document.querySelectorAll(".mealPlans").forEach((plan) => {
       plan.remove();
     });
@@ -187,7 +195,7 @@ const DisplayFactory = () => {
     edit,
     favoriteMealPlan,
     favoriteMealPlanAmount,
-    wipeDisplay,
+    removeMealPlanDisplay,
   };
 };
 

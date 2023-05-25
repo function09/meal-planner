@@ -5,37 +5,49 @@ const selectContainer = document.querySelector("#container");
 const newMealPlanManager = new MealPlanManager();
 
 selectContainer.addEventListener("click", (event) => {
-  const display = DisplayFactory();
+  const displayMealPlans = DisplayFactory();
   if (event.target.id === "createNewMeal") {
-    display.displayForm();
+    displayMealPlans.displayForm();
   } else if (event.target.id === "close") {
-    display.closeForm();
+    displayMealPlans.closeForm();
   } else if (event.target.id === "submitFormButton") {
-    const date = display.getDate();
-    const meals = display.getMeals();
-    display.closeForm();
+    const date = displayMealPlans.getDate();
+    const meals = displayMealPlans.getMeals();
+    displayMealPlans.closeForm();
     // while (selectContainer.firstChild) {
     //   selectContainer.removeChild(selectContainer.firstChild);
     // }
     document.querySelectorAll(".mealPlans").forEach((plan) => {
       plan.remove();
     });
-    newMealPlanManager.pushToArray(date, ...meals);
+    newMealPlanManager.pushToMealPlanArray(date, ...meals);
     newMealPlanManager.assignID();
     newMealPlanManager.mealPlanArray.forEach((arr) => {
-      display.displayMealPlan(arr.date, arr.id, arr.favorite);
+      displayMealPlans.displayMealPlan(arr.date, arr.id, arr.favorite);
     });
-    display.displayMealPlanAmount(newMealPlanManager.getMealPlanArrayLength());
+    displayMealPlans.displayMealPlanAmount(
+      newMealPlanManager.getMealPlanArrayLength()
+    );
     // console.log(newMealPlanManager.mealPlanArray);
 
     event.preventDefault();
     // Change index to ID, conditional is also incorrect
+  } else if (event.target.className === "view") {
+    const getMealObjID = Number(event.target.dataset.id);
+
+    console.log(newMealPlanManager.selectMeals(getMealObjID));
+
+    displayMealPlans.removeMealPlanDisplay();
+
+    document.querySelector("#createNewMeal").style.displayMealPlans = "none";
   } else if (event.target.className === "removeMealPlan") {
     const getMealObjID = Number(event.target.dataset.id);
-    newMealPlanManager.removeFromArray(getMealObjID);
-    display.remove(getMealObjID);
-    display.displayMealPlanAmount(newMealPlanManager.getMealPlanArrayLength());
-    display.favoriteMealPlanAmount(
+    newMealPlanManager.removeFromMealPlanArray(getMealObjID);
+    displayMealPlans.remove(getMealObjID);
+    displayMealPlans.displayMealPlanAmount(
+      newMealPlanManager.getMealPlanArrayLength()
+    );
+    displayMealPlans.favoriteMealPlanAmount(
       newMealPlanManager.getFavoriteMealPlanArrayLength()
     );
   }
@@ -44,22 +56,22 @@ selectContainer.addEventListener("click", (event) => {
     const mealPlan = event.target.parentElement;
     const selection = event.target.dataset.id;
     const selectMealPlanID = Number(event.target.dataset.id);
-    const getMealData = newMealPlanManager.getMealData(selectMealPlanID);
-    display.edit(mealPlan, selection, ...getMealData);
+    const getMealValues = newMealPlanManager.getMealValues(selectMealPlanID);
+    displayMealPlans.edit(mealPlan, selection, ...getMealValues);
   } else if (event.target.id === "saveEdit") {
     const selection = Number(event.target.dataset.id);
-    const date = display.getDate();
-    const meals = display.getMeals();
+    const date = displayMealPlans.getDate();
+    const meals = displayMealPlans.getMeals();
 
     newMealPlanManager.editMealPlan(selection, date, ...meals);
-    display.closeForm();
+    displayMealPlans.closeForm();
 
     document.querySelectorAll(".mealPlans").forEach((plan) => {
       plan.remove();
     });
 
     newMealPlanManager.mealPlanArray.forEach((arr) => {
-      display.displayMealPlan(arr.date, arr.id, arr.favorite);
+      displayMealPlans.displayMealPlan(arr.date, arr.id, arr.favorite);
     });
     event.preventDefault();
   } else if (event.target.className === "favorite") {
@@ -69,7 +81,7 @@ selectContainer.addEventListener("click", (event) => {
     // See if you can make these two into a function
     selectEventText.textContent = "Unfavorite";
     selectEventText.className = "unfavorite";
-    display.favoriteMealPlanAmount(
+    displayMealPlans.favoriteMealPlanAmount(
       newMealPlanManager.getFavoriteMealPlanArrayLength()
     );
   } else if (event.target.className === "unfavorite") {
@@ -81,7 +93,7 @@ selectContainer.addEventListener("click", (event) => {
     selectEventText.textContent = "Favorite";
     selectEventText.className = "favorite";
 
-    display.favoriteMealPlanAmount(
+    displayMealPlans.favoriteMealPlanAmount(
       newMealPlanManager.getFavoriteMealPlanArrayLength()
     );
 
@@ -92,29 +104,29 @@ selectContainer.addEventListener("click", (event) => {
 });
 
 const selectNavBar = document.querySelector("#navBar");
-const display = DisplayFactory();
+const displayMealPlans = DisplayFactory();
 
 selectNavBar.addEventListener("click", (event) => {
   if (event.target.id === "mealPlanTab") {
     delete selectContainer.dataset.type;
 
-    display.displayCreateNewMeal();
-    display.wipeDisplay();
+    displayMealPlans.displayCreateNewMeal();
+    displayMealPlans.removeMealPlanDisplay();
 
     newMealPlanManager.mealPlanArray.forEach((plan) => {
-      display.displayMealPlan(plan.date, plan.id, plan.favorite);
+      displayMealPlans.displayMealPlan(plan.date, plan.id, plan.favorite);
     });
   } else if (event.target.id === "favoriteTab") {
     // Make create new meal plan hide when in this tab
-    document.querySelector("#createNewMeal").style.display = "none";
+    document.querySelector("#createNewMeal").style.displayMealPlans = "none";
     const favoriteMealPlans = newMealPlanManager.favoriteMealPlanArray;
-    display.wipeDisplay();
+    displayMealPlans.removeMealPlanDisplay();
 
     favoriteMealPlans.forEach((plan) => {
-      display.displayMealPlan(plan.date, plan.id, plan.favorite);
+      displayMealPlans.displayMealPlan(plan.date, plan.id, plan.favorite);
     });
 
     selectContainer.dataset.type = "favorites";
-    display.displayCreateNewMeal();
+    displayMealPlans.displayCreateNewMeal();
   }
 });

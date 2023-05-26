@@ -179,6 +179,10 @@ const DisplayFactory = () => {
     document.querySelectorAll(".mealPlans").forEach((plan) => {
       plan.remove();
     });
+
+    if (document.querySelector("#mealContainer")) {
+      document.querySelector("#mealContainer").remove();
+    }
   };
   const createMealContainer = () => {
     const createMealDiv = document.createElement("div");

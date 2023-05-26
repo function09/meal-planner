@@ -35,6 +35,7 @@ selectContainer.addEventListener("click", (event) => {
   } else if (event.target.className === "view") {
     const getMealObjID = Number(event.target.dataset.id);
     const getDate = newMealPlanManager.selectDate(getMealObjID);
+    // Rename this when complete
     const testArr = newMealPlanManager.selectMeals(getMealObjID);
     displayMealPlans.removeMealPlanDisplay();
     displayMealPlans.createMealContainer();

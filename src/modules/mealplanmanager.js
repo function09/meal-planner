@@ -1,5 +1,6 @@
 import { MealPlan } from "./mealplans";
 
+// Try to create a static method that can return obj ID as opposed to just repeating the same code over
 class MealPlanManager {
   mealPlanArray = [];
 
@@ -7,6 +8,7 @@ class MealPlanManager {
 
   assignID() {
     let id = 0;
+
     this.mealPlanArray.forEach((index) => {
       index.id = id;
       id += 1;
@@ -41,6 +43,12 @@ class MealPlanManager {
     getObjByID.lunch = lunch;
     getObjByID.dinner = dinner;
     // console.log(this.mealPlanArray);
+  }
+
+  selectDate(ID) {
+    const getObjMeal = this.mealPlanArray.find((obj) => obj.id === ID).date;
+
+    return getObjMeal;
   }
 
   selectMeals(ID) {

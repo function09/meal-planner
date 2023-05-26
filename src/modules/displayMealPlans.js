@@ -129,14 +129,13 @@ const DisplayFactory = () => {
       updateMealPlanAmount.textContent = "";
     }
   };
-  const view = () => {};
   const remove = (ID) => {
     const getMealPlanID = document.querySelector(`#index-${ID}`);
 
     getMealPlanID.remove();
     selectContainer.appendChild(selectForm);
   };
-  // Hide create new meal plan button when edit is clicked, refactor to be less code by using the form already made
+  // Hide createMeals new meal plan button when edit is clicked, refactor to be less code by using the form already made
   const edit = (mealPlan, selection, breakfast, lunch, dinner) => {
     const element = mealPlan;
     element.style.display = "none";
@@ -181,18 +180,25 @@ const DisplayFactory = () => {
       plan.remove();
     });
   };
+  const createMealContainer = () => {
+    const createMealDiv = document.createElement("div");
 
-  const viewMeals = (mealArray) => {
+    createMealDiv.setAttribute("id", "mealContainer");
+
+    selectContainer.appendChild(createMealDiv);
+  };
+  const viewMeals = (date, mealArray) => {
+    const createDateDiv = document.createElement("div");
+    const selectMealContainer = document.querySelector("#mealContainer");
+
+    createDateDiv.textContent = date;
+    selectMealContainer.appendChild(createDateDiv);
+
     mealArray.forEach((meal) => {
-      const create = document.createElement("div");
-      create.textContent = meal;
-      create.style.border = "1px solid red";
-      create.style.width = "50vw";
-      create.style.height = "50vh";
-      create.style.display = "flex";
-      create.style.justifyContent = "center";
-      create.style.flex = "1";
-      selectContainer.appendChild(create);
+      const createMeals = document.createElement("div");
+      createMeals.setAttribute("id", "meals");
+      createMeals.textContent = meal;
+      selectMealContainer.appendChild(createMeals);
     });
   };
 
@@ -210,6 +216,7 @@ const DisplayFactory = () => {
     favoriteMealPlan,
     favoriteMealPlanAmount,
     removeMealPlanDisplay,
+    createMealContainer,
     viewMeals,
   };
 };

@@ -34,13 +34,12 @@ selectContainer.addEventListener("click", (event) => {
     // Change index to ID, conditional is also incorrect
   } else if (event.target.className === "view") {
     const getMealObjID = Number(event.target.dataset.id);
-
+    const getDate = newMealPlanManager.selectDate(getMealObjID);
     const testArr = newMealPlanManager.selectMeals(getMealObjID);
-
     displayMealPlans.removeMealPlanDisplay();
+    displayMealPlans.createMealContainer();
 
-    displayMealPlans.viewMeals(testArr);
-
+    displayMealPlans.viewMeals(getDate, testArr);
     document.querySelector("#createNewMeal").style.display = "none";
   } else if (event.target.className === "removeMealPlan") {
     const getMealObjID = Number(event.target.dataset.id);

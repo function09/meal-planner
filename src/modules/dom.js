@@ -35,11 +35,13 @@ selectContainer.addEventListener("click", (event) => {
   } else if (event.target.className === "view") {
     const getMealObjID = Number(event.target.dataset.id);
 
-    console.log(newMealPlanManager.selectMeals(getMealObjID));
+    const testArr = newMealPlanManager.selectMeals(getMealObjID);
 
     displayMealPlans.removeMealPlanDisplay();
 
-    document.querySelector("#createNewMeal").style.displayMealPlans = "none";
+    displayMealPlans.viewMeals(testArr);
+
+    document.querySelector("#createNewMeal").style.display = "none";
   } else if (event.target.className === "removeMealPlan") {
     const getMealObjID = Number(event.target.dataset.id);
     newMealPlanManager.removeFromMealPlanArray(getMealObjID);

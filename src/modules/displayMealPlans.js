@@ -182,6 +182,20 @@ const DisplayFactory = () => {
     });
   };
 
+  const viewMeals = (mealArray) => {
+    mealArray.forEach((meal) => {
+      const create = document.createElement("div");
+      create.textContent = meal;
+      create.style.border = "1px solid red";
+      create.style.width = "50vw";
+      create.style.height = "50vh";
+      create.style.display = "flex";
+      create.style.justifyContent = "center";
+      create.style.flex = "1";
+      selectContainer.appendChild(create);
+    });
+  };
+
   return {
     assignID,
     displayForm,
@@ -196,6 +210,7 @@ const DisplayFactory = () => {
     favoriteMealPlan,
     favoriteMealPlanAmount,
     removeMealPlanDisplay,
+    viewMeals,
   };
 };
 

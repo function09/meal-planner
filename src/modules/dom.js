@@ -102,6 +102,9 @@ selectContainer.addEventListener("click", (event) => {
     if (selectContainer.dataset.type === "favorites") {
       event.target.parentElement.remove();
     }
+  } else if (event.target.className === "mealButton") {
+    const getParentElement = event.target.parentElement;
+    displayMealPlans.createMealInputs(getParentElement);
   }
 });
 

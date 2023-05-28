@@ -37,10 +37,17 @@ body {
     height: 80vh;
 }
 
-#meals {
+.meal {
     width: 50vw;
     height: 20vh;
     display: flex;
-    justify-content: center;
+    flex: 1;
+    align-items:center ;
+    flex-direction: column;
     margin-top: 25px;
+}
+
+.mealForm { 
+    display:flex;
+    flex-direction: column;
 }

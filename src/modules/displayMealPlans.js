@@ -1,10 +1,13 @@
 import { format } from "date-fns";
+import { DisplayMeals } from "./displayMeals";
 
+// Rename this when complete
 const DisplayFactory = () => {
   const selectForm = document.querySelector("#form");
   const selectCreateNewMealButton = document.querySelector("#createNewMeal");
   const selectCheckBoxes = document.querySelectorAll(".checkbox");
   const selectContainer = document.querySelector("#container");
+  const displayMeals = DisplayMeals();
   // Check and see if this even is necessary
   const assignID = () => {
     const selectMealPlans = document.querySelectorAll(".mealPlans");
@@ -191,19 +194,60 @@ const DisplayFactory = () => {
 
     selectContainer.appendChild(createMealDiv);
   };
+
   const viewMeals = (date, mealArray) => {
-    const createDateDiv = document.createElement("div");
     const selectMealContainer = document.querySelector("#mealContainer");
 
+    const createDateDiv = document.createElement("div");
+    createDateDiv.setAttribute("class", "date");
     createDateDiv.textContent = date;
     selectMealContainer.appendChild(createDateDiv);
 
     mealArray.forEach((meal) => {
-      const createMeals = document.createElement("div");
-      createMeals.setAttribute("id", "meals");
-      createMeals.textContent = meal;
-      selectMealContainer.appendChild(createMeals);
+      const createMeal = document.createElement("div");
+      createMeal.setAttribute("id", `${meal.toLowerCase()}`);
+      createMeal.classList.add("meal");
+      createMeal.textContent = meal;
+      selectMealContainer.appendChild(createMeal);
+      displayMeals.createMealForm(createMeal);
+
+      // const createMealButton = document.createElement("button");
+      // createMealButton.setAttribute("class", "mealButton");
+      // createMealButton.textContent = "+ Create meal";
+      // createMeal.appendChild(createMealButton);
     });
+  };
+  // const viewMeals = (date, mealArray) => {
+  //   const createDateDiv = document.createElement("div");
+  //   const selectMealContainer = document.querySelector("#mealContainer");
+
+  //   createDateDiv.textContent = date;
+  //   selectMealContainer.appendChild(createDateDiv);
+
+  //   mealArray.forEach((meal) => {
+  //     const createMeals = document.createElement("div");
+  //     createMeals.setAttribute("class", "meals");
+  //     createMeals.textContent = meal;
+  //     selectMealContainer.appendChild(createMeals);
+
+  //     const createMealButton = document.createElement("button");
+  //     createMealButton.setAttribute("class", "createMeal");
+  //     createMealButton.textContent = "Create Meal";
+  //     createMeals.appendChild(createMealButton);
+  //   });
+  // };
+  const createMealForm = (meal) => {
+    const createForm = document.createElement("form");
+    createForm.setAttribute("id", "mealForm");
+    meal.appendChild(createForm);
+
+    // const createInput = ["Main dish", "Side dish", "Drink"];
+
+    // createInput.forEach((input) => {
+    //   const createInputs = document.createElement("input");
+    //   createInputs.placeholder = input;
+    //   createForm.appendChild(createInputs);
+    // });
   };
 
   return {
@@ -222,6 +266,7 @@ const DisplayFactory = () => {
     removeMealPlanDisplay,
     createMealContainer,
     viewMeals,
+    createMealForm,
   };
 };
 

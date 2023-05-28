@@ -5,3 +5,5 @@ class Meals {
     this.drink = drink;
   }
 }
+
+export { Meals };

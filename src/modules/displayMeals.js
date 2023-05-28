@@ -4,15 +4,18 @@ const DisplayMeals = () => {
     createForm.setAttribute("class", "mealForm");
     meal.appendChild(createForm);
 
-    const createInput = ["Main dish", "Side dish", "Drink"];
+    const dishArray = ["Main dish", "Side dish", "Drink"];
 
-    createInput.forEach((input) => {
+    dishArray.forEach((input) => {
       const createInputs = document.createElement("input");
+      createInputs.setAttribute("type", "text");
+      createInputs.setAttribute("class", "dish");
       createInputs.placeholder = input;
       createForm.appendChild(createInputs);
     });
     const createSubmitMealButton = document.createElement("button");
     createSubmitMealButton.setAttribute("class", "submitMeal");
+    createSubmitMealButton.setAttribute("type", "submit");
     createSubmitMealButton.textContent = "Submit";
     createForm.appendChild(createSubmitMealButton);
   };

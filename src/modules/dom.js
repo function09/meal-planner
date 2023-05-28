@@ -1,8 +1,10 @@
 import { MealPlanManager } from "./mealplanmanager";
 import { DisplayFactory } from "./displayMealPlans";
+import { MealManager } from "./mealManager";
 
 const selectContainer = document.querySelector("#container");
 const newMealPlanManager = new MealPlanManager();
+const newMealManager = new MealManager();
 
 selectContainer.addEventListener("click", (event) => {
   const displayMealPlans = DisplayFactory();
@@ -133,5 +135,13 @@ selectNavBar.addEventListener("click", (event) => {
 
     selectContainer.dataset.type = "favorites";
     displayMealPlans.displayCreateNewMeal();
+  }
+});
+
+selectContainer.addEventListener("click", (event) => {
+  if (event.target.className === "submitMeal") {
+    newMealManager.addMeal("burger", "fries", "milkshake");
+    console.log(newMealManager.mealArray);
+    event.preventDefault();
   }
 });

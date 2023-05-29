@@ -1,6 +1,7 @@
 import { MealPlanManager } from "./mealplanmanager";
 import { DisplayFactory } from "./displayMealPlans";
 import { MealManager } from "./mealManager";
+import { DisplayMeals } from "./displayMeals";
 
 const selectContainer = document.querySelector("#container");
 const newMealPlanManager = new MealPlanManager();
@@ -137,11 +138,32 @@ selectNavBar.addEventListener("click", (event) => {
     displayMealPlans.displayCreateNewMeal();
   }
 });
-
+// Use variables
+const displayMeals = DisplayMeals();
 selectContainer.addEventListener("click", (event) => {
-  if (event.target.className === "submitMeal") {
-    newMealManager.addMeal("burger", "fries", "milkshake");
-    console.log(newMealManager.mealArray);
+  const parentElementID = event.target.parentElement.id;
+  const parentParent = event.target.parentElement.parentElement;
+
+  if (event.target.className === "breakfast") {
+    const getDishes = displayMeals.getDishes(parentElementID);
+    newMealManager.addBreakfast(...getDishes);
+    newMealManager.assignIDs();
+    event.target.parentElement.remove();
+    displayMeals.displayMeal(getDishes, parentParent);
+    event.preventDefault();
+  } else if (event.target.className === "lunch") {
+    const getDishes = displayMeals.getDishes(parentElementID);
+    newMealManager.addLunch(...getDishes);
+    newMealManager.assignIDs();
+    event.target.parentElement.remove();
+    displayMeals.displayMeal(getDishes, parentParent);
+    event.preventDefault();
+  } else if (event.target.className === "dinner") {
+    const getDishes = displayMeals.getDishes(parentElementID);
+    newMealManager.addDinner(...getDishes);
+    newMealManager.assignIDs();
+    event.target.parentElement.remove();
+    displayMeals.displayMeal(getDishes, parentParent);
     event.preventDefault();
   }
 });

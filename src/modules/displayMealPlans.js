@@ -204,17 +204,17 @@ const DisplayFactory = () => {
     selectMealContainer.appendChild(createDateDiv);
 
     mealArray.forEach((meal) => {
-      const createMeal = document.createElement("div");
-      createMeal.setAttribute("id", `${meal.toLowerCase()}`);
-      createMeal.classList.add("meal");
-      createMeal.textContent = meal;
-      selectMealContainer.appendChild(createMeal);
-      displayMeals.createMealForm(createMeal);
+      const createMealDisplay = document.createElement("div");
+      // createMealDisplay.setAttribute("id", meal.toLowerCase());
+      createMealDisplay.setAttribute("class", "meal");
+      createMealDisplay.textContent = meal;
+      selectMealContainer.appendChild(createMealDisplay);
+      displayMeals.createMealForm(createMealDisplay, meal.toLowerCase());
 
       // const createMealButton = document.createElement("button");
       // createMealButton.setAttribute("class", "mealButton");
       // createMealButton.textContent = "+ Create meal";
-      // createMeal.appendChild(createMealButton);
+      // createMealDisplay.appendChild(createMealButton);
     });
   };
   // const viewMeals = (date, mealArray) => {
@@ -231,24 +231,11 @@ const DisplayFactory = () => {
   //     selectMealContainer.appendChild(createMeals);
 
   //     const createMealButton = document.createElement("button");
-  //     createMealButton.setAttribute("class", "createMeal");
+  //     createMealButton.setAttribute("class", "createMealDisplay");
   //     createMealButton.textContent = "Create Meal";
   //     createMeals.appendChild(createMealButton);
   //   });
   // };
-  const createMealForm = (meal) => {
-    const createForm = document.createElement("form");
-    createForm.setAttribute("id", "mealForm");
-    meal.appendChild(createForm);
-
-    // const createInput = ["Main dish", "Side dish", "Drink"];
-
-    // createInput.forEach((input) => {
-    //   const createInputs = document.createElement("input");
-    //   createInputs.placeholder = input;
-    //   createForm.appendChild(createInputs);
-    // });
-  };
 
   return {
     assignID,
@@ -266,7 +253,6 @@ const DisplayFactory = () => {
     removeMealPlanDisplay,
     createMealContainer,
     viewMeals,
-    createMealForm,
   };
 };
 

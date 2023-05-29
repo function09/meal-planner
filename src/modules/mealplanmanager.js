@@ -1,6 +1,6 @@
 import { MealPlan } from "./mealplans";
 
-// Try to create a static method that can return obj ID as opposed to just repeating the same code over
+// Try to create a method that can return obj ID as opposed to just repeating the same code over
 class MealPlanManager {
   mealPlanArray = [];
 
@@ -46,9 +46,9 @@ class MealPlanManager {
   }
 
   selectDate(ID) {
-    const getObjMeal = this.mealPlanArray.find((obj) => obj.id === ID).date;
+    const getObjDate = this.mealPlanArray.find((obj) => obj.id === ID).date;
 
-    return getObjMeal;
+    return getObjDate;
   }
 
   selectMeals(ID) {

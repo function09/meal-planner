@@ -6,6 +6,7 @@ import { DisplayMeals } from "./displayMeals";
 const selectContainer = document.querySelector("#container");
 const newMealPlanManager = new MealPlanManager();
 const newMealManager = new MealManager();
+const displayMeals = DisplayMeals();
 
 selectContainer.addEventListener("click", (event) => {
   const displayMealPlans = DisplayFactory();
@@ -34,7 +35,7 @@ selectContainer.addEventListener("click", (event) => {
     // console.log(newMealPlanManager.mealPlanArray);
 
     event.preventDefault();
-    // Change index to ID, conditional is also incorrect
+    // Change index to ID, conditional is also incorrect, clean up code
   } else if (event.target.className === "view") {
     const getMealObjID = Number(event.target.dataset.id);
     const getDate = newMealPlanManager.selectDate(getMealObjID);
@@ -42,9 +43,10 @@ selectContainer.addEventListener("click", (event) => {
     const testArr = newMealPlanManager.selectMeals(getMealObjID);
     displayMealPlans.removeMealPlanDisplay();
     displayMealPlans.createMealContainer();
-
     displayMealPlans.viewMeals(getDate, testArr);
     document.querySelector("#createNewMeal").style.display = "none";
+    displayMeals.assignButtonMealData(testArr);
+    displayMeals.assignButtonMealID(getMealObjID);
   } else if (event.target.className === "removeMealPlan") {
     const getMealObjID = Number(event.target.dataset.id);
     newMealPlanManager.removeFromMealPlanArray(getMealObjID);
@@ -138,32 +140,64 @@ selectNavBar.addEventListener("click", (event) => {
     displayMealPlans.displayCreateNewMeal();
   }
 });
-// Use variables
-const displayMeals = DisplayMeals();
+// Use variables and name to what they do or point to
 selectContainer.addEventListener("click", (event) => {
-  const parentElementID = event.target.parentElement.id;
-  const parentParent = event.target.parentElement.parentElement;
+  const targetClass = event.target.className;
+  const selectForm = event.target.parentElement;
+  const selectMealDiv = selectForm.parentElement;
+  const getMealData = event.target.dataset.meal;
+  const getMealPlanIDValue = Number(event.target.dataset.mealPlanId);
+  if (targetClass === "submitMeal") {
+    const getInputValues = displayMeals.returnInputData(selectForm);
 
-  if (event.target.className === "breakfast") {
-    const getDishes = displayMeals.getDishes(parentElementID);
-    newMealManager.addBreakfast(...getDishes);
-    newMealManager.assignIDs();
-    event.target.parentElement.remove();
-    displayMeals.displayMeal(getDishes, parentParent);
-    event.preventDefault();
-  } else if (event.target.className === "lunch") {
-    const getDishes = displayMeals.getDishes(parentElementID);
-    newMealManager.addLunch(...getDishes);
-    newMealManager.assignIDs();
-    event.target.parentElement.remove();
-    displayMeals.displayMeal(getDishes, parentParent);
-    event.preventDefault();
-  } else if (event.target.className === "dinner") {
-    const getDishes = displayMeals.getDishes(parentElementID);
-    newMealManager.addDinner(...getDishes);
-    newMealManager.assignIDs();
-    event.target.parentElement.remove();
-    displayMeals.displayMeal(getDishes, parentParent);
+    newMealManager.pushToMealArray(
+      ...getInputValues,
+      getMealData,
+      getMealPlanIDValue
+    );
+    // console.log(parent);
+    // console.log(parent.parentElement);
+    const dishArray = newMealManager.getDishes(getMealData, getMealPlanIDValue);
+    displayMeals.displayMeal(dishArray, selectMealDiv);
+    selectForm.remove();
     event.preventDefault();
   }
+  // const parentElementClass = event.target.parentElement.className;
+  // const parentParent = event.target.parentElement.parentElement;
+  // if (event.target.className === "breakfast") {
+  //   // Grab dish info using event.target
+  //   const getDishes = displayMeals.getDishes(parentElementClass);
+  //   newMealManager.addBreakfast(...getDishes);
+  //   newMealManager.assignIDs();
+  //   event.target.parentElement.remove();
+  //   displayMeals.displayMeal(getDishes, parentParent);
+  //   event.preventDefault();
+  // } else if (event.target.className === "lunch") {
+  //   const getDishes = displayMeals.getDishes(parentElementClass);
+  //   newMealManager.addLunch(...getDishes);
+  //   newMealManager.assignIDs();
+  //   event.target.parentElement.remove();
+  //   displayMeals.displayMeal(getDishes, parentParent);
+  //   event.preventDefault();
+  // } else if (event.target.className === "dinner") {
+  //   const getDishes = displayMeals.getDishes(parentElementClass);
+  //   newMealManager.addDinner(...getDishes);
+  //   newMealManager.assignIDs();
+  //   event.target.parentElement.remove();
+  //   displayMeals.displayMeal(getDishes, parentParent);
+  //   event.preventDefault();
+  // } else if (event.target.className === "editMeal") {
+  //   const parent = event.target.parentElement;
+  //   const getID = event.target.parentElement.firstChild.id;
+  //   displayMeals.createMealForm(parent, getID, "Save edit");
+  //   const selectPreviousChildren =
+  //     event.target.parentElement.querySelectorAll("div");
+  //   selectPreviousChildren.forEach((child) => {
+  //     child.remove();
+  //   });
+  //   event.target.remove();
+  // } else if (event.target.className === "confirmEdit") {
+  //   console.log(event.target.parentElement);
+  //   event.preventDefault();
+  // }
 });

@@ -205,37 +205,17 @@ const DisplayFactory = () => {
 
     mealArray.forEach((meal) => {
       const createMealDisplay = document.createElement("div");
-      // createMealDisplay.setAttribute("id", meal.toLowerCase());
       createMealDisplay.setAttribute("class", "meal");
-      createMealDisplay.textContent = meal;
       selectMealContainer.appendChild(createMealDisplay);
-      displayMeals.createMealForm(createMealDisplay, meal.toLowerCase());
 
-      // const createMealButton = document.createElement("button");
-      // createMealButton.setAttribute("class", "mealButton");
-      // createMealButton.textContent = "+ Create meal";
-      // createMealDisplay.appendChild(createMealButton);
+      // for getting ID change to div when complete
+      const test = document.createElement("span");
+      test.setAttribute("id", meal.toLowerCase());
+      test.textContent = meal;
+      createMealDisplay.appendChild(test);
+      displayMeals.createMealForm(mealArray);
     });
   };
-  // const viewMeals = (date, mealArray) => {
-  //   const createDateDiv = document.createElement("div");
-  //   const selectMealContainer = document.querySelector("#mealContainer");
-
-  //   createDateDiv.textContent = date;
-  //   selectMealContainer.appendChild(createDateDiv);
-
-  //   mealArray.forEach((meal) => {
-  //     const createMeals = document.createElement("div");
-  //     createMeals.setAttribute("class", "meals");
-  //     createMeals.textContent = meal;
-  //     selectMealContainer.appendChild(createMeals);
-
-  //     const createMealButton = document.createElement("button");
-  //     createMealButton.setAttribute("class", "createMealDisplay");
-  //     createMealButton.textContent = "Create Meal";
-  //     createMeals.appendChild(createMealButton);
-  //   });
-  // };
 
   return {
     assignID,

@@ -1,29 +1,21 @@
 const DisplayMeals = () => {
-  const createMealForm = (mealArray) => {
-    const selectAllMeals = document.querySelectorAll(".meal");
-    const createForm = document.createElement("form");
-
-    createForm.setAttribute("class", "mealForm");
-
-    selectAllMeals.forEach((meal) => {
-      meal.appendChild(createForm);
-    });
-
+  const createMealForm = (mealContainer) => {
+    // const selectAllMeals = document.querySelectorAll(".meal");
     const dishArray = ["Main dish", "Side dish", "Drink"];
 
-    dishArray.forEach((input) => {
-      const createInputs = document.createElement("input");
-      createInputs.setAttribute("type", "text");
-      createInputs.setAttribute("class", "dish");
-      createInputs.placeholder = input;
-      createForm.appendChild(createInputs);
+    const createForm = document.createElement("form");
+    createForm.setAttribute("class", "mealForm");
+    mealContainer.appendChild(createForm);
+
+    dishArray.forEach((index) => {
+      const createInput = document.createElement("input");
+      createInput.placeholder = index;
+      createForm.appendChild(createInput);
     });
 
     const createSubmitMealButton = document.createElement("button");
-    createSubmitMealButton.setAttribute("type", "submit");
-    createSubmitMealButton.setAttribute("class", "submitMeal");
+    createSubmitMealButton.type = "submit";
     createSubmitMealButton.textContent = "Submit";
-
     createForm.appendChild(createSubmitMealButton);
   };
 
@@ -58,7 +50,7 @@ const DisplayMeals = () => {
     return dishArray;
   };
 
-  const displayMeal = (dishArray, parentElement) => {
+  const displayMeal = (dishArray, parentElement, mealData, mealId) => {
     dishArray.forEach((dish) => {
       const createDishDiv = document.createElement("div");
       createDishDiv.setAttribute("class", "dish");
@@ -67,14 +59,15 @@ const DisplayMeals = () => {
     });
     const createEditMealButton = document.createElement("button");
     createEditMealButton.setAttribute("class", "editMeal");
+    createEditMealButton.dataset.meal = mealData;
+    createEditMealButton.dataset.mealPlanId = mealId;
     createEditMealButton.textContent = "edit";
     parentElement.appendChild(createEditMealButton);
   };
 
-  const editMeal = (parent, buttonClass) => {
-    displayMeal.createForm(parent, buttonClass);
+  const editMeal = () => {
+    createMealForm();
   };
-
   return {
     createMealForm,
     assignButtonMealData,

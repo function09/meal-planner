@@ -49,6 +49,13 @@ class MealManager {
     // this.assignMealType(meal);
   }
 
+  // searchForMeal(meal, id) {
+  //   const chosenMeal = this.mealArray.find(
+  //     (obj) => obj.meal === meal && obj.mealPlanID === id
+  //   );
+  //   return console.log(chosenMeal);
+  // }
+
   getDishes(meal, id) {
     const chosenMeal = this.mealArray.find(
       (obj) => obj.meal === meal && obj.mealPlanID === id

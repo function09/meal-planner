@@ -187,33 +187,39 @@ const DisplayFactory = () => {
       document.querySelector("#mealContainer").remove();
     }
   };
-  const createMealContainer = () => {
-    const createMealDiv = document.createElement("div");
-
-    createMealDiv.setAttribute("id", "mealContainer");
-
-    selectContainer.appendChild(createMealDiv);
-  };
 
   const viewMeals = (date, mealArray) => {
-    const selectMealContainer = document.querySelector("#mealContainer");
+    // const selectMealContainer = document.querySelector("#mealContainer");
 
     const createDateDiv = document.createElement("div");
     createDateDiv.setAttribute("class", "date");
     createDateDiv.textContent = date;
-    selectMealContainer.appendChild(createDateDiv);
+    selectContainer.appendChild(createDateDiv);
 
     mealArray.forEach((meal) => {
-      const createMealDisplay = document.createElement("div");
-      createMealDisplay.setAttribute("class", "meal");
-      selectMealContainer.appendChild(createMealDisplay);
+      const createMealContainer = document.createElement("div");
+      createMealContainer.setAttribute("class", "mealContainer");
+      selectContainer.appendChild(createMealContainer);
 
-      // for getting ID change to div when complete
-      const test = document.createElement("span");
-      test.setAttribute("id", meal.toLowerCase());
-      test.textContent = meal;
-      createMealDisplay.appendChild(test);
-      displayMeals.createMealForm(mealArray);
+      const createMealLabel = document.createElement("div");
+      createMealLabel.setAttribute("class", "mealLabel");
+      createMealLabel.textContent = meal;
+      createMealContainer.appendChild(createMealLabel);
+
+      const createMealButton = document.createElement("button");
+      createMealButton.setAttribute("class", "createMeal");
+      createMealButton.textContent = "+ Create meal";
+      createMealContainer.appendChild(createMealButton);
+
+      // const selectContainers = document.querySelectorAll(".mealContainer");
+      // // Rename to be a class shared by all three
+      // const mealLabel = document.createElement("div");
+      // mealLabel.setAttribute("id", meal.toLowerCase());
+      // mealLabel.textContent = meal;
+
+      // selectContainers.forEach((container) => {
+      //   container.appendChild(mealLabel);
+      // });
     });
   };
 
@@ -231,7 +237,6 @@ const DisplayFactory = () => {
     favoriteMealPlan,
     favoriteMealPlanAmount,
     removeMealPlanDisplay,
-    createMealContainer,
     viewMeals,
   };
 };

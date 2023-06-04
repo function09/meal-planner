@@ -188,18 +188,24 @@ const DisplayFactory = () => {
     }
   };
 
-  const viewMeals = (date, mealArray) => {
-    // const selectMealContainer = document.querySelector("#mealContainer");
+  const removeMealDisplay = () => {
+    document.querySelectorAll(".mealContainer").forEach((meal) => {
+      meal.remove();
+    });
+  };
 
-    const createDateDiv = document.createElement("div");
-    createDateDiv.setAttribute("class", "date");
-    createDateDiv.textContent = date;
-    selectContainer.appendChild(createDateDiv);
+  const viewMeals = (date, mealArray, mealId) => {
+    // const selectMealContainer = document.querySelector("#mealContainer");
 
     mealArray.forEach((meal) => {
       const createMealContainer = document.createElement("div");
       createMealContainer.setAttribute("class", "mealContainer");
       selectContainer.appendChild(createMealContainer);
+
+      const createDateDiv = document.createElement("div");
+      createDateDiv.setAttribute("class", "date");
+      createDateDiv.textContent = date;
+      createMealContainer.appendChild(createDateDiv);
 
       const createMealLabel = document.createElement("div");
       createMealLabel.setAttribute("class", "mealLabel");
@@ -208,6 +214,8 @@ const DisplayFactory = () => {
 
       const createMealButton = document.createElement("button");
       createMealButton.setAttribute("class", "createMeal");
+      createMealButton.dataset.mealId = mealId;
+      createMealButton.dataset.meal = meal;
       createMealButton.textContent = "+ Create meal";
       createMealContainer.appendChild(createMealButton);
 
@@ -237,6 +245,7 @@ const DisplayFactory = () => {
     favoriteMealPlan,
     favoriteMealPlanAmount,
     removeMealPlanDisplay,
+    removeMealDisplay,
     viewMeals,
   };
 };

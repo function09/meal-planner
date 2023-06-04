@@ -1,5 +1,5 @@
 const DisplayMeals = () => {
-  const createMealForm = (mealContainer) => {
+  const createMealForm = (mealContainer, mealType, mealID) => {
     // const selectAllMeals = document.querySelectorAll(".meal");
     const dishArray = ["Main dish", "Side dish", "Drink"];
 
@@ -15,21 +15,24 @@ const DisplayMeals = () => {
 
     const createSubmitMealButton = document.createElement("button");
     createSubmitMealButton.type = "submit";
+    createSubmitMealButton.setAttribute("class", "submitMeal");
+    createSubmitMealButton.dataset.mealId = mealID;
+    createSubmitMealButton.dataset.meal = mealType;
     createSubmitMealButton.textContent = "Submit";
     createForm.appendChild(createSubmitMealButton);
   };
 
-  const assignButtonMealData = (mealArray) => {
-    document.querySelectorAll(".submitMeal").forEach((button, index) => {
-      button.dataset.meal = mealArray[index];
-    });
-  };
+  // const assignButtonMealData = (mealArray) => {
+  //   document.querySelectorAll(".submitMeal").forEach((button, index) => {
+  //     button.dataset.meal = mealArray[index];
+  //   });
+  // };
 
-  const assignButtonMealID = (id) => {
-    document.querySelectorAll(".submitMeal").forEach((button) => {
-      button.dataset.mealPlanId = id;
-    });
-  };
+  // const assignButtonMealID = (id) => {
+  //   document.querySelectorAll(".submitMeal").forEach((button) => {
+  //     button.dataset.mealPlanId = id;
+  //   });
+  // };
 
   const returnInputData = (parent) => {
     const selectedMeals = [];
@@ -51,18 +54,22 @@ const DisplayMeals = () => {
   };
 
   const displayMeal = (dishArray, parentElement, mealData, mealId) => {
+    const createMealDisplay = document.createElement("div");
+    createMealDisplay.setAttribute("class", "mealDisplay");
+    parentElement.appendChild(createMealDisplay);
+
     dishArray.forEach((dish) => {
       const createDishDiv = document.createElement("div");
       createDishDiv.setAttribute("class", "dish");
       createDishDiv.textContent = dish;
-      parentElement.appendChild(createDishDiv);
+      createMealDisplay.appendChild(createDishDiv);
     });
     const createEditMealButton = document.createElement("button");
     createEditMealButton.setAttribute("class", "editMeal");
+    createEditMealButton.dataset.mealId = mealId;
     createEditMealButton.dataset.meal = mealData;
-    createEditMealButton.dataset.mealPlanId = mealId;
     createEditMealButton.textContent = "edit";
-    parentElement.appendChild(createEditMealButton);
+    createMealDisplay.appendChild(createEditMealButton);
   };
 
   const editMeal = () => {
@@ -70,8 +77,8 @@ const DisplayMeals = () => {
   };
   return {
     createMealForm,
-    assignButtonMealData,
-    assignButtonMealID,
+    // assignButtonMealData,
+    // assignButtonMealID,
     returnInputData,
     getDishes,
     displayMeal,

@@ -49,20 +49,30 @@ class MealManager {
     // this.assignMealType(meal);
   }
 
-  // searchForMeal(meal, id) {
-  //   const chosenMeal = this.mealArray.find(
-  //     (obj) => obj.meal === meal && obj.mealPlanID === id
-  //   );
-  //   return console.log(chosenMeal);
-  // }
+  searchForMeal(meal, id) {
+    // Rename chosenMeal
+    const chosenMeal = this.mealArray.find(
+      (obj) => obj.meal === meal && obj.mealPlanID === id
+    );
+    return chosenMeal;
+  }
 
   getDishes(meal, id) {
     const chosenMeal = this.mealArray.find(
       (obj) => obj.meal === meal && obj.mealPlanID === id
     );
+
     return [chosenMeal.mainDish, chosenMeal.sideDish, chosenMeal.drink];
   }
 
+  editMeal(meal, id, mainDish, sideDish, drink) {
+    this.searchForMeal(meal, id);
+
+    this.searchForMeal(meal, id).mainDish = mainDish;
+    this.searchForMeal(meal, id).sideDish = sideDish;
+    this.searchForMeal(meal, id).drink = drink;
+    console.log(this.mealArray);
+  }
   // addBreakfast(mainDish, sideDish, drink) {
   //   this.breakfastArray.push(new Meals(mainDish, sideDish, drink));
   //   console.log(this.breakfastArray);

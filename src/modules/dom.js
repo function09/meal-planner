@@ -40,13 +40,13 @@ selectContainer.addEventListener("click", (event) => {
     const getMealObjID = Number(event.target.dataset.id);
     const getDate = newMealPlanManager.selectDate(getMealObjID);
     // Rename this when complete
-    const testArr = newMealPlanManager.selectMeals(getMealObjID);
+    const mealArray = newMealPlanManager.selectMeals(getMealObjID);
     displayMealPlans.removeMealPlanDisplay();
     // displayMealPlans.createMealContainer();
-    displayMealPlans.viewMeals(getDate, testArr);
+    displayMealPlans.viewMeals(getDate, mealArray, getMealObjID);
     document.querySelector("#createNewMeal").style.display = "none";
-    displayMeals.assignButtonMealData(testArr);
-    displayMeals.assignButtonMealID(getMealObjID);
+    // displayMeals.assignButtonMealData(mealArray);
+    // displayMeals.assignButtonMealID(getMealObjID);
   } else if (event.target.className === "removeMealPlan") {
     const getMealObjID = Number(event.target.dataset.id);
     newMealPlanManager.removeFromMealPlanArray(getMealObjID);
@@ -122,6 +122,7 @@ selectNavBar.addEventListener("click", (event) => {
 
     displayMealPlans.displayCreateNewMeal();
     displayMealPlans.removeMealPlanDisplay();
+    displayMealPlans.removeMealDisplay();
 
     newMealPlanManager.mealPlanArray.forEach((plan) => {
       displayMealPlans.displayMealPlan(plan.date, plan.id, plan.favorite);
@@ -131,7 +132,7 @@ selectNavBar.addEventListener("click", (event) => {
     document.querySelector("#createNewMeal").style.displayMealPlans = "none";
     const favoriteMealPlans = newMealPlanManager.favoriteMealPlanArray;
     displayMealPlans.removeMealPlanDisplay();
-
+    // displayMealPlans.removeMealDisplay();
     favoriteMealPlans.forEach((plan) => {
       displayMealPlans.displayMealPlan(plan.date, plan.id, plan.favorite);
     });
@@ -144,20 +145,15 @@ selectNavBar.addEventListener("click", (event) => {
 selectContainer.addEventListener("click", (event) => {
   const buttonClassName = event.target.className;
   const mealContainer = event.target.parentElement;
-  // const selectForm = event.target.parentElement;
+  const mealID = Number(event.target.dataset.mealId);
+  const mealType = event.target.dataset.meal;
+  const selectForm = event.target.parentElement; // change name of this when cleaning
+  const selectMealContainer = selectForm.parentElement;
   // const selectMealDiv = selectForm.parentElement;
   // const getMealData = event.target.dataset.meal;
-  // const getMealPlanIDValue = Number(event.target.dataset.mealPlanId);
   if (buttonClassName === "createMeal") {
-    displayMeals.createMealForm(mealContainer);
-    console.log(mealContainer);
-    // const getInputValues = displayMeals.returnInputData(selectForm);
-    // newMealManager.pushToMealArray(
-    //   ...getInputValues,
-    //   getMealData,
-    //   getMealPlanIDValue
-    // );
-    // // console.log(parent);
+    displayMeals.createMealForm(mealContainer, mealType, mealID);
+    event.target.remove();
     // // console.log(parent.parentElement);
     // const dishArray = newMealManager.getDishes(getMealData, getMealPlanIDValue);
     // displayMeals.displayMeal(
@@ -168,18 +164,28 @@ selectContainer.addEventListener("click", (event) => {
     // );
     // selectForm.remove();
     // event.preventDefault();
+  } else if (buttonClassName === "submitMeal") {
+    const getInputValues = displayMeals.returnInputData(selectForm);
+    newMealManager.pushToMealArray(...getInputValues, mealType, mealID);
+    const getDishes = newMealManager.getDishes(mealType, mealID);
+    displayMeals.displayMeal(getDishes, selectMealContainer, mealType, mealID);
+    selectForm.remove();
+    event.preventDefault();
+    // if (selectMealContainer.dataset.canEdit === "true") {
+    //   document.querySelector("button").textContent = "save";
+    // }
   } else if (buttonClassName === "editMeal") {
-    // displayMeals.editMeal();
-    // console.log(event.target.parentElement.nextSibling.lastChild.remove());
-    // event.preventDefault();
-    // event.target.parentElement.nextSibling.querySelector(
-    //   ".submitMeal"
-    // ).dataset.mealPlanId = getMealPlanIDValue;
-    // event.target.parentElement.nextSibling.querySelector(
-    //   ".submitMeal"
-    // ).dataset.meal = getMealData;
-    // selectForm.remove();
-    // newMealManager.getDishes(getMealData, getMealPlanIDValue);
+    selectMealContainer.dataset.canEdit = true;
+    displayMeals.createMealForm(selectMealContainer, mealType, mealID);
+    selectForm.nextSibling.lastElementChild.textContent = "Save edit";
+    selectForm.nextSibling.lastElementChild.className = "saveEdit";
+    selectForm.remove();
+  } else if (buttonClassName === "saveEdit") {
+    const getDishes = displayMeals.getDishes(selectForm);
+    newMealManager.editMeal(mealType, mealID, ...getDishes);
+    displayMeals.displayMeal(getDishes, selectMealContainer, mealType, mealID);
+    selectForm.remove();
+    event.preventDefault();
   }
   // const parentElementClass = event.target.parentElement.className;
   // const parentParent = event.target.parentElement.parentElement;

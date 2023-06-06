@@ -53,10 +53,10 @@ const DisplayMeals = () => {
     return dishArray;
   };
 
-  const displayMeal = (dishArray, parentElement, mealData, mealId) => {
+  const displayMeal = (dishArray, parentContainer, mealData, mealId) => {
     const createMealDisplay = document.createElement("div");
     createMealDisplay.setAttribute("class", "mealDisplay");
-    parentElement.appendChild(createMealDisplay);
+    parentContainer.appendChild(createMealDisplay);
 
     dishArray.forEach((dish) => {
       const createDishDiv = document.createElement("div");
@@ -75,6 +75,7 @@ const DisplayMeals = () => {
   const editMeal = () => {
     createMealForm();
   };
+
   return {
     createMealForm,
     // assignButtonMealData,

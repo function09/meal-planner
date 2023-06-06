@@ -194,30 +194,73 @@ const DisplayFactory = () => {
     });
   };
 
-  const viewMeals = (date, mealArray, mealId) => {
+  const viewMeals = (filteredArray, date, mealArray, mealId) => {
     // const selectMealContainer = document.querySelector("#mealContainer");
 
-    mealArray.forEach((meal) => {
-      const createMealContainer = document.createElement("div");
-      createMealContainer.setAttribute("class", "mealContainer");
-      selectContainer.appendChild(createMealContainer);
+    mealArray.forEach((meal, index) => {
+      if (filteredArray.length === 0) {
+        const createMealContainer = document.createElement("div");
+        createMealContainer.setAttribute("class", "mealContainer");
+        selectContainer.appendChild(createMealContainer);
 
-      const createDateDiv = document.createElement("div");
-      createDateDiv.setAttribute("class", "date");
-      createDateDiv.textContent = date;
-      createMealContainer.appendChild(createDateDiv);
+        const createDateDiv = document.createElement("div");
+        createDateDiv.setAttribute("class", "date");
+        createDateDiv.textContent = date;
+        createMealContainer.appendChild(createDateDiv);
 
-      const createMealLabel = document.createElement("div");
-      createMealLabel.setAttribute("class", "mealLabel");
-      createMealLabel.textContent = meal;
-      createMealContainer.appendChild(createMealLabel);
+        const createMealLabel = document.createElement("div");
+        createMealLabel.setAttribute("class", "mealLabel");
+        createMealLabel.textContent = meal;
+        createMealContainer.appendChild(createMealLabel);
 
-      const createMealButton = document.createElement("button");
-      createMealButton.setAttribute("class", "createMeal");
-      createMealButton.dataset.mealId = mealId;
-      createMealButton.dataset.meal = meal;
-      createMealButton.textContent = "+ Create meal";
-      createMealContainer.appendChild(createMealButton);
+        const createMealButton = document.createElement("button");
+        createMealButton.setAttribute("class", "createMeal");
+        createMealButton.dataset.mealId = mealId;
+        createMealButton.dataset.meal = meal;
+        createMealButton.textContent = "+ Create meal";
+        createMealContainer.appendChild(createMealButton);
+      } else if (filteredArray.length !== 0) {
+        const createMealContainer = document.createElement("div");
+        createMealContainer.setAttribute("class", "mealContainer");
+        selectContainer.appendChild(createMealContainer);
+
+        const createMealDisplay = document.createElement("div");
+        createMealDisplay.setAttribute("class", "mealDisplay");
+
+        const createDateDiv = document.createElement("div");
+        createDateDiv.setAttribute("class", "date");
+        createDateDiv.textContent = date;
+        createMealContainer.appendChild(createDateDiv);
+
+        const createMealLabel = document.createElement("div");
+        createMealLabel.setAttribute("class", "mealLabel");
+        createMealLabel.textContent = filteredArray[index].meal;
+        createMealContainer.appendChild(createMealLabel);
+
+        const createMainDishDiv = document.createElement("div");
+        createMainDishDiv.setAttribute("class", "dish");
+        createMainDishDiv.textContent = filteredArray[index].mainDish;
+        createMealDisplay.appendChild(createMainDishDiv);
+
+        const createSideDishDiv = document.createElement("div");
+        createMainDishDiv.setAttribute("class", "dish");
+        createSideDishDiv.textContent = filteredArray[index].sideDish;
+        createMealDisplay.appendChild(createSideDishDiv);
+
+        const createDrinkDiv = document.createElement("div");
+        createMainDishDiv.setAttribute("class", "dish");
+        createDrinkDiv.textContent = filteredArray[index].drink;
+        createMealDisplay.appendChild(createDrinkDiv);
+
+        const createEditMealButton = document.createElement("button");
+        createEditMealButton.setAttribute("class", "editMeal");
+        createEditMealButton.dataset.mealId = filteredArray[index].mealPlanID;
+        createEditMealButton.dataset.meal = filteredArray[index].meal;
+        createEditMealButton.textContent = "edit";
+        createMealDisplay.appendChild(createEditMealButton);
+
+        createMealContainer.appendChild(createMealDisplay);
+      }
 
       // const selectContainers = document.querySelectorAll(".mealContainer");
       // // Rename to be a class shared by all three

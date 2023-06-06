@@ -36,20 +36,20 @@ selectContainer.addEventListener("click", (event) => {
 
     event.preventDefault();
     // Change index to ID, conditional is also incorrect, clean up code
+    // If meal already exist then display it, otherwise display the cards to create a new meal
   } else if (event.target.className === "view") {
     const getMealObjID = Number(event.target.dataset.id);
     const getDate = newMealPlanManager.selectDate(getMealObjID);
-    // Rename this when complete
-    const mealArray = newMealPlanManager.selectMeals(getMealObjID);
+    const mealArray = newMealPlanManager.selectMeals(getMealObjID); // Rename this when complete
+    const search = newMealManager.getMeal(getMealObjID);
     displayMealPlans.removeMealPlanDisplay();
-    // displayMealPlans.createMealContainer();
-    displayMealPlans.viewMeals(getDate, mealArray, getMealObjID);
+    displayMealPlans.viewMeals(search, getDate, mealArray, getMealObjID);
     document.querySelector("#createNewMeal").style.display = "none";
-    // displayMeals.assignButtonMealData(mealArray);
-    // displayMeals.assignButtonMealID(getMealObjID);
   } else if (event.target.className === "removeMealPlan") {
+    // Figure out how to include deleting meals themselves
     const getMealObjID = Number(event.target.dataset.id);
     newMealPlanManager.removeFromMealPlanArray(getMealObjID);
+    newMealManager.removeFromMealArray(getMealObjID);
     displayMealPlans.remove(getMealObjID);
     displayMealPlans.displayMealPlanAmount(
       newMealPlanManager.getMealPlanArrayLength()

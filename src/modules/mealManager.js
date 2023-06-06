@@ -3,6 +3,7 @@ import { Meals } from "./meals";
 // contain a unique ID to track the object for deletion, editing etc
 class MealManager {
   mealArray = [];
+
   // breakfastArray = [];
 
   // lunchArray = [];
@@ -47,6 +48,21 @@ class MealManager {
     console.log(this.mealArray);
     // this.assignIDs();
     // this.assignMealType(meal);
+  }
+
+  removeFromMealArray(id) {
+    const filteredArray = this.mealArray.filter((obj) => obj.mealPlanID !== id);
+
+    this.mealArray = filteredArray;
+
+    console.log(this.mealArray);
+  }
+
+  // rename
+  getMeal(id) {
+    const meal = this.mealArray.filter((obj) => obj.mealPlanID === id);
+    console.log(meal);
+    return meal;
   }
 
   searchForMeal(meal, id) {

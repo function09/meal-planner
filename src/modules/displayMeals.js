@@ -53,6 +53,7 @@ const DisplayMeals = () => {
     return dishArray;
   };
 
+  // See if this is even needed anymore
   const displayMeal = (dishArray, parentContainer, mealData, mealId) => {
     const createMealDisplay = document.createElement("div");
     createMealDisplay.setAttribute("class", "mealDisplay");

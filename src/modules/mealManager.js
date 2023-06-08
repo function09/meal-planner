@@ -21,41 +21,32 @@ class MealManager {
   //   // let lunchID = 0;
   //   // let dinnerID = 0;
 
-  //   // this.breakfastArray.forEach((index) => {
-  //   //   index.id = breakfastID;
+  //   // this.breakfastArray.forEach((meal) => {
+  //   //   meal.id = breakfastID;
   //   //   breakfastID += 1;
   //   // });
-  //   // this.lunchArray.forEach((index) => {
-  //   //   index.id = lunchID;
+  //   // this.lunchArray.forEach((meal) => {
+  //   //   meal.id = lunchID;
   //   //   lunchID += 1;
   //   // });
-  //   // this.dinnerArray.forEach((index) => {
-  //   //   index.id = dinnerID;
+  //   // this.dinnerArray.forEach((meal) => {
+  //   //   meal.id = dinnerID;
   //   //   dinnerID += 1;
   //   // });
   // }
 
   // assignIDs() {
   //   let id = 0;
-  //   this.mealArray.forEach((index) => {
-  //     index.id = id;
+  //   this.mealArray.forEach((meal) => {
+  //     meal.id = id;
   //     id += 1;
   //   });
   // }
 
   pushToMealArray(mainDish, sideDish, drink, meal, mealPlanID) {
     this.mealArray.push(new Meals(mainDish, sideDish, drink, meal, mealPlanID));
-    console.log(this.mealArray);
     // this.assignIDs();
     // this.assignMealType(meal);
-  }
-
-  removeFromMealArray(id) {
-    const filteredArray = this.mealArray.filter((obj) => obj.mealPlanID !== id);
-
-    this.mealArray = filteredArray;
-
-    console.log(this.mealArray);
   }
 
   // rename
@@ -80,6 +71,17 @@ class MealManager {
 
     return [chosenMeal.mainDish, chosenMeal.sideDish, chosenMeal.drink];
   }
+
+  // getAllDishes(id) {
+  //   const entries = this.getMeal(id).forEach((index) => {
+  //     Object.entries(index).filter(([key, value]) => typeof value === "string");
+  //   });
+
+  //   const obj = Object.fromEntries(entries);
+
+  //   console.log(obj);
+  //   return obj;
+  // }
 
   editMeal(meal, id, mainDish, sideDish, drink) {
     this.searchForMeal(meal, id);

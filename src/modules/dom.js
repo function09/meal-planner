@@ -45,11 +45,11 @@ selectContainer.addEventListener("click", (event) => {
     displayMealPlans.removeMealPlanDisplay();
     displayMealPlans.viewMeals(search, getDate, mealArray, getMealObjID);
     document.querySelector("#createNewMeal").style.display = "none";
+    console.log(mealArray);
   } else if (event.target.className === "removeMealPlan") {
     // Figure out how to include deleting meals themselves
     const getMealObjID = Number(event.target.dataset.id);
     newMealPlanManager.removeFromMealPlanArray(getMealObjID);
-    newMealManager.removeFromMealArray(getMealObjID);
     displayMealPlans.remove(getMealObjID);
     displayMealPlans.displayMealPlanAmount(
       newMealPlanManager.getMealPlanArrayLength()

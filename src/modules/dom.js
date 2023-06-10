@@ -33,40 +33,41 @@ selectContainer.addEventListener("click", (event) => {
       newMealPlanManager.getMealPlanArrayLength()
     );
     // console.log(newMealPlanManager.mealPlanArray);
-
     event.preventDefault();
     // Change index to ID, conditional is also incorrect, clean up code
     // If meal already exist then display it, otherwise display the cards to create a new meal
   } else if (event.target.className === "view") {
-    const getMealObjID = Number(event.target.dataset.id);
+    const getMealObjID = event.target.dataset.id;
     const getDate = newMealPlanManager.selectDate(getMealObjID);
     const mealArray = newMealPlanManager.selectMeals(getMealObjID); // Rename this when complete
     const search = newMealManager.getMeal(getMealObjID);
     displayMealPlans.removeMealPlanDisplay();
     displayMealPlans.viewMeals(search, getDate, mealArray, getMealObjID);
     document.querySelector("#createNewMeal").style.display = "none";
-    console.log(mealArray);
   } else if (event.target.className === "removeMealPlan") {
+    console.log(event.target.dataset.id);
     // Figure out how to include deleting meals themselves
-    const getMealObjID = Number(event.target.dataset.id);
+    const getMealObjID = event.target.dataset.id;
     newMealPlanManager.removeFromMealPlanArray(getMealObjID);
-    displayMealPlans.remove(getMealObjID);
+    event.target.parentElement.remove();
+    // displayMealPlans.remove(getMealObjID);
     displayMealPlans.displayMealPlanAmount(
       newMealPlanManager.getMealPlanArrayLength()
     );
     displayMealPlans.favoriteMealPlanAmount(
       newMealPlanManager.getFavoriteMealPlanArrayLength()
     );
+    // newMealManager.removeMeal(getMealObjID);
   }
   // Refactor to use ID after completing try to optimize the code so you can use spread operator
   else if (event.target.className === "editMealPlan") {
     const mealPlan = event.target.parentElement;
     const selection = event.target.dataset.id;
-    const selectMealPlanID = Number(event.target.dataset.id);
+    const selectMealPlanID = event.target.dataset.id;
     const getMealValues = newMealPlanManager.getMealValues(selectMealPlanID);
     displayMealPlans.edit(mealPlan, selection, ...getMealValues);
   } else if (event.target.id === "saveEdit") {
-    const selection = Number(event.target.dataset.id);
+    const selection = event.target.dataset.id;
     const date = displayMealPlans.getDate();
     const meals = displayMealPlans.getMeals();
 
@@ -83,7 +84,7 @@ selectContainer.addEventListener("click", (event) => {
     event.preventDefault();
   } else if (event.target.className === "favorite") {
     const selectEventText = event.target;
-    const selection = Number(event.target.dataset.id);
+    const selection = event.target.dataset.id;
     newMealPlanManager.favoriteMealPlan(selection);
     // See if you can make these two into a function
     selectEventText.textContent = "Unfavorite";
@@ -93,7 +94,7 @@ selectContainer.addEventListener("click", (event) => {
     );
   } else if (event.target.className === "unfavorite") {
     const selectEventText = event.target;
-    const selection = Number(event.target.dataset.id);
+    const selection = event.target.dataset.id;
 
     newMealPlanManager.unfavoriteMealPlan(selection);
 
@@ -145,7 +146,7 @@ selectNavBar.addEventListener("click", (event) => {
 selectContainer.addEventListener("click", (event) => {
   const buttonClassName = event.target.className;
   const mealContainer = event.target.parentElement;
-  const mealID = Number(event.target.dataset.mealId);
+  const mealID = event.target.dataset.id;
   const mealType = event.target.dataset.meal;
   const selectForm = event.target.parentElement; // change name of this when cleaning
   const selectMealContainer = selectForm.parentElement;
@@ -170,6 +171,7 @@ selectContainer.addEventListener("click", (event) => {
     const getDishes = newMealManager.getDishes(mealType, mealID);
     displayMeals.displayMeal(getDishes, selectMealContainer, mealType, mealID);
     selectForm.remove();
+    console.log(event.target.dataset.id);
     event.preventDefault();
     // if (selectMealContainer.dataset.canEdit === "true") {
     //   document.querySelector("button").textContent = "save";

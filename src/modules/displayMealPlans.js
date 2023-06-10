@@ -132,6 +132,8 @@ const DisplayFactory = () => {
       updateMealPlanAmount.textContent = "";
     }
   };
+
+  // See if this needed anymore
   const remove = (ID) => {
     const getMealPlanID = document.querySelector(`#index-${ID}`);
 
@@ -193,7 +195,7 @@ const DisplayFactory = () => {
       meal.remove();
     });
   };
-  const createNewMealContainers = (date, meal, mealId) => {
+  const createNewMealContainers = (date, meal, id) => {
     const createMealContainer = document.createElement("div");
     createMealContainer.setAttribute("class", "mealContainer");
     selectContainer.appendChild(createMealContainer);
@@ -210,7 +212,7 @@ const DisplayFactory = () => {
 
     const createAddMealButton = document.createElement("button");
     createAddMealButton.setAttribute("class", "createMeal");
-    createAddMealButton.dataset.mealId = mealId;
+    createAddMealButton.dataset.id = id;
     createAddMealButton.dataset.meal = meal;
     createAddMealButton.textContent = "+ Create meal";
     createMealContainer.appendChild(createAddMealButton);
@@ -234,22 +236,22 @@ const DisplayFactory = () => {
 
     const createEditMealButton = document.createElement("button");
     createEditMealButton.setAttribute("class", "editMeal");
-    createEditMealButton.dataset.mealId = filteredArray[index].mealPlanID;
+    createEditMealButton.dataset.id = filteredArray[index].id;
     createEditMealButton.dataset.meal = filteredArray[index].meal;
     createEditMealButton.textContent = "edit";
     parentElement.appendChild(createEditMealButton);
   };
 
-  const createMealButton = (mealId, meal, parentElement) => {
+  const createMealButton = (id, meal, parentElement) => {
     const createMealButtonDiv = document.createElement("button");
     createMealButtonDiv.setAttribute("class", "createMeal");
-    createMealButtonDiv.dataset.mealId = mealId;
+    createMealButtonDiv.dataset.id = id;
     createMealButtonDiv.dataset.meal = meal;
     createMealButtonDiv.textContent = "+ Create meal";
     parentElement.appendChild(createMealButtonDiv);
   };
 
-  const viewExistingMeals = (date, meal, filteredArray, index, mealId) => {
+  const viewExistingMeals = (date, meal, filteredArray, index, id) => {
     const createMealContainer = document.createElement("div");
     createMealContainer.setAttribute("class", "mealContainer");
     selectContainer.appendChild(createMealContainer);
@@ -271,16 +273,16 @@ const DisplayFactory = () => {
       createMealDisplay(filteredArray, index, createMealDisplayDiv);
       createMealContainer.appendChild(createMealDisplayDiv);
     } else if (typeof filteredArray[index] === "undefined") {
-      createMealButton(mealId, meal, createMealContainer);
+      createMealButton(id, meal, createMealContainer);
     }
   };
 
-  const viewMeals = (filteredArray, date, mealArray, mealId) => {
+  const viewMeals = (filteredArray, date, mealArray, id) => {
     mealArray.forEach((meal, index) => {
       if (filteredArray.length === 0) {
-        createNewMealContainers(date, meal, mealId);
+        createNewMealContainers(date, meal, id);
       } else if (filteredArray.length !== 0) {
-        viewExistingMeals(date, meal, filteredArray, index, mealId);
+        viewExistingMeals(date, meal, filteredArray, index, id);
       }
     });
   };

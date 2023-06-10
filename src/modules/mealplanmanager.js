@@ -6,17 +6,27 @@ class MealPlanManager {
 
   favoriteMealPlanArray = [];
 
-  assignID() {
-    let id = 0;
+  // Change to be index for mealplan array
+  // assignID() {
+  //   let id = 0;
 
-    this.mealPlanArray.forEach((index) => {
-      index.id = id;
-      id += 1;
+  //   this.mealPlanArray.forEach((index) => {
+  //     index.id = id;
+  //     id += 1;
+  //   });
+  // }
+
+  assignID() {
+    this.mealPlanArray.forEach((meal) => {
+      if (typeof meal.id === "undefined") {
+        meal.id = (Math.random() + 1).toString(36).replace(".", "");
+      }
     });
   }
 
-  pushToMealPlanArray(date, breakfast, lunch, dinner) {
-    this.mealPlanArray.push(new MealPlan(date, breakfast, lunch, dinner));
+  pushToMealPlanArray(date, breakfast, lunch, dinner, id) {
+    this.mealPlanArray.push(new MealPlan(date, breakfast, lunch, dinner, id));
+    this.assignID();
     console.log(this.mealPlanArray);
   }
 
@@ -32,7 +42,7 @@ class MealPlanManager {
     this.mealPlanArray.splice(getObjIndexMealPlans, 1);
     this.favoriteMealPlanArray.splice(getObjIndexFavoriteMealPlans, 1);
     // this.mealPlanArray.splice(index, 1);
-    // console.log(this.mealPlanArray);
+    console.log(this.mealPlanArray);
     // console.log(this.favoriteMealPlanArray);
   }
 

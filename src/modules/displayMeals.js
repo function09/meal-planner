@@ -1,5 +1,5 @@
 const DisplayMeals = () => {
-  const createMealForm = (mealContainer, mealType, mealID) => {
+  const createMealForm = (mealContainer, meal, id) => {
     // const selectAllMeals = document.querySelectorAll(".meal");
     const dishArray = ["Main dish", "Side dish", "Drink"];
 
@@ -16,8 +16,8 @@ const DisplayMeals = () => {
     const createSubmitMealButton = document.createElement("button");
     createSubmitMealButton.type = "submit";
     createSubmitMealButton.setAttribute("class", "submitMeal");
-    createSubmitMealButton.dataset.mealId = mealID;
-    createSubmitMealButton.dataset.meal = mealType;
+    createSubmitMealButton.dataset.id = id;
+    createSubmitMealButton.dataset.meal = meal;
     createSubmitMealButton.textContent = "Submit";
     createForm.appendChild(createSubmitMealButton);
   };
@@ -54,7 +54,7 @@ const DisplayMeals = () => {
   };
 
   // See if this is even needed anymore
-  const displayMeal = (dishArray, parentContainer, mealData, mealId) => {
+  const displayMeal = (dishArray, parentContainer, mealData, id) => {
     const createMealDisplay = document.createElement("div");
     createMealDisplay.setAttribute("class", "mealDisplay");
     parentContainer.appendChild(createMealDisplay);
@@ -67,7 +67,7 @@ const DisplayMeals = () => {
     });
     const createEditMealButton = document.createElement("button");
     createEditMealButton.setAttribute("class", "editMeal");
-    createEditMealButton.dataset.mealId = mealId;
+    createEditMealButton.dataset.id = id;
     createEditMealButton.dataset.meal = mealData;
     createEditMealButton.textContent = "edit";
     createMealDisplay.appendChild(createEditMealButton);

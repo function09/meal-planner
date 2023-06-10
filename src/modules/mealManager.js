@@ -1,6 +1,6 @@
 import { Meals } from "./meals";
-// Create three arrays, one for each meal. Each object in the arrays will
-// contain a unique ID to track the object for deletion, editing etc
+// Create three arrays, one for each meal. Each object in the arrays will NO
+// contain a unique ID to track the object for deletion, editing etc NO
 class MealManager {
   mealArray = [];
 
@@ -35,38 +35,40 @@ class MealManager {
   //   // });
   // }
 
-  // assignIDs() {
-  //   let id = 0;
-  //   this.mealArray.forEach((meal) => {
-  //     meal.id = id;
-  //     id += 1;
-  //   });
-  // }
-
-  pushToMealArray(mainDish, sideDish, drink, meal, mealPlanID) {
-    this.mealArray.push(new Meals(mainDish, sideDish, drink, meal, mealPlanID));
+  pushToMealArray(mainDish, sideDish, drink, meal, mealID) {
+    this.mealArray.push(new Meals(mainDish, sideDish, drink, meal, mealID));
+    console.log(this.mealArray);
     // this.assignIDs();
     // this.assignMealType(meal);
   }
 
   // rename
   getMeal(id) {
-    const meal = this.mealArray.filter((obj) => obj.mealPlanID === id);
+    const meal = this.mealArray.filter((obj) => obj.id === id);
     console.log(meal);
     return meal;
+  }
+
+  // Use the mealPlans to assign an ID to each object
+  removeMeal(id) {
+    const remainingMeals = this.mealArray.filter((obj) => obj.id !== id);
+
+    this.mealArray = remainingMeals;
+
+    console.log(this.mealArray);
   }
 
   searchForMeal(meal, id) {
     // Rename chosenMeal
     const chosenMeal = this.mealArray.find(
-      (obj) => obj.meal === meal && obj.mealPlanID === id
+      (obj) => obj.meal === meal && obj.id === id
     );
     return chosenMeal;
   }
 
   getDishes(meal, id) {
     const chosenMeal = this.mealArray.find(
-      (obj) => obj.meal === meal && obj.mealPlanID === id
+      (obj) => obj.meal === meal && obj.id === id
     );
 
     return [chosenMeal.mainDish, chosenMeal.sideDish, chosenMeal.drink];

@@ -1,150 +1,147 @@
 import { format } from "date-fns";
-import { DisplayMeals } from "./displayMeals";
 
 // Rename this when complete
 const DisplayFactory = () => {
-  const selectForm = document.querySelector("#form");
-  const selectCreateNewMealButton = document.querySelector("#createNewMeal");
-  const selectCheckBoxes = document.querySelectorAll(".checkbox");
-  const selectContainer = document.querySelector("#container");
-  const displayMeals = DisplayMeals();
-  // Check and see if this even is necessary
-  const assignID = () => {
-    const selectMealPlans = document.querySelectorAll(".mealPlans");
-    let IDValue = 0;
-    selectMealPlans.forEach((plan) => {
-      if (IDValue === 0) {
-        plan.setAttribute("id", `index-${IDValue}`);
-        IDValue++;
-      } else {
-        plan.setAttribute("id", `index-${IDValue++}`);
-      }
-    });
-  };
-  // RENAME AND ALL ELEMENTS TO BE MORE FITTING BEFORE PUSHING TO REPOSITORY!!!!
+  const mealPlanForm = document.querySelector("#mealPlanForm");
+  const createNewMealButton = document.querySelector("#createNewMeal");
+  const checkBoxes = document.querySelectorAll(".checkbox");
+  const mealPlanFormContainer = document.querySelector(
+    "#mealPlanFormContainer"
+  );
 
+  // ToDo: RENAME AND ALL ELEMENTS TO BE MORE FITTING BEFORE PUSHING TO REPOSITORY!!!!
+
+  // Display form and hide createNewMealButton
   const displayForm = () => {
-    selectForm.style.display = "flex";
-    selectCreateNewMealButton.style.display = "none";
+    mealPlanForm.style.display = "flex";
+    createNewMealButton.style.display = "none";
   };
+
+  /* Hide form and display createNewMealButton. If editing meal plan,
+   * change saveFormButton to submitFormButton
+   */
   const closeForm = () => {
-    const selectDate = document.querySelector("#date");
+    const date = document.querySelector("#date");
 
-    selectForm.style.display = "none";
-    selectCreateNewMealButton.style.display = "flex";
+    mealPlanForm.style.display = "none";
+    createNewMealButton.style.display = "flex";
 
-    selectDate.value = "";
+    date.value = "";
 
-    selectCheckBoxes.forEach((checkbox) => {
+    checkBoxes.forEach((checkbox) => {
       checkbox.checked = false;
     });
 
-    selectForm.previousElementSibling.style.display = "flex";
-    selectContainer.appendChild(selectForm);
+    mealPlanForm.previousElementSibling.style.display = "flex";
+    mealPlanFormContainer.appendChild(mealPlanForm);
 
     if (document.querySelector("#saveEdit")) {
-      const selectSaveFormButton = document.querySelector("#saveEdit");
+      const saveFormButton = document.querySelector("#saveEdit");
 
-      selectSaveFormButton.textContent = "Submit";
-      selectSaveFormButton.id = "submitFormButton";
+      saveFormButton.textContent = "Submit";
+      saveFormButton.id = "submitFormButton";
     }
   };
 
-  const displayCreateNewMeal = () => {
-    if (selectContainer.dataset.type === "favorites") {
-      selectCreateNewMealButton.style.display = "none";
+  // Displays or hides createNewMealButton on toggle
+  const displayCreateNewMealButton = () => {
+    if (mealPlanFormContainer.dataset.type === "favorites") {
+      createNewMealButton.style.display = "none";
     } else {
-      selectCreateNewMealButton.style.display = "flex";
+      createNewMealButton.style.display = "flex";
     }
   };
+
+  /* Displays meal plans
+   *changes favorite button text to "unfavorite" if meal plan is favorited
+   * if createNewMealButton present, inserts before it otherwise it inserts it at the end
+   */
   const displayMealPlan = (date, index, favorite) => {
-    const createDiv = document.createElement("div");
-    createDiv.setAttribute("class", "mealPlans");
+    const mealPlanDiv = document.createElement("div");
+    mealPlanDiv.setAttribute("class", "mealPlans");
 
-    const createSpan = document.createElement("span");
-    createSpan.textContent = date;
+    const dateText = document.createElement("span");
+    dateText.textContent = date;
 
-    const createViewButton = document.createElement("button");
-    createViewButton.textContent = "View";
-    createViewButton.setAttribute("class", "view");
-    createViewButton.dataset.id = index;
+    const viewButton = document.createElement("button");
+    viewButton.textContent = "View";
+    viewButton.setAttribute("class", "view");
+    viewButton.dataset.id = index;
 
-    const createRemoveButton = document.createElement("button");
-    createRemoveButton.textContent = "Remove";
-    createRemoveButton.setAttribute("class", "removeMealPlan");
-    createRemoveButton.dataset.id = index;
+    const removeButton = document.createElement("button");
+    removeButton.textContent = "Remove";
+    removeButton.setAttribute("class", "removeMealPlan");
+    removeButton.dataset.id = index;
 
-    const createEditButton = document.createElement("button");
-    createEditButton.textContent = "Edit";
-    createEditButton.setAttribute("class", "editMealPlan");
-    createEditButton.dataset.id = index;
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+    editButton.setAttribute("class", "editMealPlan");
+    editButton.dataset.id = index;
 
-    const createFavoriteButton = document.createElement("button");
-    createFavoriteButton.textContent = "Favorite";
-    createFavoriteButton.setAttribute("class", "favorite");
-    createFavoriteButton.dataset.id = index;
+    const favoriteButton = document.createElement("button");
+    favoriteButton.textContent = "Favorite";
+    favoriteButton.setAttribute("class", "favorite");
+    favoriteButton.dataset.id = index;
+
     if (favorite === true) {
-      createFavoriteButton.textContent = "Unfavorite";
-      createFavoriteButton.classList = "unfavorite";
+      favoriteButton.textContent = "Unfavorite";
+      favoriteButton.classList = "unfavorite";
     }
 
     if (document.querySelector("#createNewMeal")) {
-      selectContainer.insertBefore(createDiv, selectCreateNewMealButton);
-      createDiv.appendChild(createSpan);
-      createDiv.appendChild(createViewButton);
-      createDiv.appendChild(createRemoveButton);
-      createDiv.appendChild(createEditButton);
-      createDiv.appendChild(createFavoriteButton);
-      assignID();
+      mealPlanFormContainer.insertBefore(mealPlanDiv, createNewMealButton);
+      mealPlanDiv.appendChild(dateText);
+      mealPlanDiv.appendChild(viewButton);
+      mealPlanDiv.appendChild(removeButton);
+      mealPlanDiv.appendChild(editButton);
+      mealPlanDiv.appendChild(favoriteButton);
     } else {
-      selectContainer.appendChild(createDiv);
-      createDiv.appendChild(createSpan);
-      createDiv.appendChild(createViewButton);
-      createDiv.appendChild(createRemoveButton);
-      createDiv.appendChild(createEditButton);
-      createDiv.appendChild(createFavoriteButton);
-      assignID();
+      mealPlanFormContainer.appendChild(mealPlanDiv);
+      mealPlanDiv.appendChild(dateText);
+      mealPlanDiv.appendChild(viewButton);
+      mealPlanDiv.appendChild(removeButton);
+      mealPlanDiv.appendChild(editButton);
+      mealPlanDiv.appendChild(favoriteButton);
     }
-    selectContainer.appendChild(selectForm);
+    mealPlanFormContainer.appendChild(mealPlanForm);
   };
+
+  // Selects date and formats it to be "day of the week, month, day and year"
   const getDate = () => {
     const dateValue = document.querySelector("#date").value;
 
     return format(new Date(`${dateValue}T12:00`), "PPPP");
   };
+
+  // Returns meal values when checked, stored in an array
   const getMeals = () => {
     const mealArray = [];
 
-    selectCheckBoxes.forEach((checkbox) => {
+    checkBoxes.forEach((checkbox) => {
       if (checkbox.checked === true) {
         mealArray.push(checkbox.checked);
       } else {
         mealArray.push(false);
       }
     });
-    // console.log({ ...mealArray });
     return mealArray;
   };
+
+  // Displays the length of the mealPlanArray
   const displayMealPlanAmount = (arrayLength) => {
     const updateMealPlanAmount = document.querySelector("#mealPlanAmount");
+
     updateMealPlanAmount.textContent = arrayLength;
     if (arrayLength === 0) {
       updateMealPlanAmount.textContent = "";
     }
   };
 
-  // See if this needed anymore
-  const remove = (ID) => {
-    const getMealPlanID = document.querySelector(`#index-${ID}`);
-
-    getMealPlanID.remove();
-    selectContainer.appendChild(selectForm);
-  };
-  // Hide createMeals new meal plan button when edit is clicked, refactor to be less code by using the form already made
+  // Uses existing meal plan form to edit meal plans
   const edit = (mealPlan, selection, breakfast, lunch, dinner) => {
     const element = mealPlan;
     element.style.display = "none";
-    mealPlan.after(selectForm);
+    mealPlan.after(mealPlanForm);
     displayForm();
 
     const breakFastCheckBox = document.querySelector("#breakfast");
@@ -154,22 +151,15 @@ const DisplayFactory = () => {
     lunchCheckBox.checked = lunch;
     dinnerCheckBox.checked = dinner;
 
-    const selectSubmitFormButton = document.querySelector("#submitFormButton");
+    const submitFormButton = document.querySelector("#submitFormButton");
 
-    selectSubmitFormButton.textContent = "Save";
-    selectSubmitFormButton.id = "saveEdit";
-    selectSubmitFormButton.dataset.id = selection;
-  };
-  // Find a way to incorporate this within displayMealPlan()
-  const favoriteMealPlan = () => {
-    // const selectAllMealPlans = document.querySelectorAll(".mealPlans");
-    // selectAllMealPlans.forEach((plan) => {
-    //   plan.remove();
-    // });
-    // console.log(document.querySelector("#createNewMeal") === null);
+    submitFormButton.textContent = "Save";
+    submitFormButton.id = "saveEdit";
+    submitFormButton.dataset.id = selection;
   };
 
-  const favoriteMealPlanAmount = (arrayLength) => {
+  // Displays favoriteMealPlanArray length
+  const displayFavoriteMealPlanAmount = (arrayLength) => {
     const selectFavoriteMealPlanAmount =
       document.querySelector("#favoriteAmount");
 
@@ -179,7 +169,8 @@ const DisplayFactory = () => {
       selectFavoriteMealPlanAmount.textContent = "";
     }
   };
-  // rename this to something better
+
+  // Removes meal plans from display, if #mealContainer exists, remove it as well
   const removeMealPlanDisplay = () => {
     document.querySelectorAll(".mealPlans").forEach((plan) => {
       plan.remove();
@@ -190,120 +181,122 @@ const DisplayFactory = () => {
     }
   };
 
-  const removeMealDisplay = () => {
-    document.querySelectorAll(".mealContainer").forEach((meal) => {
-      meal.remove();
-    });
-  };
+  /* Creates container elements for meals that:
+   * display the date
+   * display the meal type
+   * display add meal button
+   */
   const createNewMealContainers = (date, meal, id) => {
-    const createMealContainer = document.createElement("div");
-    createMealContainer.setAttribute("class", "mealContainer");
-    selectContainer.appendChild(createMealContainer);
+    const mealContainer = document.createElement("div");
+    mealContainer.setAttribute("class", "mealContainer");
+    mealPlanFormContainer.appendChild(mealContainer);
 
-    const createDateDiv = document.createElement("div");
-    createDateDiv.setAttribute("class", "date");
-    createDateDiv.textContent = date;
-    createMealContainer.appendChild(createDateDiv);
+    const dateDiv = document.createElement("div");
+    dateDiv.setAttribute("class", "date");
+    dateDiv.textContent = date;
+    mealContainer.appendChild(dateDiv);
 
-    const createMealLabel = document.createElement("div");
-    createMealLabel.setAttribute("class", "mealLabel");
-    createMealLabel.textContent = meal;
-    createMealContainer.appendChild(createMealLabel);
+    const mealLabel = document.createElement("div");
+    mealLabel.setAttribute("class", "mealLabel");
+    mealLabel.textContent = meal;
+    mealContainer.appendChild(mealLabel);
 
-    const createAddMealButton = document.createElement("button");
-    createAddMealButton.setAttribute("class", "createMeal");
-    createAddMealButton.dataset.id = id;
-    createAddMealButton.dataset.meal = meal;
-    createAddMealButton.textContent = "+ Create meal";
-    createMealContainer.appendChild(createAddMealButton);
+    const addMealButton = document.createElement("button");
+    addMealButton.setAttribute("class", "addMeal");
+    addMealButton.dataset.id = id;
+    addMealButton.dataset.meal = meal.toLowerCase();
+    addMealButton.textContent = "+ Add meal";
+    mealContainer.appendChild(addMealButton);
   };
 
-  const createMealDisplay = (filteredArray, index, parentElement) => {
-    const createMainDishDiv = document.createElement("div");
-    createMainDishDiv.setAttribute("class", "dish");
-    createMainDishDiv.textContent = filteredArray[index].mainDish;
-    parentElement.appendChild(createMainDishDiv);
+  // Displays main dish, side dish ,drinks and edit meal button
+  const createMealDisplay = (array, index, parentElement) => {
+    const mainDishDiv = document.createElement("div");
+    mainDishDiv.setAttribute("class", "dish");
+    mainDishDiv.textContent = array[index].mainDish;
+    parentElement.appendChild(mainDishDiv);
 
-    const createSideDishDiv = document.createElement("div");
-    createMainDishDiv.setAttribute("class", "dish");
-    createSideDishDiv.textContent = filteredArray[index].sideDish;
-    parentElement.appendChild(createSideDishDiv);
+    const sideDishDiv = document.createElement("div");
+    mainDishDiv.setAttribute("class", "dish");
+    sideDishDiv.textContent = array[index].sideDish;
+    parentElement.appendChild(sideDishDiv);
 
-    const createDrinkDiv = document.createElement("div");
-    createMainDishDiv.setAttribute("class", "dish");
-    createDrinkDiv.textContent = filteredArray[index].drink;
-    parentElement.appendChild(createDrinkDiv);
+    const drinkDiv = document.createElement("div");
+    mainDishDiv.setAttribute("class", "dish");
+    drinkDiv.textContent = array[index].drink;
+    parentElement.appendChild(drinkDiv);
 
-    const createEditMealButton = document.createElement("button");
-    createEditMealButton.setAttribute("class", "editMeal");
-    createEditMealButton.dataset.id = filteredArray[index].id;
-    createEditMealButton.dataset.meal = filteredArray[index].meal;
-    createEditMealButton.textContent = "edit";
-    parentElement.appendChild(createEditMealButton);
+    const editMealButton = document.createElement("button");
+    editMealButton.setAttribute("class", "editMeal");
+    editMealButton.dataset.id = array[index].id;
+    editMealButton.dataset.meal = array[index].meal;
+    editMealButton.textContent = "edit";
+    parentElement.appendChild(editMealButton);
   };
 
-  const createMealButton = (id, meal, parentElement) => {
-    const createMealButtonDiv = document.createElement("button");
-    createMealButtonDiv.setAttribute("class", "createMeal");
-    createMealButtonDiv.dataset.id = id;
-    createMealButtonDiv.dataset.meal = meal;
-    createMealButtonDiv.textContent = "+ Create meal";
-    parentElement.appendChild(createMealButtonDiv);
+  // Creates a new Add meal Button
+  const createAddMealButton = (id, meal, parentElement) => {
+    const addMealButtonDiv = document.createElement("button");
+    addMealButtonDiv.setAttribute("class", "addMeal");
+    addMealButtonDiv.dataset.id = id;
+    addMealButtonDiv.dataset.meal = meal;
+    addMealButtonDiv.textContent = "+ Add meal";
+    parentElement.appendChild(addMealButtonDiv);
   };
 
-  const viewExistingMeals = (date, meal, filteredArray, index, id) => {
-    const createMealContainer = document.createElement("div");
-    createMealContainer.setAttribute("class", "mealContainer");
-    selectContainer.appendChild(createMealContainer);
+  /* Displays existing meals,
+   * if none have been created, displays add meal button instead
+   */
+  const viewExistingMeals = (date, meal, array, index, id) => {
+    const mealContainer = document.createElement("div");
+    mealContainer.setAttribute("class", "mealContainer");
+    mealPlanFormContainer.appendChild(mealContainer);
 
     const createMealDisplayDiv = document.createElement("div");
     createMealDisplayDiv.setAttribute("class", "mealDisplay");
 
-    const createDateDiv = document.createElement("div");
-    createDateDiv.setAttribute("class", "date");
-    createDateDiv.textContent = date;
-    createMealContainer.appendChild(createDateDiv);
+    const dateDiv = document.createElement("div");
+    dateDiv.setAttribute("class", "date");
+    dateDiv.textContent = date;
+    mealContainer.appendChild(dateDiv);
 
-    const createMealLabel = document.createElement("div");
-    createMealLabel.setAttribute("class", "mealLabel");
-    createMealLabel.textContent = meal;
-    createMealContainer.appendChild(createMealLabel);
+    const mealLabel = document.createElement("div");
+    mealLabel.setAttribute("class", "mealLabel");
+    mealLabel.textContent = meal;
+    mealContainer.appendChild(mealLabel);
 
-    if (typeof filteredArray[index] !== "undefined") {
-      createMealDisplay(filteredArray, index, createMealDisplayDiv);
-      createMealContainer.appendChild(createMealDisplayDiv);
-    } else if (typeof filteredArray[index] === "undefined") {
-      createMealButton(id, meal, createMealContainer);
+    if (typeof array[index] !== "undefined") {
+      createMealDisplay(array, index, createMealDisplayDiv);
+      mealContainer.appendChild(createMealDisplayDiv);
+    } else if (typeof array[index] === "undefined") {
+      createAddMealButton(id, meal, mealContainer);
     }
   };
 
-  const viewMeals = (filteredArray, date, mealArray, id) => {
+  // Views all meals depending on condition
+  const viewMeals = (array, date, mealArray, id) => {
     mealArray.forEach((meal, index) => {
-      if (filteredArray.length === 0) {
+      if (array.length === 0) {
         createNewMealContainers(date, meal, id);
-      } else if (filteredArray.length !== 0) {
-        viewExistingMeals(date, meal, filteredArray, index, id);
+      } else if (array.length !== 0) {
+        viewExistingMeals(date, meal, array, index, id);
       }
     });
   };
 
   return {
-    assignID,
     displayForm,
     closeForm,
-    displayCreateNewMeal,
+    displayCreateNewMealButton,
     displayMealPlan,
     getDate,
     getMeals,
     displayMealPlanAmount,
-    remove,
     edit,
-    favoriteMealPlan,
-    favoriteMealPlanAmount,
+    displayFavoriteMealPlanAmount,
     removeMealPlanDisplay,
-    removeMealDisplay,
     viewMeals,
   };
 };
 
-export { DisplayFactory };
+export default DisplayFactory;

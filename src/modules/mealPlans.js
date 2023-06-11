@@ -8,5 +8,4 @@ class MealPlan {
     this.id = id;
   }
 }
-// Extract truthy meals and create a div for each
-export { MealPlan };
+export default MealPlan;

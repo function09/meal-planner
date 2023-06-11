@@ -1,47 +1,39 @@
 const DisplayMeals = () => {
+  // Creates form to save and submit dishes/drinks
   const createMealForm = (mealContainer, meal, id) => {
-    // const selectAllMeals = document.querySelectorAll(".meal");
     const dishArray = ["Main dish", "Side dish", "Drink"];
 
-    const createForm = document.createElement("form");
-    createForm.setAttribute("class", "mealForm");
-    mealContainer.appendChild(createForm);
+    const mealForm = document.createElement("form");
+    mealForm.setAttribute("class", "mealForm");
+    mealContainer.appendChild(mealForm);
 
     dishArray.forEach((index) => {
-      const createInput = document.createElement("input");
-      createInput.placeholder = index;
-      createForm.appendChild(createInput);
+      const input = document.createElement("input");
+      input.placeholder = index;
+      mealForm.appendChild(input);
     });
 
-    const createSubmitMealButton = document.createElement("button");
-    createSubmitMealButton.type = "submit";
-    createSubmitMealButton.setAttribute("class", "submitMeal");
-    createSubmitMealButton.dataset.id = id;
-    createSubmitMealButton.dataset.meal = meal;
-    createSubmitMealButton.textContent = "Submit";
-    createForm.appendChild(createSubmitMealButton);
+    const SubmitMealButton = document.createElement("button");
+    SubmitMealButton.type = "submit";
+    SubmitMealButton.setAttribute("class", "submitMeal");
+    SubmitMealButton.dataset.id = id;
+    SubmitMealButton.dataset.meal = meal;
+    SubmitMealButton.textContent = "Submit";
+    mealForm.appendChild(SubmitMealButton);
   };
 
-  // const assignButtonMealData = (mealArray) => {
-  //   document.querySelectorAll(".submitMeal").forEach((button, index) => {
-  //     button.dataset.meal = mealArray[index];
-  //   });
-  // };
-
-  // const assignButtonMealID = (id) => {
-  //   document.querySelectorAll(".submitMeal").forEach((button) => {
-  //     button.dataset.mealPlanId = id;
-  //   });
-  // };
-
+  // Returns an array containing all input values from meal form
   const returnInputData = (parent) => {
     const selectedMeals = [];
+
     parent.querySelectorAll("input").forEach((input) => {
       selectedMeals.push(input.value);
     });
+
     return selectedMeals;
   };
 
+  // Returns all dishes/drink values from inputs
   const getDishes = (form) => {
     const dishArray = [];
     const selectDishInputs = form.querySelectorAll("input");
@@ -53,7 +45,7 @@ const DisplayMeals = () => {
     return dishArray;
   };
 
-  // See if this is even needed anymore
+  // Displays dishes/drink after submitting form
   const displayMeal = (dishArray, parentContainer, mealData, id) => {
     const createMealDisplay = document.createElement("div");
     createMealDisplay.setAttribute("class", "mealDisplay");
@@ -73,14 +65,13 @@ const DisplayMeals = () => {
     createMealDisplay.appendChild(createEditMealButton);
   };
 
+  // Displays meal form
   const editMeal = () => {
     createMealForm();
   };
 
   return {
     createMealForm,
-    // assignButtonMealData,
-    // assignButtonMealID,
     returnInputData,
     getDishes,
     displayMeal,
@@ -88,4 +79,4 @@ const DisplayMeals = () => {
   };
 };
 
-export { DisplayMeals };
+export default DisplayMeals;

@@ -1,9 +1,9 @@
-import { MealPlanManager } from "./mealplanmanager";
-import { DisplayFactory } from "./displayMealPlans";
-import { MealManager } from "./mealManager";
-import { DisplayMeals } from "./displayMeals";
+import MealPlanManager from "./mealPlanManager";
+import DisplayFactory from "./displayMealPlans";
+import MealManager from "./mealManager";
+import DisplayMeals from "./displayMeals";
 
-const selectContainer = document.querySelector("#container");
+const selectContainer = document.querySelector("#mealPlanFormContainer");
 const newMealPlanManager = new MealPlanManager();
 const newMealManager = new MealManager();
 const displayMeals = DisplayMeals();
@@ -38,14 +38,13 @@ selectContainer.addEventListener("click", (event) => {
     // If meal already exist then display it, otherwise display the cards to create a new meal
   } else if (event.target.className === "view") {
     const getMealObjID = event.target.dataset.id;
-    const getDate = newMealPlanManager.selectDate(getMealObjID);
+    const getDate = newMealPlanManager.selectMealPlanDate(getMealObjID);
     const mealArray = newMealPlanManager.selectMeals(getMealObjID); // Rename this when complete
     const search = newMealManager.getMeal(getMealObjID);
     displayMealPlans.removeMealPlanDisplay();
     displayMealPlans.viewMeals(search, getDate, mealArray, getMealObjID);
     document.querySelector("#createNewMeal").style.display = "none";
   } else if (event.target.className === "removeMealPlan") {
-    console.log(event.target.dataset.id);
     // Figure out how to include deleting meals themselves
     const getMealObjID = event.target.dataset.id;
     newMealPlanManager.removeFromMealPlanArray(getMealObjID);
@@ -54,7 +53,7 @@ selectContainer.addEventListener("click", (event) => {
     displayMealPlans.displayMealPlanAmount(
       newMealPlanManager.getMealPlanArrayLength()
     );
-    displayMealPlans.favoriteMealPlanAmount(
+    displayMealPlans.displayFavoriteMealPlanAmount(
       newMealPlanManager.getFavoriteMealPlanArrayLength()
     );
     // newMealManager.removeMeal(getMealObjID);
@@ -89,7 +88,7 @@ selectContainer.addEventListener("click", (event) => {
     // See if you can make these two into a function
     selectEventText.textContent = "Unfavorite";
     selectEventText.className = "unfavorite";
-    displayMealPlans.favoriteMealPlanAmount(
+    displayMealPlans.displayFavoriteMealPlanAmount(
       newMealPlanManager.getFavoriteMealPlanArrayLength()
     );
   } else if (event.target.className === "unfavorite") {
@@ -101,7 +100,7 @@ selectContainer.addEventListener("click", (event) => {
     selectEventText.textContent = "Favorite";
     selectEventText.className = "favorite";
 
-    displayMealPlans.favoriteMealPlanAmount(
+    displayMealPlans.displayFavoriteMealPlanAmount(
       newMealPlanManager.getFavoriteMealPlanArrayLength()
     );
 
@@ -121,9 +120,9 @@ selectNavBar.addEventListener("click", (event) => {
   if (event.target.id === "mealPlanTab") {
     delete selectContainer.dataset.type;
 
-    displayMealPlans.displayCreateNewMeal();
+    displayMealPlans.displayCreateNewMealButton();
     displayMealPlans.removeMealPlanDisplay();
-    displayMealPlans.removeMealDisplay();
+    // displayMealPlans.removeMealDisplay();
 
     newMealPlanManager.mealPlanArray.forEach((plan) => {
       displayMealPlans.displayMealPlan(plan.date, plan.id, plan.favorite);
@@ -139,7 +138,7 @@ selectNavBar.addEventListener("click", (event) => {
     });
 
     selectContainer.dataset.type = "favorites";
-    displayMealPlans.displayCreateNewMeal();
+    displayMealPlans.displayCreateNewMealButton();
   }
 });
 // Use variables and name to what they do or point to RENAME VARIABLES CONTAINING EVENT.TARGET TO SOMETHING PROPER
@@ -152,7 +151,7 @@ selectContainer.addEventListener("click", (event) => {
   const selectMealContainer = selectForm.parentElement;
   // const selectMealDiv = selectForm.parentElement;
   // const getMealData = event.target.dataset.meal;
-  if (buttonClassName === "createMeal") {
+  if (buttonClassName === "addMeal") {
     displayMeals.createMealForm(mealContainer, mealType, mealID);
     event.target.remove();
     // // console.log(parent.parentElement);

@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 
 // Rename this when complete
-const DisplayFactory = () => {
+const DisplayMealPlanFactory = () => {
   const mealPlanForm = document.querySelector("#mealPlanForm");
   const createNewMealButton = document.querySelector("#createNewMeal");
   const checkBoxes = document.querySelectorAll(".checkbox");
@@ -35,11 +35,11 @@ const DisplayFactory = () => {
     mealPlanForm.previousElementSibling.style.display = "flex";
     mealPlanFormContainer.appendChild(mealPlanForm);
 
-    if (document.querySelector("#saveEdit")) {
-      const saveFormButton = document.querySelector("#saveEdit");
+    if (document.querySelector(".saveMealPlanEdit")) {
+      const saveFormButton = document.querySelector(".saveMealPlanEdit");
 
       saveFormButton.textContent = "Submit";
-      saveFormButton.id = "submitFormButton";
+      saveFormButton.className = "submitFormButton";
     }
   };
 
@@ -56,7 +56,7 @@ const DisplayFactory = () => {
    *changes favorite button text to "unfavorite" if meal plan is favorited
    * if createNewMealButton present, inserts before it otherwise it inserts it at the end
    */
-  const displayMealPlan = (date, index, favorite) => {
+  const display = (date, index, favorite) => {
     const mealPlanDiv = document.createElement("div");
     mealPlanDiv.setAttribute("class", "mealPlans");
 
@@ -151,10 +151,10 @@ const DisplayFactory = () => {
     lunchCheckBox.checked = lunch;
     dinnerCheckBox.checked = dinner;
 
-    const submitFormButton = document.querySelector("#submitFormButton");
+    const submitFormButton = document.querySelector(".submitFormButton");
 
     submitFormButton.textContent = "Save";
-    submitFormButton.id = "saveEdit";
+    submitFormButton.setAttribute("class", "saveMealPlanEdit");
     submitFormButton.dataset.id = selection;
   };
 
@@ -288,7 +288,7 @@ const DisplayFactory = () => {
     displayForm,
     closeForm,
     displayCreateNewMealButton,
-    displayMealPlan,
+    display,
     getDate,
     getMeals,
     displayMealPlanAmount,
@@ -299,4 +299,4 @@ const DisplayFactory = () => {
   };
 };
 
-export default DisplayFactory;
+export default DisplayMealPlanFactory;

@@ -1,7 +1,7 @@
-import MealPlanManager from "./mealPlanManager";
-import DisplayFactory from "./displayMealPlans";
-import MealManager from "./mealManager";
-import DisplayMeals from "./displayMeals";
+import MealPlanManager from "./logic/mealPlanManager";
+import DisplayFactory from "./DOM/displayMealPlans";
+import MealManager from "./logic/mealManager";
+import DisplayMeals from "./DOM/displayMeals";
 
 const selectContainer = document.querySelector("#mealPlanFormContainer");
 const newMealPlanManager = new MealPlanManager();
@@ -40,7 +40,7 @@ selectContainer.addEventListener("click", (event) => {
     const getMealObjID = event.target.dataset.id;
     const getDate = newMealPlanManager.selectMealPlanDate(getMealObjID);
     const mealArray = newMealPlanManager.selectMeals(getMealObjID); // Rename this when complete
-    const search = newMealManager.getMeal(getMealObjID);
+    const search = newMealManager.getMeals(getMealObjID);
     displayMealPlans.removeMealPlanDisplay();
     displayMealPlans.viewMeals(search, getDate, mealArray, getMealObjID);
     document.querySelector("#createNewMeal").style.display = "none";

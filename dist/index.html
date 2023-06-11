@@ -19,8 +19,8 @@
         <span id="favoriteAmount"></span>
     </div>
 </div>
-<div id="mealPlanFormContainer" class="flex flex-col gap-2 justify-start items-center p-10">
-    <button id="createNewMeal">&plus; Add new meal plan</button>
+<div id="mealPlanFormContainer" class=" mealPlanFormContainer flex flex-col gap-2 justify-start items-center p-10">
+    <button id="createNewMeal" class="createNewMeal">&plus; Add new meal plan</button>
     <form action="" id="mealPlanForm" class="hidden flex-row items-center gap-5">
         <input type="date" name="date" id="date" required>
         <!-- Add a legend before pushing -->
@@ -34,8 +34,8 @@
             <label for="dinner">Dinner</label>
             <input class="checkbox" type="checkbox" name="dinner" id="dinner" value="Dinner">
         </fieldset>
-        <button type="submit" id="submitFormButton" class="border-2 border-slate-800 rounded-md p-1">Submit</button>
-        <button type ="button" id="close">&times;</button>
+        <button type="submit" class="submitFormButton" class="border-2 border-slate-800 rounded-md p-1">Submit</button>
+        <button type ="button" class="close">&times;</button>
     </form>
    </div>
 </body>

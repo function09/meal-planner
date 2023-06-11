@@ -9,8 +9,9 @@ class MealManager {
   }
 
   // Returns an array of meals that contain the matching id
-  getMeal(id) {
+  getMeals(id) {
     const meal = this.mealArray.filter((obj) => obj.id === id);
+
     return meal;
   }
 

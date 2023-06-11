@@ -5,7 +5,7 @@ class MealPlan {
     this.lunch = lunch;
     this.dinner = dinner;
     this.favorite = false;
-    this.id = id;
+    this.id = (Math.random() + 1).toString(36).replace(".", "");
   }
 }
 export default MealPlan;

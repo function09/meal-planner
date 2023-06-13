@@ -1,5 +1,5 @@
 class MealPlan {
-  constructor(date, breakfast, lunch, dinner, id) {
+  constructor(date, breakfast, lunch, dinner) {
     this.date = date;
     this.breakfast = breakfast;
     this.lunch = lunch;

@@ -29,7 +29,8 @@ const DisplayMealPlanFactory = () => {
     date.value = "";
 
     checkBoxes.forEach((checkbox) => {
-      checkbox.checked = false;
+      const arg = checkbox;
+      arg.checked = false;
     });
 
     mealPlanForm.previousElementSibling.style.display = "flex";

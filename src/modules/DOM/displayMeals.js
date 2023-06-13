@@ -70,12 +70,18 @@ const DisplayMeals = () => {
     createMealForm();
   };
 
+  const removeMealDisplay = () => {
+    document.querySelectorAll(".mealContainer").forEach((meal) => {
+      meal.remove();
+    });
+  };
   return {
     createMealForm,
     returnInputData,
     getDishes,
     displayMeal,
     editMeal,
+    removeMealDisplay,
   };
 };
 

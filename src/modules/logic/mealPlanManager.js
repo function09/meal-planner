@@ -9,7 +9,8 @@ class MealPlanManager {
   assignID() {
     this.mealPlanArray.forEach((meal) => {
       if (typeof meal.id === "undefined") {
-        meal.id = (Math.random() + 1).toString(36).replace(".", "");
+        const mealPlanObj = meal;
+        mealPlanObj.id = (Math.random() + 1).toString(36).replace(".", "");
       }
     });
   }

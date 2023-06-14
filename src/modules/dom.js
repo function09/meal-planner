@@ -144,7 +144,6 @@ selectContainer.addEventListener("click", (event) => {
     const getDishes = newMealManager.getDishes(mealType, mealID);
     displayMeals.displayMeal(getDishes, selectMealContainer, mealType, mealID);
     selectForm.remove();
-    console.log(event.target.dataset.id);
     event.preventDefault();
   } else if (buttonClassName === "editMeal") {
     selectMealContainer.dataset.canEdit = true;

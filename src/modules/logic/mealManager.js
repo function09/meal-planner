@@ -42,8 +42,6 @@ class MealManager {
 
   // Updates Meal object after editing
   editMeal(meal, id, mainDish, sideDish, drink) {
-    this.searchForMeal(meal, id);
-
     this.searchForMeal(meal, id).mainDish = mainDish;
     this.searchForMeal(meal, id).sideDish = sideDish;
     this.searchForMeal(meal, id).drink = drink;

@@ -17,8 +17,11 @@ class MealPlanManager {
 
   // Adds object to mealPlanArray
   pushToMealPlanArray(date, breakfast, lunch, dinner, id) {
-    this.mealPlanArray.push(new MealPlan(date, breakfast, lunch, dinner, id));
+    const mealPlan = new MealPlan(date, breakfast, lunch, dinner, id);
+
+    this.mealPlanArray.push(mealPlan);
     this.assignID();
+    // console.log(this.mealPlanArray);
   }
 
   // Removes MealPlan objects from mealPlanArray

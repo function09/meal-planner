@@ -39,7 +39,7 @@ mealPlanFormContainer.addEventListener("click", (event) => {
     }
 
     case "saveMealEdit": {
-      const dishes = mealManager.getDishes(meal, id);
+      const dishes = displayMeals.getDishes(form);
       mealManager.editMeal(meal, id, ...dishes);
       displayMeals.displayMeal(dishes, selectedMealContainer, meal, id);
 

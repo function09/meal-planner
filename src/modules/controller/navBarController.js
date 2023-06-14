@@ -21,7 +21,6 @@ navBar.addEventListener("click", (event) => {
       mealPlanManager.mealPlanArray.forEach((plan) => {
         displayMealPlan.display(plan.date, plan.id, plan.favorite);
       });
-      console.log(mealPlanManager.mealPlanArray);
 
       break;
     }

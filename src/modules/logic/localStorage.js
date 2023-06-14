@@ -1,6 +1,9 @@
-// const storageArray = localStorage.setItem(
-//   "mealPlanArray",
-//   JSON.stringify(mealPlanManager.mealPlanArray)
-// );
+import mealPlanManager from "./mealPlanManager";
 
-// export default storageArray;
+localStorage.getItem("myArray");
+
+console.log(JSON.parse(localStorage.getItem("myArray")));
+
+mealPlanManager.mealPlanArray = JSON.parse(localStorage.getItem("myArray"));
+
+console.log(mealPlanManager.mealPlanArray);

@@ -1,9 +1,8 @@
-import MealPlanManager from "../logic/mealPlanManager";
+import mealPlanManager from "../logic/mealPlanManager";
 import DisplayMealPlanFactory from "../DOM/displayMealPlans";
 import mealManager from "./mealController";
 
 const mealPlanFormContainer = document.querySelector("#mealPlanFormContainer");
-const mealPlanManager = new MealPlanManager();
 // const mealManager = new MealManager();
 const displayMealPlan = DisplayMealPlanFactory();
 
@@ -21,6 +20,7 @@ mealPlanFormContainer.addEventListener("click", (event) => {
     case "submitFormButton": {
       const date = displayMealPlan.getDate();
       const meals = displayMealPlan.getMeals();
+
       mealPlanManager.pushToMealPlanArray(date, ...meals);
 
       const mealPlanArrayLength = mealPlanManager.getMealPlanArrayLength();
@@ -32,6 +32,8 @@ mealPlanFormContainer.addEventListener("click", (event) => {
       mealPlanManager.mealPlanArray.forEach((index) => {
         displayMealPlan.display(index.date, index.id, index.favorite);
       });
+
+      mealPlanManager.setStorage();
 
       event.preventDefault();
       break;

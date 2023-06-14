@@ -5,6 +5,11 @@ class MealPlanManager {
 
   favoriteMealPlanArray = [];
 
+  setStorage() {
+    // console.log(this.mealPlanArray);
+    localStorage.setItem("myArray", JSON.stringify(this.mealPlanArray));
+  }
+
   // Assigns a unique ID property to each MealPlan object
   assignID() {
     this.mealPlanArray.forEach((meal) => {
@@ -17,11 +22,8 @@ class MealPlanManager {
 
   // Adds object to mealPlanArray
   pushToMealPlanArray(date, breakfast, lunch, dinner, id) {
-    const mealPlan = new MealPlan(date, breakfast, lunch, dinner, id);
-
-    this.mealPlanArray.push(mealPlan);
+    this.mealPlanArray.push(new MealPlan(date, breakfast, lunch, dinner, id));
     this.assignID();
-    // console.log(this.mealPlanArray);
   }
 
   // Removes MealPlan objects from mealPlanArray
@@ -120,4 +122,6 @@ class MealPlanManager {
   }
 }
 
-export default MealPlanManager;
+const mealPlanManager = new MealPlanManager();
+
+export default mealPlanManager;

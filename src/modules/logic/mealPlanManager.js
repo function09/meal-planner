@@ -3,10 +3,8 @@ import MealPlan from "./mealPlans";
 class MealPlanManager {
   mealPlanArray = [];
 
-  favoriteMealPlanArray = [];
-
+  // Uses mealPlanArray as local storage for all meal plans
   setStorage() {
-    // console.log(this.mealPlanArray);
     localStorage.setItem("mealPlanArray", JSON.stringify(this.mealPlanArray));
   }
 
@@ -29,12 +27,8 @@ class MealPlanManager {
   // Removes MealPlan objects from mealPlanArray
   removeFromMealPlanArray(ID) {
     const mealPlanIndex = this.mealPlanArray.findIndex((obj) => obj.id === ID);
-    const favoriteMealPlanIndex = this.favoriteMealPlanArray.findIndex(
-      (obj) => obj.id === ID
-    );
 
     this.mealPlanArray.splice(mealPlanIndex, 1);
-    this.favoriteMealPlanArray.splice(favoriteMealPlanIndex, 1);
   }
 
   // Updates mealPlans after editing
@@ -90,7 +84,6 @@ class MealPlanManager {
 
     if (selectedMealPlan.favorite === false) {
       selectedMealPlan.favorite = true;
-      this.favoriteMealPlanArray.push(selectedMealPlan);
     }
   }
 
@@ -102,15 +95,10 @@ class MealPlanManager {
 
     if (selectedMealPlan.favorite === true) {
       selectedMealPlan.favorite = false;
-
-      const favoriteMealPlanIndex = this.favoriteMealPlanArray.findIndex(
-        (obj) => obj.id === selectedMealPlan.id
-      );
-
-      this.favoriteMealPlanArray.splice(favoriteMealPlanIndex, 1);
     }
   }
 
+  // Filters meal plans to include only meal plans that are favorites
   storeFavoriteMealPlans() {
     const storedMealPlans = this.mealPlanArray.filter(
       (mealPlan) => mealPlan.favorite === true

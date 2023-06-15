@@ -7,7 +7,7 @@ class MealPlanManager {
 
   setStorage() {
     // console.log(this.mealPlanArray);
-    localStorage.setItem("myArray", JSON.stringify(this.mealPlanArray));
+    localStorage.setItem("mealPlanArray", JSON.stringify(this.mealPlanArray));
   }
 
   // Assigns a unique ID property to each MealPlan object
@@ -111,6 +111,13 @@ class MealPlanManager {
     }
   }
 
+  storeFavoriteMealPlans() {
+    const storedMealPlans = this.mealPlanArray.filter(
+      (mealPlan) => mealPlan.favorite === true
+    );
+    return storedMealPlans;
+  }
+
   // Returns mealPlan array length
   getMealPlanArrayLength() {
     return this.mealPlanArray.length;
@@ -118,7 +125,7 @@ class MealPlanManager {
 
   // Returns favoriteMealPlan array length
   getFavoriteMealPlanArrayLength() {
-    return this.favoriteMealPlanArray.length;
+    return this.storeFavoriteMealPlans().length;
   }
 }
 

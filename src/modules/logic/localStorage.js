@@ -1,9 +1,22 @@
+import DisplayMealPlanFactory from "../DOM/displayMealPlans";
 import mealPlanManager from "./mealPlanManager";
 
-localStorage.getItem("myArray");
+const displayMealPlan = DisplayMealPlanFactory();
 
-console.log(JSON.parse(localStorage.getItem("myArray")));
+mealPlanManager.mealPlanArray = JSON.parse(
+  localStorage.getItem("mealPlanArray")
+);
 
-mealPlanManager.mealPlanArray = JSON.parse(localStorage.getItem("myArray"));
+if (localStorage.getItem("mealPlanArray")) {
+  mealPlanManager.mealPlanArray.forEach((mealPlan) => {
+    displayMealPlan.display(mealPlan.date, mealPlan.id, mealPlan.favorite);
+  });
 
-console.log(mealPlanManager.mealPlanArray);
+  const mealPlanArrayLength = mealPlanManager.getMealPlanArrayLength();
+  displayMealPlan.displayMealPlanAmount(mealPlanArrayLength);
+
+  const favoriteMealPlanArrayLength =
+    mealPlanManager.getFavoriteMealPlanArrayLength();
+
+  displayMealPlan.displayFavoriteMealPlanAmount(favoriteMealPlanArrayLength);
+}

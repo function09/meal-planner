@@ -60,6 +60,7 @@ mealPlanFormContainer.addEventListener("click", (event) => {
       displayMealPlan.displayFavoriteMealPlanAmount(
         favoriteMealPlanArrayLength
       );
+      mealPlanManager.setStorage();
       break;
     }
     case "editMealPlan": {
@@ -67,6 +68,7 @@ mealPlanFormContainer.addEventListener("click", (event) => {
       const mealValues = mealPlanManager.getMealValues(id);
 
       displayMealPlan.edit(parentElement, id, ...mealValues);
+
       break;
     }
     case "saveMealPlanEdit": {
@@ -80,6 +82,9 @@ mealPlanFormContainer.addEventListener("click", (event) => {
       mealPlanManager.mealPlanArray.forEach((index) => {
         displayMealPlan.display(index.date, index.id, index.favorite);
       });
+
+      mealPlanManager.setStorage();
+
       event.preventDefault();
       break;
     }
@@ -94,6 +99,8 @@ mealPlanFormContainer.addEventListener("click", (event) => {
       displayMealPlan.displayFavoriteMealPlanAmount(
         favoriteMealPlanArrayLength
       );
+      mealPlanManager.setStorage();
+      mealPlanManager.storeFavoriteMealPlans();
       break;
     }
     case "unfavorite": {
@@ -112,6 +119,9 @@ mealPlanFormContainer.addEventListener("click", (event) => {
       if (mealPlanFormContainer.dataset.type === "favorites") {
         target.parentElement.remove();
       }
+
+      mealPlanManager.setStorage();
+
       break;
     }
     default:

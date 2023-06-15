@@ -25,7 +25,7 @@ navBar.addEventListener("click", (event) => {
       break;
     }
     case "favoriteTab": {
-      const { favoriteMealPlanArray } = mealPlanManager;
+      const favoriteMealPlanArray = mealPlanManager.storeFavoriteMealPlans();
 
       displayMealPlan.removeMealPlanDisplay();
       displayMeals.removeMealDisplay();

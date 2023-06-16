@@ -32,6 +32,12 @@ mealPlanFormContainer.addEventListener("click", (event) => {
     }
     case "editMeal": {
       displayMeals.createMealForm(selectedMealContainer, meal, id);
+
+      form.nextSibling.querySelectorAll("input").forEach((input, index) => {
+        const inputElement = input;
+        inputElement.value = displayMeals.getDishValues(form)[index];
+      });
+
       form.nextSibling.lastElementChild.textContent = "Save edit";
       form.nextSibling.lastElementChild.className = "saveMealEdit";
       form.remove();

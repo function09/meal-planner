@@ -41,7 +41,6 @@ const DisplayMeals = () => {
     selectDishInputs.forEach((input) => {
       dishArray.push(input.value);
     });
-    console.log(dishArray);
     return dishArray;
   };
 
@@ -61,13 +60,24 @@ const DisplayMeals = () => {
     createEditMealButton.setAttribute("class", "editMeal");
     createEditMealButton.dataset.id = id;
     createEditMealButton.dataset.meal = mealData;
-    createEditMealButton.textContent = "edit";
+    createEditMealButton.textContent = "Edit meal";
     createMealDisplay.appendChild(createEditMealButton);
   };
 
   // Displays meal form
   const editMeal = () => {
     createMealForm();
+  };
+
+  const getDishValues = (mealDisplay) => {
+    const dishValuesArray = [];
+
+    mealDisplay.querySelectorAll(".dish").forEach((input) => {
+      const inputElement = input;
+
+      dishValuesArray.push(inputElement.textContent);
+    });
+    return dishValuesArray;
   };
 
   const removeMealDisplay = () => {
@@ -81,6 +91,7 @@ const DisplayMeals = () => {
     getDishes,
     displayMeal,
     editMeal,
+    getDishValues,
     removeMealDisplay,
   };
 };

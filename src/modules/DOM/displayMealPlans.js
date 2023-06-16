@@ -231,7 +231,7 @@ const DisplayMealPlanFactory = () => {
     editMealButton.setAttribute("class", "editMeal");
     editMealButton.dataset.id = array[index].id;
     editMealButton.dataset.meal = array[index].meal;
-    editMealButton.textContent = "edit";
+    editMealButton.textContent = "Edit Meal";
     parentElement.appendChild(editMealButton);
   };
 

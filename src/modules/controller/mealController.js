@@ -1,8 +1,7 @@
-import MealManager from "../logic/mealManager";
 import DisplayMeals from "../DOM/displayMeals";
+import mealManager from "../logic/mealManager";
 
 const mealPlanFormContainer = document.querySelector("#mealPlanFormContainer");
-const mealManager = new MealManager();
 const displayMeals = DisplayMeals();
 
 mealPlanFormContainer.addEventListener("click", (event) => {
@@ -27,6 +26,7 @@ mealPlanFormContainer.addEventListener("click", (event) => {
       displayMeals.displayMeal(dishes, selectedMealContainer, meal, id);
 
       form.remove();
+      mealManager.setStorage();
       event.preventDefault();
       break;
     }
@@ -37,13 +37,13 @@ mealPlanFormContainer.addEventListener("click", (event) => {
       form.remove();
       break;
     }
-
     case "saveMealEdit": {
       const dishes = displayMeals.getDishes(form);
       mealManager.editMeal(meal, id, ...dishes);
       displayMeals.displayMeal(dishes, selectedMealContainer, meal, id);
 
       form.remove();
+      mealManager.setStorage();
       event.preventDefault();
       break;
     }

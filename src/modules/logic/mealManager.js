@@ -3,6 +3,11 @@ import Meals from "./meals";
 class MealManager {
   mealArray = [];
 
+  // Uses mealArray as local storage for all meals
+  setStorage() {
+    localStorage.setItem("mealArray", JSON.stringify(this.mealArray));
+  }
+
   // Add object to meal array
   pushToMealArray(mainDish, sideDish, drink, meal, mealID) {
     this.mealArray.push(new Meals(mainDish, sideDish, drink, meal, mealID));
@@ -48,4 +53,6 @@ class MealManager {
   }
 }
 
-export default MealManager;
+const mealManager = new MealManager();
+
+export default mealManager;

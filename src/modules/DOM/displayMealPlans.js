@@ -218,12 +218,12 @@ const DisplayMealPlanFactory = () => {
     parentElement.appendChild(mainDishDiv);
 
     const sideDishDiv = document.createElement("div");
-    mainDishDiv.setAttribute("class", "dish");
+    sideDishDiv.setAttribute("class", "dish");
     sideDishDiv.textContent = array[index].sideDish;
     parentElement.appendChild(sideDishDiv);
 
     const drinkDiv = document.createElement("div");
-    mainDishDiv.setAttribute("class", "dish");
+    drinkDiv.setAttribute("class", "dish");
     drinkDiv.textContent = array[index].drink;
     parentElement.appendChild(drinkDiv);
 

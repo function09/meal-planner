@@ -41,7 +41,7 @@ const DisplayMeals = () => {
     selectDishInputs.forEach((input) => {
       dishArray.push(input.value);
     });
-
+    console.log(dishArray);
     return dishArray;
   };
 

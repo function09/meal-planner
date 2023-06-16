@@ -69,6 +69,7 @@ const DisplayMeals = () => {
     createMealForm();
   };
 
+  // Returns values of dish/drink div and stores them in an array
   const getDishValues = (mealDisplay) => {
     const dishValuesArray = [];
 
@@ -80,6 +81,7 @@ const DisplayMeals = () => {
     return dishValuesArray;
   };
 
+  // Removes all meal containers from display
   const removeMealDisplay = () => {
     document.querySelectorAll(".mealContainer").forEach((meal) => {
       meal.remove();

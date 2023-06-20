@@ -19,8 +19,10 @@ class MealPlanManager {
   }
 
   // Adds object to mealPlanArray
-  pushToMealPlanArray(date, breakfast, lunch, dinner, id) {
-    this.mealPlanArray.push(new MealPlan(date, breakfast, lunch, dinner, id));
+  pushToMealPlanArray(date, title, breakfast, lunch, dinner, id) {
+    this.mealPlanArray.push(
+      new MealPlan(date, title, breakfast, lunch, dinner, id)
+    );
     this.assignID();
   }
 
@@ -32,11 +34,12 @@ class MealPlanManager {
   }
 
   // Updates mealPlans after editing
-  editMealPlan(selection, date, breakfast, lunch, dinner) {
+  editMealPlan(selection, date, title, breakfast, lunch, dinner) {
     const selectedMealPlan = this.mealPlanArray.find(
       (obj) => obj.id === selection
     );
     selectedMealPlan.date = date;
+    selectedMealPlan.title = title;
     selectedMealPlan.breakfast = breakfast;
     selectedMealPlan.lunch = lunch;
     selectedMealPlan.dinner = dinner;

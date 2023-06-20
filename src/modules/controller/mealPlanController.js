@@ -20,8 +20,9 @@ mealPlanFormContainer.addEventListener("click", (event) => {
     case "submitFormButton": {
       const date = displayMealPlan.getDate();
       const meals = displayMealPlan.getMeals();
+      const title = displayMealPlan.getTitle();
 
-      mealPlanManager.pushToMealPlanArray(date, ...meals);
+      mealPlanManager.pushToMealPlanArray(date, title, ...meals);
 
       const mealPlanArrayLength = mealPlanManager.getMealPlanArrayLength();
       displayMealPlan.displayMealPlanAmount(mealPlanArrayLength);
@@ -30,11 +31,15 @@ mealPlanFormContainer.addEventListener("click", (event) => {
       displayMealPlan.removeMealPlanDisplay();
 
       mealPlanManager.mealPlanArray.forEach((index) => {
-        displayMealPlan.display(index.date, index.id, index.favorite);
+        displayMealPlan.display(
+          index.date,
+          index.title,
+          index.id,
+          index.favorite
+        );
       });
 
       mealPlanManager.setStorage();
-
       event.preventDefault();
       break;
     }
@@ -74,13 +79,19 @@ mealPlanFormContainer.addEventListener("click", (event) => {
     case "saveMealPlanEdit": {
       const date = displayMealPlan.getDate();
       const meals = displayMealPlan.getMeals();
+      const title = displayMealPlan.getTitle();
 
-      mealPlanManager.editMealPlan(id, date, ...meals);
+      mealPlanManager.editMealPlan(id, date, title, ...meals);
       displayMealPlan.closeForm();
       displayMealPlan.removeMealPlanDisplay();
 
       mealPlanManager.mealPlanArray.forEach((index) => {
-        displayMealPlan.display(index.date, index.id, index.favorite);
+        displayMealPlan.display(
+          index.date,
+          index.title,
+          index.id,
+          index.favorite
+        );
       });
 
       mealPlanManager.setStorage();

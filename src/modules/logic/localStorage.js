@@ -12,7 +12,12 @@ mealPlanManager.mealPlanArray = JSON.parse(
 // If meal plan local storage is present, display all contents upon page load
 if (localStorage.getItem("mealPlanArray")) {
   mealPlanManager.mealPlanArray.forEach((mealPlan) => {
-    displayMealPlan.display(mealPlan.date, mealPlan.id, mealPlan.favorite);
+    displayMealPlan.display(
+      mealPlan.date,
+      mealPlan.title,
+      mealPlan.id,
+      mealPlan.favorite
+    );
   });
 
   const mealPlanArrayLength = mealPlanManager.getMealPlanArrayLength();

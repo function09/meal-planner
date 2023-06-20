@@ -53,7 +53,6 @@ mealPlanFormContainer.addEventListener("click", (event) => {
       event.preventDefault();
       break;
     }
-
     default:
       break;
   }

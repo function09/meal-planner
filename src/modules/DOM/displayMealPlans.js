@@ -54,15 +54,18 @@ const DisplayMealPlanFactory = () => {
   };
 
   /* Displays meal plans
-   *changes favorite button text to "unfavorite" if meal plan is favorited
+   * changes favorite button text to "unfavorite" if meal plan is favorited
    * if createNewMealButton present, inserts before it otherwise it inserts it at the end
    */
-  const display = (date, index, favorite) => {
+  const display = (date, title, index, favorite) => {
     const mealPlanDiv = document.createElement("div");
     mealPlanDiv.setAttribute("class", "mealPlans");
 
     const dateText = document.createElement("span");
     dateText.textContent = date;
+
+    const titleText = document.createElement("span");
+    titleText.textContent = title;
 
     const viewButton = document.createElement("button");
     viewButton.textContent = "View";
@@ -92,6 +95,7 @@ const DisplayMealPlanFactory = () => {
     if (document.querySelector("#createNewMeal")) {
       mealPlanFormContainer.insertBefore(mealPlanDiv, createNewMealButton);
       mealPlanDiv.appendChild(dateText);
+      mealPlanDiv.appendChild(titleText);
       mealPlanDiv.appendChild(viewButton);
       mealPlanDiv.appendChild(removeButton);
       mealPlanDiv.appendChild(editButton);
@@ -99,6 +103,7 @@ const DisplayMealPlanFactory = () => {
     } else {
       mealPlanFormContainer.appendChild(mealPlanDiv);
       mealPlanDiv.appendChild(dateText);
+      mealPlanDiv.appendChild(titleText);
       mealPlanDiv.appendChild(viewButton);
       mealPlanDiv.appendChild(removeButton);
       mealPlanDiv.appendChild(editButton);
@@ -113,7 +118,12 @@ const DisplayMealPlanFactory = () => {
 
     return format(new Date(`${dateValue}T12:00`), "PPPP");
   };
+  // Selects title after inputting
+  const getTitle = () => {
+    const titleValue = document.querySelector("#title").value;
 
+    return titleValue;
+  };
   // Returns meal values when checked, stored in an array
   const getMeals = () => {
     const mealArray = [];
@@ -291,6 +301,7 @@ const DisplayMealPlanFactory = () => {
     displayCreateNewMealButton,
     display,
     getDate,
+    getTitle,
     getMeals,
     displayMealPlanAmount,
     edit,

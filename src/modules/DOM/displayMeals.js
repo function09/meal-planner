@@ -87,6 +87,7 @@ const DisplayMeals = () => {
       meal.remove();
     });
   };
+
   return {
     createMealForm,
     returnInputData,

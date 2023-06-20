@@ -59,7 +59,10 @@ class MealPlanManager {
     const selectedMealPlan = this.mealPlanArray.find((obj) => obj.id === ID);
 
     const meals = Object.keys(selectedMealPlan).filter(
-      (key) => selectedMealPlan[key] === true && key !== "favorite"
+      (key) =>
+        selectedMealPlan[key] === true &&
+        key !== "favorite" &&
+        key !== "complete"
     );
 
     meals.forEach((meal) => {
@@ -79,7 +82,7 @@ class MealPlanManager {
     return [breakfast, lunch, dinner];
   }
 
-  // Favorites MealPlans and pushes them to favoriteMealPlanArray
+  // Changes "favorite" property to "true"
   favoriteMealPlan(selection) {
     const selectedMealPlan = this.mealPlanArray.find(
       (obj) => obj.id === selection
@@ -90,7 +93,7 @@ class MealPlanManager {
     }
   }
 
-  // Removes mealPlan from favoriteMealPlanArray
+  // Changes "favorite" property to "false"
   unfavoriteMealPlan(selection) {
     const selectedMealPlan = this.mealPlanArray.find(
       (obj) => obj.id === selection
@@ -101,10 +104,40 @@ class MealPlanManager {
     }
   }
 
-  // Filters meal plans to include only meal plans that are favorites
+  // Filter mealPlanArray to include only mealPlan whose "favorite" property is true
   storeFavoriteMealPlans() {
     const storedMealPlans = this.mealPlanArray.filter(
       (mealPlan) => mealPlan.favorite === true
+    );
+    return storedMealPlans;
+  }
+
+  // Changes complete property in mealPlan to "true"
+  completeMealPlan(selection) {
+    const selectedMealPlan = this.mealPlanArray.find(
+      (obj) => obj.id === selection
+    );
+
+    if (selectedMealPlan.complete === false) {
+      selectedMealPlan.complete = true;
+    }
+  }
+
+  // Changes complete property in mealPlan to "false"
+  uncompleteMealPlan(selection) {
+    const selectedMealPlan = this.mealPlanArray.find(
+      (obj) => obj.id === selection
+    );
+
+    if (selectedMealPlan.complete === true) {
+      selectedMealPlan.complete = false;
+    }
+  }
+
+  // Filter mealPlanArray to include only mealPlan whose "complete" property is true
+  storeCompletedMealPlan() {
+    const storedMealPlans = this.mealPlanArray.filter(
+      (mealplan) => mealplan.complete === true
     );
     return storedMealPlans;
   }
@@ -114,9 +147,14 @@ class MealPlanManager {
     return this.mealPlanArray.length;
   }
 
-  // Returns favoriteMealPlan array length
+  // Returns length of filtered array containing "favorite" properties set to true
   getFavoriteMealPlanArrayLength() {
     return this.storeFavoriteMealPlans().length;
+  }
+
+  // Returns length of filtered array containing "completed" properties set to true
+  getCompletedMealPlanArrayLength() {
+    return this.storeCompletedMealPlan().length;
   }
 }
 

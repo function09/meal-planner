@@ -19,7 +19,13 @@ navBar.addEventListener("click", (event) => {
       displayMeals.removeMealDisplay();
 
       mealPlanManager.mealPlanArray.forEach((plan) => {
-        displayMealPlan.display(plan.date, plan.id, plan.favorite);
+        displayMealPlan.display(
+          plan.date,
+          plan.title,
+          plan.id,
+          plan.favorite,
+          plan.complete
+        );
       });
 
       break;
@@ -31,12 +37,29 @@ navBar.addEventListener("click", (event) => {
       displayMeals.removeMealDisplay();
 
       favoriteMealPlanArray.forEach((plan) => {
-        displayMealPlan.display(plan.date, plan.id, plan.favorite);
+        displayMealPlan.display(plan.date, plan.title, plan.id, plan.favorite);
       });
 
       container.dataset.type = "favorites";
       displayMealPlan.displayCreateNewMealButton();
 
+      break;
+    }
+    case "completedTab": {
+      const completedMealPlans = mealPlanManager.storeCompletedMealPlan();
+
+      displayMealPlan.removeMealPlanDisplay();
+      displayMeals.removeMealDisplay();
+
+      completedMealPlans.forEach((plan) => {
+        displayMealPlan.display(
+          plan.date,
+          plan.title,
+          plan.id,
+          plan.favorite,
+          plan.complete
+        );
+      });
       break;
     }
     default:

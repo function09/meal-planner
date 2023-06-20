@@ -35,7 +35,8 @@ mealPlanFormContainer.addEventListener("click", (event) => {
           index.date,
           index.title,
           index.id,
-          index.favorite
+          index.favorite,
+          index.complete
         );
       });
 
@@ -60,11 +61,12 @@ mealPlanFormContainer.addEventListener("click", (event) => {
       const mealPlanArrayLength = mealPlanManager.getMealPlanArrayLength();
       displayMealPlan.displayMealPlanAmount(mealPlanArrayLength);
 
-      const favoriteMealPlanArrayLength =
-        mealPlanManager.getFavoriteMealPlanArrayLength();
-      displayMealPlan.displayFavoriteMealPlanAmount(
-        favoriteMealPlanArrayLength
-      );
+      const favoriteArray = mealPlanManager.getFavoriteMealPlanArrayLength();
+      displayMealPlan.displayFavoriteMealPlanAmount(favoriteArray);
+
+      const completedArray = mealPlanManager.getCompletedMealPlanArrayLength();
+      displayMealPlan.displayCompletedMealPlanAmount(completedArray);
+
       mealPlanManager.setStorage();
       break;
     }
@@ -73,7 +75,6 @@ mealPlanFormContainer.addEventListener("click", (event) => {
       const mealValues = mealPlanManager.getMealValues(id);
 
       displayMealPlan.edit(parentElement, id, ...mealValues);
-
       break;
     }
     case "saveMealPlanEdit": {
@@ -104,14 +105,11 @@ mealPlanFormContainer.addEventListener("click", (event) => {
       target.textContent = "Unfavorite";
       target.className = "unfavorite";
 
-      const favoriteMealPlanArrayLength =
-        mealPlanManager.getFavoriteMealPlanArrayLength();
+      const favoriteArray = mealPlanManager.getFavoriteMealPlanArrayLength();
 
-      displayMealPlan.displayFavoriteMealPlanAmount(
-        favoriteMealPlanArrayLength
-      );
+      displayMealPlan.displayFavoriteMealPlanAmount(favoriteArray);
+
       mealPlanManager.setStorage();
-      mealPlanManager.storeFavoriteMealPlans();
       break;
     }
     case "unfavorite": {
@@ -120,19 +118,40 @@ mealPlanFormContainer.addEventListener("click", (event) => {
       target.textContent = "Favorite";
       target.className = "favorite";
 
-      const favoriteMealPlanArrayLength =
-        mealPlanManager.getFavoriteMealPlanArrayLength();
+      const favoriteArray = mealPlanManager.getFavoriteMealPlanArrayLength();
 
-      displayMealPlan.displayFavoriteMealPlanAmount(
-        favoriteMealPlanArrayLength
-      );
+      displayMealPlan.displayFavoriteMealPlanAmount(favoriteArray);
 
       if (mealPlanFormContainer.dataset.type === "favorites") {
         target.parentElement.remove();
       }
 
       mealPlanManager.setStorage();
+      break;
+    }
+    case "complete": {
+      mealPlanManager.completeMealPlan(id);
 
+      target.textContent = "Uncomplete";
+      target.className = "uncomplete";
+
+      const completedArray = mealPlanManager.getCompletedMealPlanArrayLength();
+
+      displayMealPlan.displayCompletedMealPlanAmount(completedArray);
+
+      mealPlanManager.setStorage();
+      break;
+    }
+    case "uncomplete": {
+      mealPlanManager.uncompleteMealPlan(id);
+      target.textContent = "Complete";
+      target.className = "complete";
+
+      const completedArray = mealPlanManager.getCompletedMealPlanArrayLength();
+
+      displayMealPlan.displayCompletedMealPlanAmount(completedArray);
+
+      mealPlanManager.setStorage();
       break;
     }
     default:

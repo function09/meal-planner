@@ -22,11 +22,13 @@ const DisplayMealPlanFactory = () => {
    */
   const closeForm = () => {
     const date = document.querySelector("#date");
+    const title = document.querySelector("#title");
 
     mealPlanForm.style.display = "none";
     createNewMealButton.style.display = "flex";
 
     date.value = "";
+    title.value = "";
 
     checkBoxes.forEach((checkbox) => {
       const arg = checkbox;
@@ -57,7 +59,7 @@ const DisplayMealPlanFactory = () => {
    * changes favorite button text to "unfavorite" if meal plan is favorited
    * if createNewMealButton present, inserts before it otherwise it inserts it at the end
    */
-  const display = (date, title, index, favorite) => {
+  const display = (date, title, index, favorite, complete) => {
     const mealPlanDiv = document.createElement("div");
     mealPlanDiv.setAttribute("class", "mealPlans");
 
@@ -92,6 +94,16 @@ const DisplayMealPlanFactory = () => {
       favoriteButton.classList = "unfavorite";
     }
 
+    const completeButton = document.createElement("button");
+    completeButton.textContent = "Complete";
+    completeButton.setAttribute("class", "complete");
+    completeButton.dataset.id = index;
+
+    if (complete === true) {
+      completeButton.textContent = "Uncomplete";
+      completeButton.classList = "uncomplete";
+    }
+
     if (document.querySelector("#createNewMeal")) {
       mealPlanFormContainer.insertBefore(mealPlanDiv, createNewMealButton);
       mealPlanDiv.appendChild(dateText);
@@ -100,6 +112,7 @@ const DisplayMealPlanFactory = () => {
       mealPlanDiv.appendChild(removeButton);
       mealPlanDiv.appendChild(editButton);
       mealPlanDiv.appendChild(favoriteButton);
+      mealPlanDiv.appendChild(completeButton);
     } else {
       mealPlanFormContainer.appendChild(mealPlanDiv);
       mealPlanDiv.appendChild(dateText);
@@ -108,6 +121,7 @@ const DisplayMealPlanFactory = () => {
       mealPlanDiv.appendChild(removeButton);
       mealPlanDiv.appendChild(editButton);
       mealPlanDiv.appendChild(favoriteButton);
+      mealPlanDiv.appendChild(completeButton);
     }
     mealPlanFormContainer.appendChild(mealPlanForm);
   };
@@ -181,6 +195,15 @@ const DisplayMealPlanFactory = () => {
     }
   };
 
+  const displayCompletedMealPlanAmount = (arrayLength) => {
+    const completeMealPlanAmount = document.querySelector("#completedMealPlan");
+
+    completeMealPlanAmount.textContent = arrayLength;
+
+    if (arrayLength === 0) {
+      completeMealPlanAmount.textContent = "";
+    }
+  };
   // Removes meal plans from display, if #mealContainer exists, remove it as well
   const removeMealPlanDisplay = () => {
     document.querySelectorAll(".mealPlans").forEach((plan) => {
@@ -306,6 +329,7 @@ const DisplayMealPlanFactory = () => {
     displayMealPlanAmount,
     edit,
     displayFavoriteMealPlanAmount,
+    displayCompletedMealPlanAmount,
     removeMealPlanDisplay,
     viewMeals,
   };

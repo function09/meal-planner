@@ -16,7 +16,8 @@ if (localStorage.getItem("mealPlanArray")) {
       mealPlan.date,
       mealPlan.title,
       mealPlan.id,
-      mealPlan.favorite
+      mealPlan.favorite,
+      mealPlan.complete
     );
   });
 
@@ -25,8 +26,10 @@ if (localStorage.getItem("mealPlanArray")) {
 
   const favoriteMealPlanArrayLength =
     mealPlanManager.getFavoriteMealPlanArrayLength();
-
   displayMealPlan.displayFavoriteMealPlanAmount(favoriteMealPlanArrayLength);
+
+  const completedArray = mealPlanManager.getCompletedMealPlanArrayLength();
+  displayMealPlan.displayCompletedMealPlanAmount(completedArray);
 }
 
 // Meal local storage

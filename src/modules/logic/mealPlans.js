@@ -6,6 +6,7 @@ class MealPlan {
     this.lunch = lunch;
     this.dinner = dinner;
     this.favorite = false;
+    this.complete = false;
     this.id = (Math.random() + 1).toString(36).replace(".", "");
   }
 }

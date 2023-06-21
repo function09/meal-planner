@@ -1,4 +1,4 @@
-// import "./modules/dom";
+import "./style.css";
 import "./modules/controller/mealPlanController";
 import "./modules/controller/mealController";
 import "./modules/controller/navBarController";

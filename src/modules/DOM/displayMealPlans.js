@@ -1,15 +1,13 @@
 import { format } from "date-fns";
 
 // Rename this when complete
-const DisplayMealPlanFactory = () => {
+const DisplayMealPlan = () => {
   const mealPlanForm = document.querySelector("#mealPlanForm");
   const createNewMealButton = document.querySelector("#createNewMeal");
   const checkBoxes = document.querySelectorAll(".checkbox");
   const mealPlanFormContainer = document.querySelector(
     "#mealPlanFormContainer"
   );
-
-  // ToDo: RENAME AND ALL ELEMENTS TO BE MORE FITTING BEFORE PUSHING TO REPOSITORY!!!!
 
   // Display form and hide createNewMealButton
   const displayForm = () => {
@@ -48,7 +46,10 @@ const DisplayMealPlanFactory = () => {
 
   // Displays or hides createNewMealButton on toggle
   const displayCreateNewMealButton = () => {
-    if (mealPlanFormContainer.dataset.type === "favorites") {
+    if (
+      mealPlanFormContainer.dataset.type === "favorites" ||
+      mealPlanFormContainer.dataset.type === "completed"
+    ) {
       createNewMealButton.style.display = "none";
     } else {
       createNewMealButton.style.display = "flex";
@@ -59,7 +60,7 @@ const DisplayMealPlanFactory = () => {
    * changes favorite button text to "unfavorite" if meal plan is favorited
    * if createNewMealButton present, inserts before it otherwise it inserts it at the end
    */
-  const display = (date, title, index, favorite, complete) => {
+  const createMealPlanDisplay = (date, title, index, favorite, complete) => {
     const mealPlanDiv = document.createElement("div");
     mealPlanDiv.setAttribute("class", "mealPlans");
 
@@ -132,12 +133,14 @@ const DisplayMealPlanFactory = () => {
 
     return format(new Date(`${dateValue}T12:00`), "PPPP");
   };
+
   // Selects title after inputting
   const getTitle = () => {
     const titleValue = document.querySelector("#title").value;
 
     return titleValue;
   };
+
   // Returns meal values when checked, stored in an array
   const getMeals = () => {
     const mealArray = [];
@@ -152,7 +155,7 @@ const DisplayMealPlanFactory = () => {
     return mealArray;
   };
 
-  // Displays the length of the mealPlanArray
+  // Displays the length of mealPlanArray
   const displayMealPlanAmount = (arrayLength) => {
     const updateMealPlanAmount = document.querySelector("#mealPlanAmount");
 
@@ -322,7 +325,7 @@ const DisplayMealPlanFactory = () => {
     displayForm,
     closeForm,
     displayCreateNewMealButton,
-    display,
+    createMealPlanDisplay,
     getDate,
     getTitle,
     getMeals,
@@ -335,4 +338,4 @@ const DisplayMealPlanFactory = () => {
   };
 };
 
-export default DisplayMealPlanFactory;
+export default DisplayMealPlan;

@@ -13,7 +13,7 @@ if (localStorage.getItem("mealPlanArray")) {
   );
 
   mealPlanManager.mealPlanArray.forEach((mealPlan) => {
-    displayMealPlan.display(
+    displayMealPlan.createMealPlanDisplay(
       mealPlan.date,
       mealPlan.title,
       mealPlan.id,

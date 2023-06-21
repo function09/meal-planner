@@ -5,13 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-    <link href="/dist/output.css" rel="stylesheet">
+    <link href="/src/style.css" rel="stylesheet">
     <script src="index.bundle.js" defer></script>
 
 </head>
-<body class=" bg-slate-100 h-screen w-screen">
-<div id="header" class="w-full h-full bg-slate-500 shadow-slate-400 shadow-sm relative"></div>
-<div id="navBar" class="h-full w-full bg-slate-200">
+<body>
+<div id="header"></div>
+<div id="navBar">
     <div id="mealPlanContainer">
         <button id="mealPlanTab">Meal Plans</button>
         <span id="mealPlanAmount"></span>
@@ -23,9 +23,9 @@
         <span id="completedMealPlan"></span>
     </div>
 </div>
-<div id="mealPlanFormContainer" class=" mealPlanFormContainer flex flex-col gap-2 justify-start items-center p-10">
+<div id="mealPlanFormContainer" class=" mealPlanFormContainer">
     <button id="createNewMeal" class="createNewMeal">&plus; Add new meal plan</button>
-    <form action="" id="mealPlanForm" class="hidden flex-row items-center gap-5">
+    <form action="" id="mealPlanForm">
         <input type="date" name="date" id="date" required>
         <input type="text" name ="title" id ="title" placeholder="Title" required>
         <!-- Add a legend before pushing -->
@@ -39,7 +39,7 @@
             <label for="dinner">Dinner</label>
             <input class="checkbox" type="checkbox" name="dinner" id="dinner" value="Dinner">
         </fieldset>
-        <button type="submit" class="submitFormButton" class="border-2 border-slate-800 rounded-md p-1">Submit</button>
+        <button type="submit" class="submitFormButton">Submit</button>
         <button type ="button" class="close">&times;</button>
     </form>
    </div>

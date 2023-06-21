@@ -38,11 +38,11 @@ class MealManager {
 
   // Returns an array of dishes and drinks from a Meal object
   getDishes(meal, id) {
-    const selectedMeal = this.mealArray.find(
-      (obj) => obj.meal === meal && obj.id === id
-    );
-
-    return [selectedMeal.mainDish, selectedMeal.sideDish, selectedMeal.drink];
+    return [
+      this.searchForMeal(meal, id).mainDish,
+      this.searchForMeal(meal, id).sideDish,
+      this.searchForMeal(meal, id).drink,
+    ];
   }
 
   // Updates Meal object after editing

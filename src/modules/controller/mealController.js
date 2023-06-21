@@ -9,8 +9,8 @@ mealPlanFormContainer.addEventListener("click", (event) => {
   const { id } = event.target.dataset;
   const { meal } = event.target.dataset;
   const mealContainer = event.target.parentElement;
-  const form = event.target.parentElement; // change name of this when cleaning
-  const selectedMealContainer = form.parentElement;
+  const mealDisplay = event.target.parentElement; // change name of this when cleaning
+  const selectedMealContainer = mealDisplay.parentElement;
 
   switch (target.className) {
     case "addMeal": {
@@ -18,37 +18,42 @@ mealPlanFormContainer.addEventListener("click", (event) => {
       target.remove();
       break;
     }
+
     case "submitMeal": {
-      const inputValues = displayMeals.returnInputData(form);
+      const inputValues = displayMeals.returnInputData(mealDisplay);
       mealManager.pushToMealArray(...inputValues, meal, id);
 
       const dishes = mealManager.getDishes(meal, id);
       displayMeals.displayMeal(dishes, selectedMealContainer, meal, id);
 
-      form.remove();
+      mealDisplay.remove();
       mealManager.setStorage();
       event.preventDefault();
       break;
     }
+
     case "editMeal": {
       displayMeals.createMealForm(selectedMealContainer, meal, id);
 
-      form.nextSibling.querySelectorAll("input").forEach((input, index) => {
-        const inputElement = input;
-        inputElement.value = displayMeals.getDishValues(form)[index];
-      });
+      mealDisplay.nextSibling
+        .querySelectorAll("input")
+        .forEach((input, index) => {
+          const inputElement = input;
+          inputElement.value = displayMeals.getDishValues(mealDisplay)[index];
+        });
 
-      form.nextSibling.lastElementChild.textContent = "Save edit";
-      form.nextSibling.lastElementChild.className = "saveMealEdit";
-      form.remove();
+      mealDisplay.nextSibling.lastElementChild.textContent = "Save edit";
+      mealDisplay.nextSibling.lastElementChild.className = "saveMealEdit";
+      mealDisplay.remove();
       break;
     }
+
     case "saveMealEdit": {
-      const dishes = displayMeals.getDishes(form);
+      const dishes = displayMeals.getDishes(mealDisplay);
       mealManager.editMeal(meal, id, ...dishes);
       displayMeals.displayMeal(dishes, selectedMealContainer, meal, id);
 
-      form.remove();
+      mealDisplay.remove();
       mealManager.setStorage();
       event.preventDefault();
       break;

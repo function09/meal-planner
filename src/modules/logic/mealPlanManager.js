@@ -8,22 +8,11 @@ class MealPlanManager {
     localStorage.setItem("mealPlanArray", JSON.stringify(this.mealPlanArray));
   }
 
-  // Assigns a unique ID property to each MealPlan object
-  assignID() {
-    this.mealPlanArray.forEach((meal) => {
-      if (typeof meal.id === "undefined") {
-        const mealPlanObj = meal;
-        mealPlanObj.id = (Math.random() + 1).toString(36).replace(".", "");
-      }
-    });
-  }
-
   // Adds object to mealPlanArray
   pushToMealPlanArray(date, title, breakfast, lunch, dinner, id) {
     this.mealPlanArray.push(
       new MealPlan(date, title, breakfast, lunch, dinner, id)
     );
-    this.assignID();
   }
 
   // Removes MealPlan objects from mealPlanArray
@@ -33,34 +22,33 @@ class MealPlanManager {
     this.mealPlanArray.splice(mealPlanIndex, 1);
   }
 
-  // Updates mealPlans after editing
-  editMealPlan(selection, date, title, breakfast, lunch, dinner) {
-    const selectedMealPlan = this.mealPlanArray.find(
-      (obj) => obj.id === selection
-    );
-    selectedMealPlan.date = date;
-    selectedMealPlan.title = title;
-    selectedMealPlan.breakfast = breakfast;
-    selectedMealPlan.lunch = lunch;
-    selectedMealPlan.dinner = dinner;
+  // Selects mealPlans by ID
+  selectMealPlan(ID) {
+    const selectedMealPlan = this.mealPlanArray.find((obj) => obj.id === ID);
+
+    console.log(selectedMealPlan);
+    return selectedMealPlan;
   }
 
-  // Returns selected MealPlan date
-  selectMealPlanDate(ID) {
-    const mealPlanDate = this.mealPlanArray.find((obj) => obj.id === ID).date;
-
-    return mealPlanDate;
+  // Updates mealPlans after editing
+  editMealPlan(ID, date, title, breakfast, lunch, dinner) {
+    const mealPlan = this.selectMealPlan(ID);
+    mealPlan.date = date;
+    mealPlan.title = title;
+    mealPlan.breakfast = breakfast;
+    mealPlan.lunch = lunch;
+    mealPlan.dinner = dinner;
   }
 
   // Stores meals that have been selected
   selectMeals(ID) {
     const selectedMeals = [];
 
-    const selectedMealPlan = this.mealPlanArray.find((obj) => obj.id === ID);
+    // const selectedMealPlan = this.mealPlanArray.find((obj) => obj.id === ID);
 
-    const meals = Object.keys(selectedMealPlan).filter(
+    const meals = Object.keys(this.selectMealPlan(ID)).filter(
       (key) =>
-        selectedMealPlan[key] === true &&
+        this.selectMealPlan(ID)[key] === true &&
         key !== "favorite" &&
         key !== "complete"
     );
@@ -72,35 +60,24 @@ class MealPlanManager {
   }
 
   // Returns mealPlan values for breakfast, lunch, and dinner
-  getMealValues(selection) {
-    const selectedMealPlan = this.mealPlanArray.find(
-      (obj) => obj.id === selection
-    );
+  getMealValues(ID) {
+    const selectedMealPlan = this.selectMealPlan(ID);
 
     const { breakfast, lunch, dinner } = selectedMealPlan;
-
     return [breakfast, lunch, dinner];
   }
 
   // Changes "favorite" property to "true"
-  favoriteMealPlan(selection) {
-    const selectedMealPlan = this.mealPlanArray.find(
-      (obj) => obj.id === selection
-    );
-
-    if (selectedMealPlan.favorite === false) {
-      selectedMealPlan.favorite = true;
+  favoriteMealPlan(ID) {
+    if (this.selectMealPlan(ID).favorite === false) {
+      this.selectMealPlan(ID).favorite = true;
     }
   }
 
   // Changes "favorite" property to "false"
-  unfavoriteMealPlan(selection) {
-    const selectedMealPlan = this.mealPlanArray.find(
-      (obj) => obj.id === selection
-    );
-
-    if (selectedMealPlan.favorite === true) {
-      selectedMealPlan.favorite = false;
+  unfavoriteMealPlan(ID) {
+    if (this.selectMealPlan(ID).favorite === true) {
+      this.selectMealPlan(ID).favorite = false;
     }
   }
 
@@ -113,24 +90,16 @@ class MealPlanManager {
   }
 
   // Changes complete property in mealPlan to "true"
-  completeMealPlan(selection) {
-    const selectedMealPlan = this.mealPlanArray.find(
-      (obj) => obj.id === selection
-    );
-
-    if (selectedMealPlan.complete === false) {
-      selectedMealPlan.complete = true;
+  completeMealPlan(ID) {
+    if (this.selectMealPlan(ID).complete === false) {
+      this.selectMealPlan(ID).complete = true;
     }
   }
 
   // Changes complete property in mealPlan to "false"
-  uncompleteMealPlan(selection) {
-    const selectedMealPlan = this.mealPlanArray.find(
-      (obj) => obj.id === selection
-    );
-
-    if (selectedMealPlan.complete === true) {
-      selectedMealPlan.complete = false;
+  uncompleteMealPlan(ID) {
+    if (this.selectMealPlan(ID).complete === true) {
+      this.selectMealPlan(ID).complete = false;
     }
   }
 

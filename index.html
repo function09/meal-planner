@@ -10,18 +10,23 @@
 
 </head>
 <body>
-<div id="header"></div>
-<div id="navBar">
-    <div id="mealPlanContainer">
-        <button id="mealPlanTab">Meal Plans</button>
-        <span id="mealPlanAmount"></span>
-        <button id="favoriteTab">Favorites</button>
-        <span id="favoriteAmount"></span>
-    </div>
-    <div id="otherNavbar">
-        <button id="completedTab">Completed</button>
-        <span id="completedMealPlan"></span>
-    </div>
+<div id="header">
+    <div class="title">Meal Planner</div>
+</div>
+<div id="sideBar">
+        <div class="mealPlanTabContainer">
+            <button id="mealPlanTab">Meal Plans</button>
+            <span id="mealPlanAmount"></span>
+        </div>
+        <div class="favoriteTabContainer">
+            <button id="favoriteTab">Favorites</button>
+            <span id="favoriteAmount"></span>
+        </div>   
+        <div class="completedTabContainer">
+            <button id="completedTab">Completed</button>
+            <span id="completedMealPlan"></span>
+        </div>
+        
 </div>
 <div id="mealPlanFormContainer" class=" mealPlanFormContainer">
     <button id="createNewMeal" class="createNewMeal">&plus; Add new meal plan</button>
@@ -29,18 +34,19 @@
         <input type="date" name="date" id="date" required>
         <input type="text" name ="title" id ="title" placeholder="Title" required>
         <!-- Add a legend before pushing -->
-        <fieldset class="flex gap-2">
-            <label for="breakfast">Breakfast</label>
+        <fieldset>
             <input  class="checkbox" type="checkbox" name="breakfast" id="breakfast" value="Breakfast">
+            <label for="breakfast">Breakfast</label>
 
-            <label for="lunch">Lunch</label>
             <input class="checkbox" type="checkbox" name="lunch" id="lunch" value="Lunch">
+            <label for="lunch">Lunch</label>
 
-            <label for="dinner">Dinner</label>
             <input class="checkbox" type="checkbox" name="dinner" id="dinner" value="Dinner">
+            <label for="dinner">Dinner</label>
+
         </fieldset>
         <button type="submit" class="submitFormButton">Submit</button>
-        <button type ="button" class="close">&times;</button>
+        <button type="button" class="close">&times;</button>
     </form>
    </div>
 </body>

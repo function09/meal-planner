@@ -8,9 +8,6 @@ const displayMealPlan = DisplayMealPlan();
 mealPlanFormContainer.addEventListener("click", (event) => {
   const { target } = event;
   const { id } = event.target.dataset;
-  const mealPlanArrayLength = mealPlanManager.getMealPlanArrayLength();
-  const favoriteArray = mealPlanManager.getFavoriteMealPlanArrayLength();
-  const completedArray = mealPlanManager.getCompletedMealPlanArrayLength();
 
   switch (target.className) {
     case "createNewMeal":
@@ -26,6 +23,7 @@ mealPlanFormContainer.addEventListener("click", (event) => {
 
       mealPlanManager.pushToMealPlanArray(date, title, ...meals);
 
+      const mealPlanArrayLength = mealPlanManager.getMealPlanArrayLength();
       displayMealPlan.displayMealPlanAmount(mealPlanArrayLength);
 
       displayMealPlan.closeForm();
@@ -46,13 +44,17 @@ mealPlanFormContainer.addEventListener("click", (event) => {
       break;
     }
     case "view": {
-      const { date } = mealPlanManager.selectMealPlan(id);
+      // const { title } = mealPlanManager.selectMealPlan(id);
+      const { date, title } = mealPlanManager.selectMealPlan(id);
       const mealArray = mealPlanManager.selectMeals(id);
       const meals = mealManager.getMeals(id);
 
+      displayMealPlan.createMealParentContainer(date, title);
+
       displayMealPlan.removeMealPlanDisplay();
-      displayMealPlan.viewMeals(meals, date, mealArray, id);
+      displayMealPlan.viewMeals(meals, mealArray, id);
       document.querySelector("#createNewMeal").style.display = "none";
+      document.querySelector("#mealPlanForm").style.display = "none";
 
       mealPlanManager.selectMealPlan(id);
       break;
@@ -61,6 +63,9 @@ mealPlanFormContainer.addEventListener("click", (event) => {
       mealPlanManager.removeFromMealPlanArray(id);
       target.parentElement.remove();
 
+      const mealPlanArrayLength = mealPlanManager.getMealPlanArrayLength();
+      const favoriteArray = mealPlanManager.getFavoriteMealPlanArrayLength();
+      const completedArray = mealPlanManager.getCompletedMealPlanArrayLength();
       displayMealPlan.displayMealPlanAmount(mealPlanArrayLength);
       displayMealPlan.displayFavoriteMealPlanAmount(favoriteArray);
       displayMealPlan.displayCompletedMealPlanAmount(completedArray);
@@ -103,6 +108,7 @@ mealPlanFormContainer.addEventListener("click", (event) => {
       target.textContent = "Unfavorite";
       target.className = "unfavorite";
 
+      const favoriteArray = mealPlanManager.getFavoriteMealPlanArrayLength();
       displayMealPlan.displayFavoriteMealPlanAmount(favoriteArray);
 
       mealPlanManager.setStorage();
@@ -114,6 +120,7 @@ mealPlanFormContainer.addEventListener("click", (event) => {
       target.textContent = "Favorite";
       target.className = "favorite";
 
+      const favoriteArray = mealPlanManager.getFavoriteMealPlanArrayLength();
       displayMealPlan.displayFavoriteMealPlanAmount(favoriteArray);
 
       if (mealPlanFormContainer.dataset.type === "favorites") {
@@ -129,6 +136,7 @@ mealPlanFormContainer.addEventListener("click", (event) => {
       target.textContent = "Uncomplete";
       target.className = "uncomplete";
 
+      const completedArray = mealPlanManager.getCompletedMealPlanArrayLength();
       displayMealPlan.displayCompletedMealPlanAmount(completedArray);
 
       mealPlanManager.setStorage();
@@ -139,6 +147,7 @@ mealPlanFormContainer.addEventListener("click", (event) => {
       target.textContent = "Complete";
       target.className = "complete";
 
+      const completedArray = mealPlanManager.getCompletedMealPlanArrayLength();
       displayMealPlan.displayCompletedMealPlanAmount(completedArray);
 
       mealPlanManager.setStorage();

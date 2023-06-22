@@ -3,11 +3,11 @@ import mealPlanManager from "./mealPlanController";
 import DisplayMeals from "../DOM/displayMeals";
 
 const container = document.querySelector("#mealPlanFormContainer");
-const navBar = document.querySelector("#navBar");
+const sideBar = document.querySelector("#sideBar");
 const displayMealPlan = DisplayMealPlanFactory();
 const displayMeals = DisplayMeals();
 
-navBar.addEventListener("click", (event) => {
+sideBar.addEventListener("click", (event) => {
   const { target } = event;
 
   switch (target.id) {
@@ -16,6 +16,7 @@ navBar.addEventListener("click", (event) => {
 
       displayMealPlan.displayCreateNewMealButton();
       displayMealPlan.removeMealPlanDisplay();
+      displayMealPlan.removeMealParentContainer();
       displayMeals.removeMealDisplay();
 
       mealPlanManager.mealPlanArray.forEach((plan) => {
@@ -34,6 +35,7 @@ navBar.addEventListener("click", (event) => {
       const favoriteMealPlanArray = mealPlanManager.storeFavoriteMealPlans();
 
       displayMealPlan.removeMealPlanDisplay();
+      displayMealPlan.removeMealParentContainer();
       displayMeals.removeMealDisplay();
 
       favoriteMealPlanArray.forEach((plan) => {
@@ -54,6 +56,7 @@ navBar.addEventListener("click", (event) => {
       const completedMealPlans = mealPlanManager.storeCompletedMealPlan();
 
       displayMealPlan.removeMealPlanDisplay();
+      displayMealPlan.removeMealParentContainer();
       displayMeals.removeMealDisplay();
 
       completedMealPlans.forEach((plan) => {

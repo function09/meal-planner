@@ -1,49 +1,345 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
 body {
     display: grid;
     grid-template-columns: 0.7fr 4fr;
     grid-template-rows: 0.4fr 4fr;
     grid-template-areas: "header header"
-    "navbar body";
+    "sidebar body";
+    height: 100vh;
+    width: 100vw;
+    background-color: #e2e8f0
+
 }
 
 #header {
     grid-area: header;
+    background-color: #0d9488;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
 
-#navBar {
-    grid-area: navbar;
+#header > .title {
+    margin-left: 1%;
+    font-size: 3rem;
+    color: #f1f5f9;
 }
 
-#form {
-    grid-area: body;
-}
-
-#mealPlanContainer {
-    grid-area: navbar;
-}
-
-#container {
+#sideBar {
+    grid-area: sidebar;
     display: flex;
     flex-direction: column;
+    gap: 25px;
+    background-color: #f1f5f9;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
-#mealContainer {
-    display:flex;
+
+#sideBar > .mealPlanTabContainer > button,
+#sideBar > .favoriteTabContainer > button, 
+#sideBar > .completedTabContainer > button {
+    width: 60%;
+    padding: 3%;
+    appearance: none;
+    border: none;
+    background: none;
+    font-size: 1.2rem;
+}
+
+.mealPlanTabContainer, 
+.favoriteTabContainer,
+.completedTabContainer {
+    display: flex;
+    gap: 35px;
+    padding: 5%;
+}
+
+.mealPlanTabContainer:hover, 
+.favoriteTabContainer:hover,
+.completedTabContainer:hover  {
+    background-color: #e2e8f0
+}
+
+#mealPlanAmount, 
+#favoriteAmount, 
+#completedMealPlan {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color:#0f172a;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    padding: 3px;
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+#mealPlanFormContainer {
+    grid-area: body;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 2%;
+    gap: 3%;
+    overflow-y: auto;
+}
+
+#mealPlanForm {
+    display: none;
+    justify-content: center;
+    border-radius: 25px;
+    padding: 2.5%;
+    gap: 25px ;
+    height: 5%;
+    width: 60%;
+    margin-top: 3%;
+    background-color: #f1f5f9;
+
+}
+
+#mealPlanForm > fieldset {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    align-items: center;
+    border: none;
+}
+
+#mealPlanForm:hover {
+    background-color: #f1f5f9;
+}
+
+#mealPlanForm > .submitFormButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3%;
+    font-size: 1rem;
+    background: none;
+    border: 1px solid #0d9488;
+    border-radius: 25px;
+    color:#064e3b;
+    
+}
+
+#mealPlanForm > .saveMealPlanEdit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3%;
+    font-size: 1rem;
+    background: none;
+    border: 1px solid #0d9488;
+    border-radius: 25px;
+    color:#064e3b;
+}
+
+#mealPlanForm > .submitFormButton:hover {
+    background-color: #6ee7b7;
+    color: #042f2e;
+}
+
+#mealPlanForm > .saveMealPlanEdit:hover {
+    background-color: #6ee7b7;
+    color: #042f2e;
+}
+
+#mealPlanForm > .close {
+    padding: 1%;
+    font-size: 1.5rem;
+    appearance: none;
+    background: none;
+    border: none;
+}
+
+.mealPlans {
+    display: flex;
+    border-radius: 25px;
+    margin: 1%;
+    padding: 2%;
+    gap: 25px;
+    width: 85%;
+    background-color: #f1f5f9;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    font-size: 1.1rem;
+}
+
+.mealPlans > span {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.mealPlans:hover {
+    background-color: #cbd5e1;
+}
+
+.mealPlans > button {
+    appearance: none;
+    background: none;
+    border: 1px solid #0d9488;
+    border-radius: 25px;
+    color: #064e3b;
+    width: 45%;
+    padding: 1%;
+}
+
+.mealPlans > button:hover {
+    background-color: #6ee7b7
+}
+
+input[type=text], input[type=date]{
+    width: 50%;
+    padding: 2%;
+    font-size: 1rem;
+    border: 1px solid #64748b;
+}
+
+input[type=checkbox]{
+    height: 20px;
+    width: 20px;
+    appearance: none;
+    border: 1px solid #64748b;
+    background-clip: content-box;
+    padding: 3px;
+}
+
+input[type=checkbox]:checked{
+    background-color: #0d9488;
+}
+
+input {
+    border-radius: 25px;
+    text-align: center;
+}
+
+input:focus {
+    outline: 1px solid;
+    outline-color: #334155;
+}
+
+button {
+    cursor: pointer;
+}
+
+.mealParentContainer {
+    display: flex;
     flex-direction: column;
     align-items: center;
-    height: 80vh;
+    height: 10%;
+    gap: 15px;
+    font-size: 1.2rem;
 }
 
-.meal {
-    width: 50vw;
-    height: 20vh;
+.mealContainer {
+    border-radius: 25px;
     display: flex;
-    flex: 1;
-    align-items:center ;
     flex-direction: column;
-    margin-top: 25px;
+    align-items: center;
+    justify-content: center;
+    height: 30%;
+    width: 35%;
+    gap: 10px;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #f1f5f9;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    font-size: 1.2rem;
 }
 
-.mealForm { 
-    display:flex;
+.mealContainer > button {
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3%;
+    font-size: 1rem;
+    background: none;
+    border: none;
+    color:#064e3b
+
+}
+
+.mealForm {
+    display: flex;
     flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.mealForm > input[type=text]{
+    width: 70%
+
+}
+.mealForm > button{
+    width: 45%;
+    margin-bottom: 5%;
+    padding: 3%;
+    font-size: 1rem;
+    background: none;
+    border: 1px solid #64748b;
+    border-radius: 25px;
+    color:#0f172a;
+}
+
+.mealForm >button:hover {
+    background-color: #f1f5f9;
+    color: #042f2e;
+}
+
+.mealDisplay{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    gap: 15px;
+}
+
+.mealDisplay > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3%;
+    font-size: 1rem;
+    background: none;
+    border: 1px solid #0d9488;
+    border-radius: 25px;
+    color:#064e3b;
+    width: 35%;
+}
+
+.mealDisplay >button:hover {
+    background-color: #6ee7b7;
+    color: #042f2e;
+}
+
+#createNewMeal {
+    appearance: none;
+    background: none;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    padding: 1%;
+    margin-top: 3%;
+    border: 1px solid #0d9488;
+    border-radius: 25px;
+    color:#064e3b;
+    width: 25%;
+}
+
+#createNewMeal:hover {
+    background-color: #6ee7b7;
 }

@@ -26,7 +26,6 @@ class MealPlanManager {
   selectMealPlan(ID) {
     const selectedMealPlan = this.mealPlanArray.find((obj) => obj.id === ID);
 
-    console.log(selectedMealPlan);
     return selectedMealPlan;
   }
 

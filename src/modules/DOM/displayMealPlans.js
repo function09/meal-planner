@@ -162,6 +162,9 @@ const DisplayMealPlan = () => {
     updateMealPlanAmount.textContent = arrayLength;
     if (arrayLength === 0) {
       updateMealPlanAmount.textContent = "";
+      updateMealPlanAmount.style.display = "none";
+    } else {
+      updateMealPlanAmount.style.display = "flex";
     }
   };
 
@@ -195,6 +198,9 @@ const DisplayMealPlan = () => {
 
     if (arrayLength === 0) {
       selectFavoriteMealPlanAmount.textContent = "";
+      selectFavoriteMealPlanAmount.style.display = "none";
+    } else {
+      selectFavoriteMealPlanAmount.style.display = "flex";
     }
   };
 
@@ -205,6 +211,9 @@ const DisplayMealPlan = () => {
 
     if (arrayLength === 0) {
       completeMealPlanAmount.textContent = "";
+      completeMealPlanAmount.style.display = "none";
+    } else {
+      completeMealPlanAmount.style.display = "flex";
     }
   };
   // Removes meal plans from display, if #mealContainer exists, remove it as well
@@ -218,20 +227,47 @@ const DisplayMealPlan = () => {
     }
   };
 
+  const removeMealParentContainer = () => {
+    if (document.querySelector(".mealParentContainer")) {
+      document.querySelector(".mealParentContainer").remove();
+    }
+  };
+
+  const createMealParentContainer = (date, title) => {
+    const mealParentContainer = document.createElement("div");
+    mealParentContainer.setAttribute("class", "mealParentContainer");
+    mealPlanFormContainer.appendChild(mealParentContainer);
+
+    const dateDiv = document.createElement("div");
+    dateDiv.setAttribute("class", "date");
+    dateDiv.textContent = date;
+    mealParentContainer.appendChild(dateDiv);
+
+    const titleDiv = document.createElement("div");
+    titleDiv.setAttribute("class", "title");
+    titleDiv.textContent = title;
+    mealParentContainer.appendChild(titleDiv);
+  };
+
   /* Creates container elements for meals that:
    * display the date
    * display the meal type
    * display add meal button
    */
-  const createNewMealContainers = (date, meal, id) => {
+  const createNewMealContainers = (meal, id) => {
     const mealContainer = document.createElement("div");
     mealContainer.setAttribute("class", "mealContainer");
     mealPlanFormContainer.appendChild(mealContainer);
 
-    const dateDiv = document.createElement("div");
-    dateDiv.setAttribute("class", "date");
-    dateDiv.textContent = date;
-    mealContainer.appendChild(dateDiv);
+    // const dateDiv = document.createElement("div");
+    // dateDiv.setAttribute("class", "date");
+    // dateDiv.textContent = date;
+    // mealContainer.appendChild(dateDiv);
+
+    // const titleDiv = document.createElement("div");
+    // titleDiv.setAttribute("class", "title");
+    // titleDiv.textContent = title;
+    // mealContainer.appendChild(titleDiv);
 
     const mealLabel = document.createElement("div");
     mealLabel.setAttribute("class", "mealLabel");
@@ -284,7 +320,7 @@ const DisplayMealPlan = () => {
   /* Displays existing meals,
    * if none have been created, displays add meal button instead
    */
-  const viewExistingMeals = (date, meal, array, index, id) => {
+  const viewExistingMeals = (meal, array, index, id) => {
     const mealContainer = document.createElement("div");
     mealContainer.setAttribute("class", "mealContainer");
     mealPlanFormContainer.appendChild(mealContainer);
@@ -292,10 +328,15 @@ const DisplayMealPlan = () => {
     const createMealDisplayDiv = document.createElement("div");
     createMealDisplayDiv.setAttribute("class", "mealDisplay");
 
-    const dateDiv = document.createElement("div");
-    dateDiv.setAttribute("class", "date");
-    dateDiv.textContent = date;
-    mealContainer.appendChild(dateDiv);
+    // const dateDiv = document.createElement("div");
+    // dateDiv.setAttribute("class", "date");
+    // dateDiv.textContent = date;
+    // mealContainer.appendChild(dateDiv);
+
+    // const titleDiv = document.createElement("div");
+    // titleDiv.setAttribute("class", "title");
+    // titleDiv.textContent = title;
+    // mealContainer.appendChild(titleDiv);
 
     const mealLabel = document.createElement("div");
     mealLabel.setAttribute("class", "mealLabel");
@@ -311,12 +352,12 @@ const DisplayMealPlan = () => {
   };
 
   // Views all meals depending on condition
-  const viewMeals = (array, date, mealArray, id) => {
+  const viewMeals = (array, mealArray, id) => {
     mealArray.forEach((meal, index) => {
       if (array.length === 0) {
-        createNewMealContainers(date, meal, id);
+        createNewMealContainers(meal, id);
       } else if (array.length !== 0) {
-        viewExistingMeals(date, meal, array, index, id);
+        viewExistingMeals(meal, array, index, id);
       }
     });
   };
@@ -325,6 +366,7 @@ const DisplayMealPlan = () => {
     displayForm,
     closeForm,
     displayCreateNewMealButton,
+    createMealParentContainer,
     createMealPlanDisplay,
     getDate,
     getTitle,
@@ -334,6 +376,7 @@ const DisplayMealPlan = () => {
     displayFavoriteMealPlanAmount,
     displayCompletedMealPlanAmount,
     removeMealPlanDisplay,
+    removeMealParentContainer,
     viewMeals,
   };
 };

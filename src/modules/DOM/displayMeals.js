@@ -10,6 +10,7 @@ const DisplayMeals = () => {
     dishArray.forEach((index) => {
       const input = document.createElement("input");
       input.placeholder = index;
+      input.type = "text";
       mealForm.appendChild(input);
     });
 

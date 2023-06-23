@@ -4,6 +4,9 @@ import DisplayMeals from "../DOM/displayMeals";
 
 const container = document.querySelector("#mealPlanFormContainer");
 const sideBar = document.querySelector("#sideBar");
+const mealPlanTabContainer = document.querySelector(".mealPlanTabContainer");
+const favoriteTabContainer = document.querySelector(".favoriteTabContainer");
+const completedTabContainer = document.querySelector(".completedTabContainer");
 const displayMealPlan = DisplayMealPlanFactory();
 const displayMeals = DisplayMeals();
 
@@ -28,7 +31,9 @@ sideBar.addEventListener("click", (event) => {
           plan.complete
         );
       });
-
+      mealPlanTabContainer.style.backgroundColor = "#e2e8f0";
+      favoriteTabContainer.style.backgroundColor = "";
+      completedTabContainer.style.backgroundColor = "";
       break;
     }
     case "favoriteTab": {
@@ -50,6 +55,9 @@ sideBar.addEventListener("click", (event) => {
       container.dataset.type = "favorites";
       displayMealPlan.displayCreateNewMealButton();
 
+      mealPlanTabContainer.style.backgroundColor = "";
+      favoriteTabContainer.style.backgroundColor = "#e2e8f0";
+      completedTabContainer.style.backgroundColor = "";
       break;
     }
     case "completedTab": {
@@ -72,6 +80,9 @@ sideBar.addEventListener("click", (event) => {
       container.dataset.type = "completed";
       displayMealPlan.displayCreateNewMealButton();
 
+      mealPlanTabContainer.style.backgroundColor = "";
+      favoriteTabContainer.style.backgroundColor = "";
+      completedTabContainer.style.backgroundColor = "#e2e8f0";
       break;
     }
     default:
